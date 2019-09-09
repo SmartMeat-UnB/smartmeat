@@ -3,16 +3,9 @@ import 'package:flutter/material.dart';
 class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Widget _buildBodyBack() => Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromARGB(150, 184, 0, 61),
-                Color.fromARGB(230, 184, 0, 61),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+    Widget _buildBodyBack() => Scaffold(
+          appBar: AppBar(
+            backgroundColor: Color.fromARGB(255, 169, 0, 52),
           ),
         );
     return Stack(
