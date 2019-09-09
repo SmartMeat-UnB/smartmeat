@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:smartmeat/tiles/drawer_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
+  final PageController pageController;
+  CustomDrawer(this.pageController);
+
   @override
   Widget build(BuildContext context) {
     Widget _buildDrawerBack() => Container();
@@ -34,7 +37,11 @@ class CustomDrawer extends StatelessWidget {
                 ),
               ),
               Divider(),
-              DrawerTile(Icons.wifi, "Conectar"),
+              DrawerTile(Icons.home, "Inicio", pageController, 0),
+              SizedBox(height: 10.0),
+              DrawerTile(Icons.wifi, "Conectar", pageController, 1),
+              SizedBox(height: 10.0),
+              DrawerTile(Icons.fastfood, "Receitas", pageController, 2),
             ],
           ),
         ],
