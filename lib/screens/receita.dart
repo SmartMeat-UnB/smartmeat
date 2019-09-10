@@ -20,6 +20,7 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
   Animation<Color> _buttonColor;
   Animation<double> _animateIcon;
   Animation<double> _translateButton;
+  Animation<double> _translateButtonD;
   Curve _curve = Curves.easeOut;
   double _fabHeight = 56.0;
   File _image;
@@ -61,6 +62,17 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
       ),
     ));
     _translateButton = Tween<double>(
+      begin: 56,
+      end: -14.0,
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Interval(
+        0.0,
+        0.75,
+        curve: _curve,
+      ),
+    ));
+    _translateButtonD = Tween<double>(
       begin: _fabHeight,
       end: -14.0,
     ).animate(CurvedAnimation(
@@ -125,27 +137,30 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Transform(
-          transform: Matrix4.translationValues(
-            0.0,
-            _translateButton.value * 3.0,
-            0.0,
+    return Container(
+      padding: EdgeInsets.fromLTRB(280, 0, 0, 15),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Transform(
+            transform: Matrix4.translationValues(
+              0.0,
+              _translateButton.value * 2.0,
+              0.0,
+            ),
+            child: add(),
           ),
-          child: add(),
-        ),
-        Transform(
-          transform: Matrix4.translationValues(
-            0.0,
-            _translateButton.value * 2.0,
-            0.0,
+          Transform(
+            transform: Matrix4.translationValues(
+              0.0,
+              _translateButtonD.value * 1.0,
+              0.0,
+            ),
+            child: image(),
           ),
-          child: image(),
-        ),
-        toggle(),
-      ],
+          toggle(),
+        ],
+      ),
     );
   }
 }
