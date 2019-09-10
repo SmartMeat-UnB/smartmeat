@@ -92,9 +92,9 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
   Widget add() {
     return Container(
       child: FloatingActionButton(
-        onPressed: null,
-        tooltip: 'Add',
-        child: Icon(Icons.add),
+        onPressed: getImage,
+        tooltip: 'Camera',
+        child: Icon(Icons.camera_alt),
       ),
     );
   }
@@ -102,19 +102,9 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
   Widget image() {
     return Container(
       child: FloatingActionButton(
-        onPressed: null,
+        onPressed: getImageGallery,
         tooltip: 'Image',
         child: Icon(Icons.image),
-      ),
-    );
-  }
-
-  Widget inbox() {
-    return Container(
-      child: FloatingActionButton(
-        onPressed: null,
-        tooltip: 'Inbox',
-        child: Icon(Icons.inbox),
       ),
     );
   }
@@ -126,7 +116,7 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
         onPressed: animate,
         tooltip: 'Toggle',
         child: AnimatedIcon(
-          icon: AnimatedIcons.menu_close,
+          icon: AnimatedIcons.view_list,
           progress: _animateIcon,
         ),
       ),
@@ -153,14 +143,6 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
             0.0,
           ),
           child: image(),
-        ),
-        Transform(
-          transform: Matrix4.translationValues(
-            0.0,
-            _translateButton.value,
-            0.0,
-          ),
-          child: inbox(),
         ),
         toggle(),
       ],
