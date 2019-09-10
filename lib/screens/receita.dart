@@ -24,7 +24,9 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
   Curve _curve = Curves.easeOut;
   double _fabHeight = 56.0;
   File _image;
+  Image imageFile;
 
+  void pedirReceita() {}
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
 
@@ -51,8 +53,8 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
     _animateIcon =
         Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
     _buttonColor = ColorTween(
-      begin: Colors.red,
-      end: Colors.red,
+      begin: Color.fromARGB(255, 169, 0, 52),
+      end: Color.fromARGB(255, 169, 0, 52),
     ).animate(CurvedAnimation(
       parent: _animationController,
       curve: Interval(
@@ -104,7 +106,11 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
   Widget add() {
     return Container(
       child: FloatingActionButton(
-        onPressed: getImage,
+        backgroundColor: Color.fromARGB(255, 169, 0, 52),
+        onPressed: () {
+          getImage();
+          animate();
+        },
         tooltip: 'Camera',
         child: Icon(Icons.camera_alt),
       ),
@@ -114,7 +120,11 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
   Widget image() {
     return Container(
       child: FloatingActionButton(
-        onPressed: getImageGallery,
+        backgroundColor: Color.fromARGB(255, 169, 0, 52),
+        onPressed: () {
+          getImageGallery();
+          animate();
+        },
         tooltip: 'Image',
         child: Icon(Icons.image),
       ),
@@ -137,30 +147,70 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(280, 0, 0, 15),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          Transform(
-            transform: Matrix4.translationValues(
-              0.0,
-              _translateButton.value * 2.0,
-              0.0,
-            ),
-            child: add(),
+    return Stack(
+      children: <Widget>[
+        Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                width: 500,
+                height: 480,
+                child: Card(
+                  child: _image == null
+                      ? Text('No image selected.')
+                      : imageFile = Image.file(
+                          _image,
+                          fit: BoxFit.cover,
+                        ),
+                ),
+              ),
+              ButtonBar(
+                alignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  _image == null
+                      ? null
+                      : RaisedButton(
+                          color: Color.fromARGB(255, 169, 0, 52),
+                          child: Text(
+                            'Pedir Receita',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: pedirReceita,
+                        ),
+                ],
+              ),
+            ],
           ),
-          Transform(
-            transform: Matrix4.translationValues(
-              0.0,
-              _translateButtonD.value * 1.0,
-              0.0,
-            ),
-            child: image(),
+        ),
+        Container(
+          padding: EdgeInsets.fromLTRB(280, 0, 0, 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Transform(
+                transform: Matrix4.translationValues(
+                  0.0,
+                  _translateButton.value * 2.0,
+                  0.0,
+                ),
+                child: add(),
+              ),
+              Transform(
+                transform: Matrix4.translationValues(
+                  0.0,
+                  _translateButtonD.value * 1.0,
+                  0.0,
+                ),
+                child: image(),
+              ),
+              // _image == null ? null : toggle(),
+              toggle(),
+            ],
           ),
-          toggle(),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
