@@ -20,6 +20,11 @@ class HomeScreen extends StatelessWidget {
           drawer: CustomDrawer(_pageController),
         ),
         Scaffold(
+          appBar: AppBar(
+            backgroundColor: Color.fromARGB(255, 169, 0, 52),
+            title: Text("Smart Meat"),
+            centerTitle: true,
+          ),
           body: Receita(),
           drawer: CustomDrawer(_pageController),
         )
