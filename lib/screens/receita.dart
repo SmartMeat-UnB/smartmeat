@@ -159,7 +159,11 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
                 height: 480,
                 child: Card(
                   child: _image == null
-                      ? Text('No image selected.')
+                      ? Image.asset(
+                          "images/noImage.jpg",
+                          fit: BoxFit.cover,
+                          height: 1000.0,
+                        )
                       : imageFile = Image.file(
                           _image,
                           fit: BoxFit.cover,
