@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
           ),
           body: Receita(),
           drawer: CustomDrawer(_pageController),
-        )
+        ),
       ],
     );
   }

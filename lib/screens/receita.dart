@@ -26,7 +26,10 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
   File _image;
   Image imageFile;
 
-  void pedirReceita() {}
+  void pedirReceita() {
+    // Navigator.pushNamed(context, '/sd');
+  }
+
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
 
@@ -106,6 +109,7 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
   Widget add() {
     return Container(
       child: FloatingActionButton(
+        heroTag: "btn3",
         backgroundColor: Color.fromARGB(255, 169, 0, 52),
         onPressed: () {
           getImage();
@@ -120,6 +124,7 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
   Widget image() {
     return Container(
       child: FloatingActionButton(
+        heroTag: "btn2",
         backgroundColor: Color.fromARGB(255, 169, 0, 52),
         onPressed: () {
           getImageGallery();
@@ -134,6 +139,7 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
   Widget toggle() {
     return Container(
       child: FloatingActionButton(
+        heroTag: "btn1",
         backgroundColor: _buttonColor.value,
         onPressed: animate,
         tooltip: 'Toggle',
@@ -160,7 +166,7 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
                 child: Card(
                   child: _image == null
                       ? Image.asset(
-                          "images/noImage.jpg",
+                          "images/noImage.png",
                           fit: BoxFit.cover,
                           height: 1000.0,
                         )
@@ -181,7 +187,9 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
                             'Pedir Receita',
                             style: TextStyle(color: Colors.white),
                           ),
-                          onPressed: pedirReceita,
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/sd');
+                          },
                         ),
                 ],
               ),
