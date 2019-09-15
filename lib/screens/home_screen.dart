@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
         Scaffold(
           appBar: AppBar(
             backgroundColor: Color.fromARGB(255, 169, 0, 52),
-            title: Text("Smart Meat"),
+            title: Text("Smart\n Meat"),
             centerTitle: true,
           ),
           body: Receita(),

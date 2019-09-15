@@ -5,7 +5,7 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget _buildBodyBack() => Scaffold(
           appBar: AppBar(
-            backgroundColor: Color.fromARGB(255, 169, 0, 52),
+            backgroundColor: Colors.white,
           ),
         );
     return Stack(
@@ -19,7 +19,12 @@ class HomeTab extends StatelessWidget {
               backgroundColor: Colors.transparent,
               elevation: 0.0,
               flexibleSpace: FlexibleSpaceBar(
-                title: const Text("SmartMeat"),
+                titlePadding: EdgeInsets.all(5),
+                title: const Text("Smart\n       Meat",
+                    style: TextStyle(color: Colors.black),
+                    textAlign: TextAlign.center,
+                    strutStyle:
+                        StrutStyle(height: 1.4, forceStrutHeight: true)),
                 centerTitle: true,
               ),
             )

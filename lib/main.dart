@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartmeat/screens/home_screen.dart';
+import 'package:smartmeat/screens/receita.dart';
 import 'package:smartmeat/screens/result_IA.dart';
 
 void main() => runApp(MyApp());
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/sd': (context) => ResultIA(),
         },
-        title: 'Smart Meat',
+        title: 'Smart\n Meat',
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
