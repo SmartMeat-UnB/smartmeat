@@ -190,15 +190,22 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
                   children: <Widget>[
                     _image == null
                         ? null
-                        : RaisedButton(
-                            color: Color.fromARGB(255, 169, 0, 52),
-                            child: Text(
-                              'Pedir Receita',
-                              style: TextStyle(color: Colors.white),
+                        : ButtonTheme(
+                            minWidth: 150.0,
+                            height: 50.0,
+                            child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      new BorderRadius.circular(30.0)),
+                              color: Colors.green,
+                              child: Text(
+                                'Enviar',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/sd');
+                              },
                             ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/sd');
-                            },
                           ),
                   ],
                 ),
