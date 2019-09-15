@@ -12,11 +12,11 @@ class HomeScreen extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
         Scaffold(
-          body: HomeTab(),
+          body: HomeTab(_pageController),
           drawer: CustomDrawer(_pageController),
         ),
         Scaffold(
-          body: HomeTab(),
+          body: HomeTab(_pageController),
           drawer: CustomDrawer(_pageController),
         ),
         Scaffold(
