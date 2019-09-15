@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class HomeTab extends StatelessWidget {
   final PageController _controller;
+  final away;
 
-  const HomeTab(this._controller);
+  const HomeTab(this._controller, this.away);
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +17,7 @@ class HomeTab extends StatelessWidget {
           centerTitle: true,
           backgroundColor: Colors.white,
         ),
+        body: away,
         bottomNavigationBar: BottomAppBar(
           shape: const CircularNotchedRectangle(),
           child: Container(

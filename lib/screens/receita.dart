@@ -156,72 +156,80 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
     return Stack(
       children: <Widget>[
         Container(
+          padding: EdgeInsets.symmetric(vertical: 15.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              SizedBox(
-                width: 500,
-                height: 480,
-                child: Card(
-                  child: _image == null
-                      ? Image.asset(
-                          "images/noImage.png",
-                          fit: BoxFit.cover,
-                          height: 1000.0,
-                        )
-                      : imageFile = Image.file(
-                          _image,
-                          fit: BoxFit.cover,
-                        ),
-                ),
-              ),
-              ButtonBar(
-                alignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  _image == null
-                      ? null
-                      : RaisedButton(
-                          color: Color.fromARGB(255, 169, 0, 52),
-                          child: Text(
-                            'Pedir Receita',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/sd');
-                          },
-                        ),
-                ],
+              Card(
+                child: _image == null
+                    ? Image.asset(
+                        "images/noImage.png",
+                        fit: BoxFit.cover,
+                        width: 350,
+                        height: 350.0,
+                      )
+                    : imageFile = Image.file(
+                        _image,
+                        width: 350,
+                        height: 350.0,
+                        fit: BoxFit.fill,
+                      ),
               ),
             ],
           ),
         ),
         Container(
-          padding: EdgeInsets.fromLTRB(280, 0, 0, 15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Transform(
-                transform: Matrix4.translationValues(
-                  0.0,
-                  _translateButton.value * 2.0,
-                  0.0,
+            padding: EdgeInsets.symmetric(vertical: 40),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                ButtonBar(
+                  alignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    _image == null
+                        ? null
+                        : RaisedButton(
+                            color: Color.fromARGB(255, 169, 0, 52),
+                            child: Text(
+                              'Pedir Receita',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/sd');
+                            },
+                          ),
+                  ],
                 ),
-                child: add(),
-              ),
-              Transform(
-                transform: Matrix4.translationValues(
-                  0.0,
-                  _translateButtonD.value * 1.0,
-                  0.0,
-                ),
-                child: image(),
-              ),
-              // _image == null ? null : toggle(),
-              toggle(),
-            ],
-          ),
-        ),
+              ],
+            )),
+        // Container(
+        //   padding: EdgeInsets.fromLTRB(280, 0, 0, 15),
+        //   child: Column(
+        //     mainAxisAlignment: MainAxisAlignment.end,
+        //     children: <Widget>[
+        //       Transform(
+        //         transform: Matrix4.translationValues(
+        //           0.0,
+        //           _translateButton.value * 2.0,
+        //           0.0,
+        //         ),
+        //         child: add(),
+        //       ),
+        //       Transform(
+        //         transform: Matrix4.translationValues(
+        //           0.0,
+        //           _translateButtonD.value * 1.0,
+        //           0.0,
+        //         ),
+        //         child: image(),
+        //       ),
+        //       // _image == null ? null : toggle(),
+        //       toggle(),
+        //     ],
+        //   ),
+        // ),
       ],
     );
   }
