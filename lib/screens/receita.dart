@@ -29,7 +29,7 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
   Image imageFile;
 
   void pedirReceita() {
-    Navigator.pushNamed(context, '/result');
+    Navigator.pushNamed(context, 'resultado');
   }
 
   Future getImage() async {
@@ -159,30 +159,107 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
         bottomNavigationBar: BottomApp(),
         body: Stack(
           children: <Widget>[
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 15.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Card(
-                    child: _image == null
-                        ? Image.asset(
-                            "images/noImage.png",
-                            fit: BoxFit.cover,
-                            width: 350,
-                            height: 350.0,
-                          )
-                        : imageFile = Image.file(
-                            _image,
-                            width: 350,
-                            height: 350.0,
-                            fit: BoxFit.fill,
+            InkWell(
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 70.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    ButtonBar(
+                      alignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        ButtonTheme(
+                          minWidth: 300,
+                          height: 100.0,
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30.0)),
+                            color: Colors.white,
+                            child: Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.file_upload,
+                                  size: 35,
+                                ),
+                                SizedBox(width: 15.0),
+                                Text(
+                                  'Fazer Upload',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 25),
+                                ),
+                              ],
+                            ),
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/resultado');
+                            },
                           ),
-                  ),
-                ],
+                        ),
+                      ],
+                    ),
+                    ButtonBar(
+                      alignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        ButtonTheme(
+                          minWidth: 300.0,
+                          height: 100.0,
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30.0)),
+                            color: Colors.white,
+                            child: Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.camera_alt,
+                                  size: 35,
+                                ),
+                                SizedBox(width: 40.0),
+                                Text(
+                                  'Tirar Foto',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 25),
+                                ),
+                              ],
+                            ),
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/resultado');
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
+              // onTap: () {
+              //   print("tapped on container");
+              // },
             ),
+            // Container(
+            //   padding: EdgeInsets.symmetric(vertical: 15.0),
+            //   child: Column(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: <Widget>[
+            //       Card(
+
+            //         child: _image == null
+            //             ? Image.asset(
+            //                 "images/noImage.png",
+            //                 fit: BoxFit.cover,
+            //                 width: 350,
+            //                 height: 350.0,
+            //               )
+            //             : imageFile = Image.file(
+            //                 _image,
+            //                 width: 350,
+            //                 height: 350.0,
+            //                 fit: BoxFit.fill,
+            //               ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Container(
               padding: EdgeInsets.symmetric(vertical: 40),
               child: Column(
@@ -207,7 +284,7 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 onPressed: () {
-                                  Navigator.pushNamed(context, '/result');
+                                  Navigator.pushNamed(context, '/resultado');
                                 },
                               ),
                             ),
