@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:smartmeat/widgets/bottom_app_bar.dart';
 
 class Receita extends StatefulWidget {
   final Function() onPressed;
@@ -153,91 +154,115 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 15.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Card(
-                child: _image == null
-                    ? Image.asset(
-                        "images/noImage.png",
-                        fit: BoxFit.cover,
-                        width: 350,
-                        height: 350.0,
-                      )
-                    : imageFile = Image.file(
-                        _image,
-                        width: 350,
-                        height: 350.0,
-                        fit: BoxFit.fill,
-                      ),
+    return Scaffold(
+        bottomNavigationBar: BottomApp(),
+        body: Stack(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 15.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Card(
+                    child: _image == null
+                        ? Image.asset(
+                            "images/noImage.png",
+                            fit: BoxFit.cover,
+                            width: 350,
+                            height: 350.0,
+                          )
+                        : imageFile = Image.file(
+                            _image,
+                            width: 350,
+                            height: 350.0,
+                            fit: BoxFit.fill,
+                          ),
+                  ),
+                ],
               ),
-            ],
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 40),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  ButtonBar(
+                    alignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      _image == null
+                          ? null
+                          : ButtonTheme(
+                              minWidth: 150.0,
+                              height: 50.0,
+                              child: RaisedButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(30.0)),
+                                color: Colors.green,
+                                child: Text(
+                                  'Enviar',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/sd');
+                                },
+                              ),
+                            ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.black, //change your color here
+          ),
+          backgroundColor: Colors.white,
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Color.fromARGB(255, 169, 0, 52),
+          onPressed: () {
+            Navigator.pushNamed(context, '/sd');
+            print('as');
+          },
+          child: Icon(
+            Icons.camera,
+            size: 40,
           ),
         ),
-        Container(
-            padding: EdgeInsets.symmetric(vertical: 40),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                ButtonBar(
-                  alignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    _image == null
-                        ? null
-                        : ButtonTheme(
-                            minWidth: 150.0,
-                            height: 50.0,
-                            child: RaisedButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      new BorderRadius.circular(30.0)),
-                              color: Colors.green,
-                              child: Text(
-                                'Enviar',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              onPressed: () {
-                                Navigator.pushNamed(context, '/sd');
-                              },
-                            ),
-                          ),
-                  ],
-                ),
-              ],
-            )),
-        // Container(
-        //   padding: EdgeInsets.fromLTRB(280, 0, 0, 15),
-        //   child: Column(
-        //     mainAxisAlignment: MainAxisAlignment.end,
-        //     children: <Widget>[
-        //       Transform(
-        //         transform: Matrix4.translationValues(
-        //           0.0,
-        //           _translateButton.value * 2.0,
-        //           0.0,
-        //         ),
-        //         child: add(),
-        //       ),
-        //       Transform(
-        //         transform: Matrix4.translationValues(
-        //           0.0,
-        //           _translateButtonD.value * 1.0,
-        //           0.0,
-        //         ),
-        //         child: image(),
-        //       ),
-        //       // _image == null ? null : toggle(),
-        //       toggle(),
-        //     ],
-        //   ),
-        // ),
-      ],
-    );
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.centerDocked);
+    ;
   }
 }
+
+// Container(
+//   padding: EdgeInsets.fromLTRB(280, 0, 0, 15),
+//   child: Column(
+//     mainAxisAlignment: MainAxisAlignment.end,
+//     children: <Widget>[
+//       Transform(
+//         transform: Matrix4.translationValues(
+//           0.0,
+//           _translateButton.value * 2.0,
+//           0.0,
+//         ),
+//         child: add(),
+//       ),
+//       Transform(
+//         transform: Matrix4.translationValues(
+//           0.0,
+//           _translateButtonD.value * 1.0,
+//           0.0,
+//         ),
+//         child: image(),
+//       ),
+//       // _image == null ? null : toggle(),
+//       toggle(),
+//     ],
+//   ),
+// ),
