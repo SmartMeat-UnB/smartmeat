@@ -9,7 +9,7 @@ class  ImageBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-    decoration: BoxDecoration(color: Colors.white),
+     decoration: BoxDecoration(color: Colors.white),
       child: Image.asset(
         _assetPath,
       fit: BoxFit.cover),
