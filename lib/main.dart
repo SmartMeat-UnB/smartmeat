@@ -10,7 +10,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         routes: {
-          '/sd': (context) => Receita(),
+          '/resultado': (context) => ResultIA(),
+          '/receita': (context) => Receita(),
         },
         title: 'Smart\n Meat',
         theme: ThemeData(

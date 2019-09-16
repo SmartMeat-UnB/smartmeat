@@ -15,13 +15,14 @@ class BottomApp extends StatelessWidget {
                   icon: Icon(
                     Icons.home,
                     size: 32,
-                    // color: _controller.page.round() == 0
-                    //     ? Color.fromARGB(255, 169, 0, 52)
-                    //     : Colors.grey[700],
+                    color: ModalRoute.of(context).settings.name == ('/')
+                        ? Color.fromARGB(255, 169, 0, 52)
+                        : Colors.grey[700],
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/sd');
-                    print('wai');
+                    ModalRoute.of(context).settings.name != ('/')
+                        ? Navigator.pushNamed(context, '/')
+                        : null;
                   },
                 ),
                 IconButton(

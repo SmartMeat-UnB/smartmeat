@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smartmeat/widgets/bottom_app_bar.dart';
+import 'package:smartmeat/widgets/float_button.dart';
 
 class Receita extends StatefulWidget {
   final Function() onPressed;
@@ -28,7 +29,7 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
   Image imageFile;
 
   void pedirReceita() {
-    // Navigator.pushNamed(context, '/sd');
+    Navigator.pushNamed(context, '/result');
   }
 
   Future getImage() async {
@@ -206,7 +207,7 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 onPressed: () {
-                                  Navigator.pushNamed(context, '/sd');
+                                  Navigator.pushNamed(context, '/result');
                                 },
                               ),
                             ),
@@ -223,17 +224,7 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
           ),
           backgroundColor: Colors.white,
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Color.fromARGB(255, 169, 0, 52),
-          onPressed: () {
-            Navigator.pushNamed(context, '/sd');
-            print('as');
-          },
-          child: Icon(
-            Icons.camera,
-            size: 40,
-          ),
-        ),
+        floatingActionButton: FloatButton(),
         floatingActionButtonLocation:
             FloatingActionButtonLocation.centerDocked);
     ;
