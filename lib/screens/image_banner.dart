@@ -10,9 +10,11 @@ class  ImageBanner extends StatelessWidget {
     // TODO: implement build
     return Container(
      decoration: BoxDecoration(color: Colors.white),
+      margin: EdgeInsets.only(left: 80.0, right: 80.0),
       child: Image.asset(
         _assetPath,
-      fit: BoxFit.cover),
+      fit: BoxFit.cover
+      ),
       );
 
 
