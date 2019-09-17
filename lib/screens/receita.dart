@@ -46,12 +46,8 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
-      imageFile = Image.file(
-        image,
-        fit: BoxFit.cover,
-      );
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => CropImage(imageFile)));
+          .push(MaterialPageRoute(builder: (context) => CropImage(image)));
     });
   }
 
