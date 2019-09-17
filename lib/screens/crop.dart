@@ -14,6 +14,7 @@ class CropImage extends StatefulWidget {
 }
 
 class _CropImageState extends State<CropImage> {
+  Image imageCropped = null;
   Future<Null> _cropImage(File imageFile) async {
     File croppedFile = await ImageCropper.cropImage(
       sourcePath: imageFile.path,
@@ -25,7 +26,10 @@ class _CropImageState extends State<CropImage> {
       toolbarColor: Colors.white,
     );
     setState(() {
-      imageFile = croppedFile;
+      imageCropped = Image.file(
+        croppedFile,
+        fit: BoxFit.cover,
+      );
     });
   }
 
@@ -58,40 +62,61 @@ class _CropImageState extends State<CropImage> {
                 width: 300,
                 height: 300,
                 child: Card(
-                  child: Image.file(
-                    widget.imageFile,
-                    fit: BoxFit.cover,
-                  ),
+                  child: imageCropped == null
+                      ? Image.file(
+                          widget.imageFile,
+                          fit: BoxFit.cover,
+                        )
+                      : imageCropped,
                 ),
               ),
               ButtonBar(
                 alignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  ButtonTheme(
-                    minWidth: 100.0,
-                    height: 50.0,
-                    child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0)),
-                      color: Colors.white,
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.crop,
-                            size: 35,
+                  imageCropped != null
+                      ? ButtonTheme(
+                          minWidth: 150.0,
+                          height: 50.0,
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30.0)),
+                            color: Colors.green,
+                            child: Text(
+                              'Enviar',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/resultado');
+                            },
                           ),
-                          SizedBox(width: 15.0),
-                          Text(
-                            'Cortar',
-                            style: TextStyle(color: Colors.black, fontSize: 25),
+                        )
+                      : ButtonTheme(
+                          minWidth: 150.0,
+                          height: 50.0,
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30.0)),
+                            color: Colors.white,
+                            child: Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.crop,
+                                  size: 35,
+                                ),
+                                SizedBox(width: 15.0),
+                                Text(
+                                  'Cortar',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 25),
+                                ),
+                              ],
+                            ),
+                            onPressed: () {
+                              _cropImage(widget.imageFile);
+                            },
                           ),
-                        ],
-                      ),
-                      onPressed: () {
-                        _cropImage(widget.imageFile);
-                      },
-                    ),
-                  ),
+                        ),
                 ],
               ),
             ],
