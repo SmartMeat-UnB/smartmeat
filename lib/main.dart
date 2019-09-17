@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smartmeat/screens/crop.dart';
 import 'package:smartmeat/screens/receita.dart';
 import 'package:smartmeat/screens/result_IA.dart';
 import 'package:smartmeat/tabs/home_tab.dart';
