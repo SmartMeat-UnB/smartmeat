@@ -21,6 +21,8 @@ class _CropImageState extends State<CropImage> {
       ratioY: 1.0,
       maxWidth: 512,
       maxHeight: 512,
+      toolbarTitle: "Smart Meat Crop",
+      toolbarColor: Colors.white,
     );
     setState(() {
       imageFile = croppedFile;
