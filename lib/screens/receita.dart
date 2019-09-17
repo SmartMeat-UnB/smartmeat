@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:smartmeat/widgets/bottom_app_bar.dart';
 import 'package:smartmeat/widgets/float_button.dart';
 
+import 'crop.dart';
+
 class Receita extends StatefulWidget {
   final Function() onPressed;
   final String tooltip;
@@ -29,7 +31,7 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
   Image imageFile;
 
   void pedirReceita() {
-    Navigator.pushNamed(context, 'resultado');
+    Navigator.pushNamed(context, '/resultado');
   }
 
   Future getImage() async {
@@ -44,7 +46,12 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
-      _image = image;
+      imageFile = Image.file(
+        image,
+        fit: BoxFit.cover,
+      );
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => CropImage(imageFile)));
     });
   }
 
@@ -191,7 +198,7 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
                               ],
                             ),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/resultado');
+                              getImageGallery();
                             },
                           ),
                         ),
@@ -222,7 +229,7 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
                               ],
                             ),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/resultado');
+                              Navigator.pushNamed(context, '/crop');
                             },
                           ),
                         ),
@@ -231,35 +238,7 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
                   ],
                 ),
               ),
-              // onTap: () {
-              //   print("tapped on container");
-              // },
             ),
-            // Container(
-            //   padding: EdgeInsets.symmetric(vertical: 15.0),
-            //   child: Column(
-            //     mainAxisAlignment: MainAxisAlignment.start,
-            //     crossAxisAlignment: CrossAxisAlignment.center,
-            //     children: <Widget>[
-            //       Card(
-
-            //         child: _image == null
-            //             ? Image.asset(
-            //                 "images/noImage.png",
-            //                 fit: BoxFit.cover,
-            //                 width: 350,
-            //                 height: 350.0,
-            //               )
-            //             : imageFile = Image.file(
-            //                 _image,
-            //                 width: 350,
-            //                 height: 350.0,
-            //                 fit: BoxFit.fill,
-            //               ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
             Container(
               padding: EdgeInsets.symmetric(vertical: 40),
               child: Column(
@@ -304,7 +283,6 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
         floatingActionButton: FloatButton(),
         floatingActionButtonLocation:
             FloatingActionButtonLocation.centerDocked);
-    ;
   }
 }
 
