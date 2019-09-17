@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:connectivity/connectivity.dart' as connectivity;
 import 'package:smartmeat/screens/text_section.dart';
 import 'image_banner.dart';
+import 'buttons.dart';
 
 
 class Home extends StatelessWidget {
@@ -23,10 +24,7 @@ class Home extends StatelessWidget {
             decoration: InputDecoration(labelText: "Nome",
             border: OutlineInputBorder()),
           ),
-          RaisedButton(
-            onPressed: (){},
-            child: const Text('Pronto!'),
-          ),
+         Botao(),
         ],
       )
       );
