@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
+// import 'package:image_picker/image_picker.dart';
 import 'package:smartmeat/widgets/bottom_app_bar.dart';
 import 'package:smartmeat/widgets/float_button.dart';
 
@@ -13,6 +14,19 @@ class CropImage extends StatefulWidget {
 }
 
 class _CropImageState extends State<CropImage> {
+  Future<Null> _cropImage(File imageFile) async {
+    File croppedFile = await ImageCropper.cropImage(
+      sourcePath: imageFile.path,
+      ratioX: 1.0,
+      ratioY: 1.0,
+      maxWidth: 512,
+      maxHeight: 512,
+    );
+    setState(() {
+      imageFile = croppedFile;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +86,7 @@ class _CropImageState extends State<CropImage> {
                         ],
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/crop');
+                        _cropImage(widget.imageFile);
                       },
                     ),
                   ),
