@@ -8,19 +8,13 @@ import 'package:smartmeat/widgets/float_button.dart';
 import 'crop.dart';
 
 class Receita extends StatefulWidget {
-  final Function() onPressed;
-  final String tooltip;
-  final IconData icon;
-
-  Receita({this.onPressed, this.tooltip, this.icon});
+  Receita();
 
   @override
   _ReceitaState createState() => _ReceitaState();
 }
 
 class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
-  bool isOpened = false;
-  File _image;
   Image imageFile;
 
   void pedirReceita() {
@@ -31,7 +25,8 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
 
     setState(() {
-      _image = image;
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => CropImage(image)));
     });
   }
 
@@ -121,39 +116,6 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
                     ),
                   ],
                 ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 40),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  ButtonBar(
-                    alignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      _image == null
-                          ? null
-                          : ButtonTheme(
-                              minWidth: 150.0,
-                              height: 50.0,
-                              child: RaisedButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(30.0)),
-                                color: Colors.green,
-                                child: Text(
-                                  'Enviar',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/resultado');
-                                },
-                              ),
-                            ),
-                    ],
-                  ),
-                ],
               ),
             ),
           ],
