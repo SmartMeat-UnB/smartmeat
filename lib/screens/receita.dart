@@ -113,7 +113,7 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
                               ],
                             ),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/crop');
+                              getImage();
                             },
                           ),
                         ),
