@@ -3,8 +3,30 @@ import 'package:flutter/material.dart';
 class TutorialScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Widget _buildRow(int v) {
+
+      return Row(                        
+                children: <Widget>[
+                  SizedBox(
+                    width: 15,
+                  ),
+                   Icon(
+                      Icons.wifi,
+                        size: 40,
+                        color: Colors.black,
+                      ),
+                  SizedBox(
+                     width: 20,
+                  ),
+                  Text("Wi-Fi $v",
+                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18)),] 
+              );
+    }
     return Scaffold(
-      appBar: AppBar(
+      appBar: PreferredSize(
+        child: AppBar(
+        title: Text('Wi-Fi',style: TextStyle(color: Colors.black)),
+        centerTitle: true,
         backgroundColor: Colors.white,
         leading: IconButton(
             icon: Icon(
@@ -17,24 +39,57 @@ class TutorialScreen extends StatelessWidget {
           ),
       ),
       
+       preferredSize:Size.fromHeight(100.0),
+      ),    
       body: Container(
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-                  height: 10,
-                ),
-            Row(),
-            SizedBox(
-                  height: 20,
-                ),
-            Row(),
-             SizedBox(
-                  height: 15,
-                ),
-            Row()
-          ],
-        ),
-      )
-    );
-  }
+        child: Container(
+          child: Column(
+            children: <Widget>[
+                Container( 
+                  decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black)),
+                  child: 
+                    Row(              
+                      children: <Widget>[
+                        SizedBox(
+                          width: 15,
+                        ),  
+                        SizedBox(
+                          height: 90,
+                        ),
+                        Text("Wi-Fi",
+                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18)),
+                        SizedBox(
+                          width: 220,
+                        ),
+                        Icon(
+                          Icons.wifi,
+                          size: 40,
+                          color: Colors.greenAccent,
+                        ), 
+                        ],
+                      ),
+                    ), 
+                    SizedBox(
+                          height: 55,
+                        ),         
+                  Container(
+                    child: Column(
+                      children: <Widget>[
+                        _buildRow(1),
+                        _buildRow(2),
+                        Row(),
+                        Row(),
+                        Row(),
+                        Row(),
+                        Row(),
+                      ],
+                    ),
+                  )
+                  ],
+            ),
+          ),
+        )
+      );
+    }
 }
