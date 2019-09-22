@@ -14,7 +14,7 @@ class CropImage extends StatefulWidget {
 }
 
 class _CropImageState extends State<CropImage> {
-  Image imageCropped = null;
+  Image imageCropped;
   Future<Null> _cropImage(File imageFile) async {
     File croppedFile = await ImageCropper.cropImage(
       sourcePath: imageFile.path,
