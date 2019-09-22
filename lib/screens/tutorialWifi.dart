@@ -55,7 +55,7 @@ class TutorialWifi extends StatelessWidget {
                   color: Colors.grey,
                  ), 
                  onPressed: () {
-                   
+                   Navigator.pushNamed(context, '/tutorial');
                  },
                 ),
               ],            
