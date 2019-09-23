@@ -29,11 +29,15 @@ class BottomApp extends StatelessWidget {
                   icon: Icon(
                     Icons.wifi,
                     size: 32,
-                    // color: _controller.page.round() == 1
-                    //     ? Color.fromARGB(255, 169, 0, 52)
-                    //     : Colors.grey[700],
+                    color: ModalRoute.of(context).settings.name == ('/tutorial1')
+                        ? Color.fromARGB(255, 169, 0, 52)
+                        : Colors.grey[700],
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    ModalRoute.of(context).settings.name != ('/tutorial1')
+                        ? Navigator.pushNamed(context, '/tutorial1')
+                        : null;
+                  },
                 ),
                 SizedBox(
                   width: 40,

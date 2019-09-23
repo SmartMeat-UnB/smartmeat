@@ -9,6 +9,7 @@ class TutorialScreen extends StatelessWidget {
                 children: <Widget>[
                   SizedBox(
                     width: 15,
+                    height: 55,
                   ),
                    Icon(
                       Icons.wifi,
@@ -19,7 +20,7 @@ class TutorialScreen extends StatelessWidget {
                      width: 20,
                   ),
                   Text("Wi-Fi $v",
-                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18)),] 
+                    style: TextStyle(fontSize: 18)),] 
               );
     }
     return Scaffold(
@@ -78,11 +79,10 @@ class TutorialScreen extends StatelessWidget {
                       children: <Widget>[
                         _buildRow(1),
                         _buildRow(2),
-                        Row(),
-                        Row(),
-                        Row(),
-                        Row(),
-                        Row(),
+                        _buildRow(3),
+                        _buildRow(4),
+                        _buildRow(5),
+                        _buildRow(6),
                       ],
                     ),
                   )
