@@ -7,7 +7,6 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget _buildDrawerBack() => Container();
     return Drawer(
       child: Stack(
         children: <Widget>[
