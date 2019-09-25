@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:smartmeat/widgets/bottom_app_bar.dart';
 
@@ -40,7 +42,7 @@ class PageSelectorExample extends StatelessWidget {
                   }
                 },
               ),
-              TabPageSelector(),
+              TabPageSelector(color: Colors.white,selectedColor: Colors.red,),
             ],
           ),
         ),
@@ -50,19 +52,16 @@ class PageSelectorExample extends StatelessWidget {
   }
 }
 class Choice {
-  const Choice({this.title, this.icon});
+  const Choice({this.text, this.imageFile});
 
-  final String title;
-  final IconData icon;
+  final String text;
+  final imageFile;
 }
 
 const List<Choice> choices = const <Choice>[
-  const Choice(title: 'CAR', icon: Icons.directions_car),
-  const Choice(title: 'BICYCLE', icon: Icons.directions_bike),
-  const Choice(title: 'BOAT', icon: Icons.directions_boat),
-  const Choice(title: 'BUS', icon: Icons.directions_bus),
-  const Choice(title: 'TRAIN', icon: Icons.directions_railway),
-  const Choice(title: 'WALK', icon: Icons.directions_walk),
+  const Choice(text: 'CAR', imageFile: "images/ok.jpg"),
+  // const Choice(text: 'BICYCLE', imageFile: Icons.directions_bike),
+  // const Choice(text: 'BOAT', imageFile: Icons.directions_boat),
 ];
 
 class ChoiceCard extends StatelessWidget {
@@ -80,8 +79,12 @@ class ChoiceCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Icon(choice.icon, size: 128.0, color: textStyle.color),
-            Text(choice.title, style: textStyle),
+            Image.asset(
+                          choice.imageFile,
+                          fit: BoxFit.cover,
+                          height: 190.0,
+                        ),
+            Text(choice.text, style: textStyle),
           ],
         ),
       ),
