@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smartmeat/screens/intro.dart';
+import 'package:smartmeat/screens/introState.dart';
 import 'package:smartmeat/screens/receita.dart';
 import 'package:smartmeat/screens/result_IA.dart';
 import 'package:smartmeat/screens/tutorialWifi.dart';
@@ -22,6 +22,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.red,
         ),
         debugShowCheckedModeBanner: false,
-        home: PageSelectorExample());
+        home: Splash());
   }
 }

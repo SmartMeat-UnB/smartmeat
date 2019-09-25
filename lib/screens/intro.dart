@@ -1,11 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:smartmeat/widgets/bottom_app_bar.dart';
 
-class PageSelectorExample extends StatelessWidget {
-  const PageSelectorExample({Key key}) : super(key: key);
-
+class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
