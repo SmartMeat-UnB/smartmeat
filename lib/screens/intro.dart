@@ -83,14 +83,15 @@ class ChoiceCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: 60,),
+            SizedBox(height: 65,),
             Image.asset(
                           choice.imageFile,
                           fit: BoxFit.cover,
                           height: 190.0,
                         ),
             SizedBox(height: 50,),
-            Text(choice.text, style: textStyle),
+            
+            Text(choice.text, style: TextStyle(height: 1, fontSize: 30), textAlign: TextAlign.center,),
           ],
         ),
       );
