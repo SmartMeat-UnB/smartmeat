@@ -31,17 +31,22 @@ class PageSelectorExample extends StatelessWidget {
           }).toList(),),
                 ),
               ),
-              
-              RaisedButton(
-                child: Text('SKIP'),
-                onPressed: () {
-                  final TabController controller =
-                      DefaultTabController.of(context);
-                  if (!controller.indexIsChanging) {
-                    controller.animateTo(choices.length - 1);
-                  }
-                },
-              ),
+              ButtonTheme(
+                minWidth: 200.0,
+                height: 40.0,
+                child:RaisedButton(
+                  child: Text('INICIAR',style: TextStyle(
+                          color: Colors.white,),),
+                  color: Colors.black,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                  onPressed: () {
+                    final TabController controller =
+                        DefaultTabController.of(context);
+                    if (!controller.indexIsChanging) {
+                      controller.animateTo(choices.length - 1);
+                    }
+                  },
+                )),
               TabPageSelector(color: Colors.white,selectedColor: Colors.red,),
             ],
           ),
