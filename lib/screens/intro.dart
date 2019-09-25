@@ -58,10 +58,14 @@ class Choice {
   final imageFile;
 }
 
+const String text1 = "Já pensou em um\nchurrasco onde\nvocê particicpa da festa?";
+const String text2 = "Basicamente o que\nvocê fará é cortar a\ncarne e\nacompanhar pelo\ncelular o seu\nchurrasco";
+const String text3 = "Inicie agora no\nSmartMeat";
+
 const List<Choice> choices = const <Choice>[
-  const Choice(text: 'CAR', imageFile: "images/ok.jpg"),
-  // const Choice(text: 'BICYCLE', imageFile: Icons.directions_bike),
-  // const Choice(text: 'BOAT', imageFile: Icons.directions_boat),
+  const Choice(text: text1, imageFile: "images/intro1.jpg"),
+  const Choice(text: text2, imageFile: "images/intro2.jpg"),
+  const Choice(text: text3, imageFile: "images/intro3.jpg"),
 ];
 
 class ChoiceCard extends StatelessWidget {
@@ -72,22 +76,23 @@ class ChoiceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextStyle textStyle = Theme.of(context).textTheme.display1;
-    return Card(
-      color: Colors.white,
-      child: Center(
+    return 
+      Center(
+
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            SizedBox(height: 60,),
             Image.asset(
                           choice.imageFile,
                           fit: BoxFit.cover,
                           height: 190.0,
                         ),
+            SizedBox(height: 50,),
             Text(choice.text, style: textStyle),
           ],
         ),
-      ),
-    );
+      );
   }
 }
