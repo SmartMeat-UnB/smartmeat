@@ -18,7 +18,7 @@ class Home extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          ImageBanner("assets/images/Smart-Meat-2.png"),
+          ImageBanner("images/SmartMeat.png"),
           TextSection("Vamos iniciar.", "Por favor,\n digite seu nome\n no campo abaixo!"),
           TextField(
             decoration: InputDecoration(labelText: "Nome",
