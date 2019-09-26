@@ -17,6 +17,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.red,
         ),
         debugShowCheckedModeBanner: false,
-        home: Home());
+        home: NameUser());
   }
 }

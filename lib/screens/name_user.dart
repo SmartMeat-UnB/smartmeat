@@ -2,13 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:connectivity/connectivity.dart' as connectivity;
 import 'package:smartmeat/screens/text_section.dart';
 import 'image_banner.dart';
 import 'buttons.dart';
 
 
-class Home extends StatelessWidget {
+class NameUser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
