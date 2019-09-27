@@ -7,7 +7,6 @@ class  ImageBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
      decoration: BoxDecoration(color: Colors.white),
       margin: EdgeInsets.only(left: 80.0, right: 80.0),

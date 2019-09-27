@@ -1,7 +1,5 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:smartmeat/screens/text_section.dart';
 import 'image_banner.dart';
 import 'buttons.dart';
