@@ -16,9 +16,9 @@ class NameUser extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SizedBox(height: 30,),
+          SizedBox(height: 3,),
           ImageBanner("images/SmartMeat.png"),
-          TextSection("Vamos iniciar.", "Por favor,\n digite seu nome\n no campo abaixo!"),
+          TextSection("Vamos iniciar.\nPor favor,\n digite seu nome\n no campo abaixo!"),
           TextField(
             decoration: InputDecoration(labelText: "Nome",),
           ),
