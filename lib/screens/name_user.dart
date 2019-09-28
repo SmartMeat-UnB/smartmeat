@@ -21,7 +21,7 @@ class NameUser extends StatelessWidget {
             decoration: InputDecoration(labelText: "Nome",
             border: OutlineInputBorder()),
           ),
-         Botao(),
+         Botao('PRONTO!'),
         ],
       )
       );
