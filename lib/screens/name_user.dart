@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:smartmeat/screens/text_section.dart';
 import 'image_banner.dart';
-import 'buttons.dart';
+import 'package:smartmeat/widgets/buttons.dart';
 
 
 class NameUser extends StatelessWidget {
