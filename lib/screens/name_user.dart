@@ -6,7 +6,7 @@ import 'package:smartmeat/widgets/buttons.dart';
 
 
 class NameUser extends StatelessWidget {
-
+TextEditingController nameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +20,14 @@ class NameUser extends StatelessWidget {
           ImageBanner("images/SmartMeat.png"),
           TextSection("Vamos iniciar.\nPor favor,\n digite seu nome\n no campo abaixo!"),
           TextField(
-            decoration: InputDecoration(labelText: "Nome",),
+            controller:  nameController,
+            onChanged: (v) =>  nameController.text = v,
+            decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: 'Insira seu nome',
+            labelText: "      Nome:",
+            labelStyle: TextStyle(height:0, fontSize: 20,color: Colors.black,),
+            ),
           ),
          Botao('PRONTO!'),
         ],

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class  TextSection extends StatelessWidget {
   final String _title;
-  static const double _hPad = 16.0;
 
   TextSection(this._title);
 
