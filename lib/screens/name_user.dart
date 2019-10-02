@@ -19,17 +19,19 @@ TextEditingController nameController = TextEditingController();
           SizedBox(height: 3,),
           ImageBanner("images/SmartMeat.png"),
           TextSection("Vamos iniciar.\nPor favor,\n digite seu nome\n no campo abaixo!"),
-          TextField(
+          Container(
+            child: TextField(
             controller:  nameController,
             onChanged: (v) =>  nameController.text = v,
             decoration: InputDecoration(
             border: InputBorder.none,
-            hintText: 'Insira seu nome',
+            hintText: '      Insira seu nome',
             labelText: "      Nome:",
             labelStyle: TextStyle(height:0, fontSize: 20,color: Colors.black,),
             ),
           ),
-         Botao('PRONTO!'),
+        ),        
+         Botao('PRONTO!', nameController.text),
         ],
       )
       );

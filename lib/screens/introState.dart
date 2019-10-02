@@ -19,7 +19,6 @@ Future checkFirstSeen() async {
     Navigator.of(context).pushReplacement(
          MaterialPageRoute(builder: (context) => HomeTab()));
     } else {
-    prefs.setBool('seen', true);
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => WelcomePage()));
     }
