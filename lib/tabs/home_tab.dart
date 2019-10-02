@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:smartmeat/widgets/bottom_app_bar.dart';
-import 'package:smartmeat/widgets/float_button.dart';
+import 'package:SmartMeat/widgets/bottom_app_bar.dart';
+import 'package:SmartMeat/widgets/float_button.dart';
+import 'package:SmartMeat/screens/informations.dart';
 
 class HomeTab extends StatelessWidget {
   @override
@@ -15,6 +16,7 @@ class HomeTab extends StatelessWidget {
             centerTitle: true,
             backgroundColor: Colors.white,
           ),
+          body: Informations(),
           bottomNavigationBar: BottomApp(),
           floatingActionButton: FloatButton(),
           floatingActionButtonLocation:

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smartmeat/tiles/drawer_tile.dart';
+import 'package:SmartMeat/tiles/drawer_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
   final PageController pageController;
