@@ -15,13 +15,13 @@ class BottomApp extends StatelessWidget {
                   icon: Icon(
                     Icons.home,
                     size: 32,
-                    color: ModalRoute.of(context).settings.name == ('/')
+                    color: ModalRoute.of(context).settings.name == ('/home')
                         ? Color.fromARGB(255, 169, 0, 52)
                         : Colors.grey[700],
                   ),
                   onPressed: () {
-                    ModalRoute.of(context).settings.name != ('/')
-                        ? Navigator.pushNamed(context, '/')
+                    ModalRoute.of(context).settings.name != ('/home')
+                        ? Navigator.pushNamed(context, '/home')
                         : null;
                   },
                 ),
