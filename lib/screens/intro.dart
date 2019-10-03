@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smartmeat/tabs/home_tab.dart';
+
+import 'name_user.dart';
 
 class WelcomePage extends StatelessWidget {
   @override
@@ -42,7 +43,7 @@ class WelcomePage extends StatelessWidget {
                       controller.animateTo(choices.length - 1);
                     }
                     Navigator.of(context).pushReplacement(
-                     MaterialPageRoute(builder: (context) => HomeTab()));
+                     MaterialPageRoute(builder: (context) => NameUser()));
                   },
                 )),
               TabPageSelector(color: Colors.white,selectedColor: Colors.red,),

@@ -5,10 +5,22 @@ import 'package:smartmeat/widgets/image_banner.dart';
 import 'package:smartmeat/widgets/buttons.dart';
 
 
-class NameUser extends StatelessWidget {
-TextEditingController nameController = TextEditingController();
+class NameUser extends StatefulWidget {
+  @override
+  _NameUserState createState() => _NameUserState();
+}
+
+class _NameUserState extends State<NameUser> {
+
+String v = "";
+
   @override
   Widget build(BuildContext context) {
+    void _doSomething(String text) {
+        setState(() {
+          v = text;
+        });
+      }
     return Scaffold(
         resizeToAvoidBottomInset: false,
       body: Column(
@@ -19,19 +31,18 @@ TextEditingController nameController = TextEditingController();
           SizedBox(height: 3,),
           ImageBanner("images/SmartMeat.png"),
           TextSection("Vamos iniciar.\nPor favor,\n digite seu nome\n no campo abaixo!"),
-          Container(
-            child: TextField(
-            controller:  nameController,
-            onChanged: (v) =>  nameController.text = v,
+            TextField(
+            onChanged: (text) {
+                _doSomething(text);    
+            },
             decoration: InputDecoration(
             border: InputBorder.none,
             hintText: '      Insira seu nome',
             labelText: "      Nome:",
             labelStyle: TextStyle(height:0, fontSize: 20,color: Colors.black,),
             ),
-          ),
-        ),        
-         Botao('PRONTO!', nameController.text),
+          ),        
+        Botao('PRONTO!', v),
         ],
       )
       );

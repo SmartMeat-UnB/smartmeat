@@ -14,7 +14,7 @@ class SplashState extends State<Splash> {
 Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool _seen = (prefs.getBool('seen') ?? false);
-
+    prefs.setBool('seen', false);
     if (_seen) {
     Navigator.of(context).pushReplacement(
          MaterialPageRoute(builder: (context) => HomeTab()));

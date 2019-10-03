@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smartmeat/tabs/home_tab.dart';
 
 class  Botao extends StatelessWidget {
   const Botao(this.nomeBotao, this.userName);
@@ -12,6 +13,9 @@ class  Botao extends StatelessWidget {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('nome', this.userName); 
     prefs.setBool('seen', true);
+    print(this.userName);
+    Navigator.of(context).pushReplacement(
+                     MaterialPageRoute(builder: (context) => HomeTab()));
 }
     return Center(
       child: Column(
