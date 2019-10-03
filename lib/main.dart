@@ -5,6 +5,7 @@ import 'package:smartmeat/screens/result_IA.dart';
 import 'package:smartmeat/screens/tutorialWifi.dart';
 import 'package:smartmeat/screens/tutorial_screen.dart';
 
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {

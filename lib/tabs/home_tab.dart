@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartmeat/screens/informations.dart';
 import 'package:smartmeat/widgets/bottom_app_bar.dart';
 import 'package:smartmeat/widgets/float_button.dart';
 
@@ -15,6 +16,7 @@ class HomeTab extends StatelessWidget {
             centerTitle: true,
             backgroundColor: Colors.white,
           ),
+          body: Informations(),
           bottomNavigationBar: BottomApp(),
           floatingActionButton: FloatButton(),
           floatingActionButtonLocation:
