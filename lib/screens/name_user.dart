@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:smartmeat/widgets/text_section.dart';
-import 'package:smartmeat/widgets/image_banner.dart';
-import 'package:smartmeat/widgets/buttons.dart';
+import 'package:SmartMeat/widgets/text_section.dart';
+import 'package:SmartMeat/widgets/image_banner.dart';
+import 'package:SmartMeat/widgets/buttons.dart';
 
 
 class NameUser extends StatefulWidget {

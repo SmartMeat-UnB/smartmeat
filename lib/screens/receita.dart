@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:smartmeat/widgets/bottom_app_bar.dart';
-import 'package:smartmeat/widgets/float_button.dart';
+import 'package:SmartMeat/widgets/bottom_app_bar.dart';
+import 'package:SmartMeat/widgets/float_button.dart';
 
 import 'crop.dart';
 

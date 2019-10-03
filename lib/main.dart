@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:smartmeat/screens/introState.dart';
-import 'package:smartmeat/screens/receita.dart';
-import 'package:smartmeat/screens/result_IA.dart';
-import 'package:smartmeat/screens/tutorialWifi.dart';
-import 'package:smartmeat/screens/tutorial_screen.dart';
+import 'package:SmartMeat/screens/introState.dart';
+import 'package:SmartMeat/screens/receita.dart';
+import 'package:SmartMeat/screens/result_IA.dart';
+import 'package:SmartMeat/screens/tutorialWifi.dart';
+import 'package:SmartMeat/screens/tutorial_screen.dart';
 
 
 void main() => runApp(MyApp());
