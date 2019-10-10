@@ -60,6 +60,9 @@ flutter:
    - images/intro1.jpg
    - images/intro2.jpg
    - images/intro3.jpg
+   - images/churrasqueira.png
+   - images/espeto.jpg
+
   # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg

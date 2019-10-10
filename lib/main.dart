@@ -1,3 +1,4 @@
+import 'package:SmartMeat/screens/churrasqueira.dart';
 import 'package:flutter/material.dart';
 import 'package:SmartMeat/screens/introState.dart';
 import 'package:SmartMeat/screens/receita.dart';
@@ -25,6 +26,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.red,
         ),
         debugShowCheckedModeBanner: false,
-        home: Splash());
+        home: Churrasqueira());
   }
 }
