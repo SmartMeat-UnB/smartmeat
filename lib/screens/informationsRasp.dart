@@ -12,15 +12,17 @@ class InformationRasp extends StatefulWidget {
 
 class _InformationRaspState extends State<InformationRasp> {
   String message;
-  // var str;
+  // Socket socket;
+  var str;
   
   informations() async {
       RawDatagramSocket socket;
-        socket = await RawDatagramSocket.bind("0.0.0.0", 58332);
+        socket = await RawDatagramSocket.bind('10.0.2.2', 2399);
         await for (RawSocketEvent ev in socket.asBroadcastStream()) {          
           if (ev == RawSocketEvent.read) {
             try {
               Datagram dg = socket.receive();
+              print("ola");
               if (dg != null) {
                 print("${dg.address} ${dg.port} ${dg.data}");
                 socket.send(dg.data, dg.address, dg.port);
@@ -31,14 +33,14 @@ class _InformationRaspState extends State<InformationRasp> {
           }
         }
 
-  //   var reciever = await UDP.bind(Endpoint.loopback(port: Port(58332)));
-  //   print("$reciever.listen");
+    // var reciever = await UDP.bind(Endpoint.loopback(port: Port(2399)));
+    // print("$reciever.listen(datagram)");
 
-  //   await reciever.listen((datagram){
-  //     str = String.fromCharCodes(datagram.data);
-  //     // stdout.write(str);
-  //     print("ola");
-  //   }, Duration(seconds: 20));
+    // await reciever.listen((datagram){
+    //   str = String.fromCharCodes(datagram.data);
+    //   // stdout.write(str);
+    //   print("ola");
+    // }, Duration(seconds: 20));
     
     // RawDatagramSocket socket;
     // startServer(String host, int port) async {
@@ -57,14 +59,16 @@ class _InformationRaspState extends State<InformationRasp> {
     //     }
     //   }
     // }
-    // RawDatagramSocket.bind(InternetAddress.anyIPv4, 58332).then((RawDatagramSocket socket){
+
+    // await RawDatagramSocket.bind(InternetAddress.anyIPv4, 2399).then((RawDatagramSocket socket){
     //   print('Datagram socket ready to receive');
     //   print('${socket.address.address}:${socket.port}');
+      
     //   socket.listen((RawSocketEvent e){
     //     Datagram d = socket.receive();
     //     print("${d.data}");
 
-    //     //if (d == null) return;
+    //     if (d == null) return;
     //     setState(() {
     //         message = new String.fromCharCodes(d.data).trim();
     //     });
