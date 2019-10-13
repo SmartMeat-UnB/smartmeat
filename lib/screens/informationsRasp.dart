@@ -1,8 +1,6 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'dart:async';
+import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'dart:convert';
-import 'package:udp/udp.dart';
 
 
 class InformationRasp extends StatefulWidget {
@@ -11,121 +9,222 @@ class InformationRasp extends StatefulWidget {
 }
 
 class _InformationRaspState extends State<InformationRasp> {
-  String message;
-  // Socket socket;
-  var str;
-  
-  informations() async {
-      RawDatagramSocket socket;
-        socket = await RawDatagramSocket.bind('10.0.2.2', 2399);
-        await for (RawSocketEvent ev in socket.asBroadcastStream()) {          
-          if (ev == RawSocketEvent.read) {
-            try {
-              Datagram dg = socket.receive();
-              print("ola");
-              if (dg != null) {
-                print("${dg.address} ${dg.port} ${dg.data}");
-                socket.send(dg.data, dg.address, dg.port);
-              }
-            } catch (e) {
-              print("#########$e");
-            }
-          }
-        }
+  //my ip inet = 192.168.15.6
+  String uri = "http://192.168.15.6:7000/";
+  List<String> toPrint = ["trying to connect"];
+  SocketIOManager manager;
+  Map<String, SocketIO> sockets = {};
+  Map<String, bool> _isProbablyConnected = {};
 
-    // var reciever = await UDP.bind(Endpoint.loopback(port: Port(2399)));
-    // print("$reciever.listen(datagram)");
+  @override
+  void initState() {
+    super.initState();
+    manager = SocketIOManager();
+    initSocket("default");
+  }
 
-    // await reciever.listen((datagram){
-    //   str = String.fromCharCodes(datagram.data);
-    //   // stdout.write(str);
-    //   print("ola");
-    // }, Duration(seconds: 20));
-    
-    // RawDatagramSocket socket;
-    // startServer(String host, int port) async {
-    //   socket = await RawDatagramSocket.bind(host, port);
-    //   await for (RawDatagramSocket ev in socket.asBroadcastStream()){
-    //     if (ev == RawDatagramSocket.READ){
-    //       try {
-    //         Datagram dg = socket.receive();
-    //         if(dg != null) {
-    //           print("${dg.address} ${dg.port} $dg.data");
-    //           socket.send(dg.data, dg.address, dg.port);
-    //         }
-    //       } catch (e){
-    //         print("#####$e");
-    //       }
-    //     }
-    //   }
-    // }
+  initSocket(String identifier) async {
+    setState(() => _isProbablyConnected[identifier] = true);
+    SocketIO socket = await manager.createInstance(SocketOptions(
+      //Socket IO server URI
+        uri,
+        nameSpace: (identifier == "namespaced")?"/adhara":"/",
+        //Query params - can be used for authentication
+        query: {
+          "auth": "--SOME AUTH STRING---",
+          "info": "new connection from adhara-socketio",
+          "timestamp": DateTime.now().toString()
+        },
+        //Enable or disable platform channel logging
+        enableLogging: false,
+        transports: [Transports.WEB_SOCKET/*, Transports.POLLING*/] //Enable required transport
+    ));
+    socket.onConnect((data) {
+      pprint("connected...");
+      pprint(data);
+      sendMessage(identifier);
+    });
+    socket.onConnectError(pprint);
+    socket.onConnectTimeout(pprint);
+    socket.onError(pprint);
+    socket.onDisconnect(pprint);
+    socket.on("type:string", (data) => pprint("type:string | $data"));
+    socket.on("type:bool", (data) => pprint("type:bool | $data"));
+    socket.on("type:number", (data) => pprint("type:number | $data"));
+    socket.on("type:object", (data) => pprint("type:object | $data"));
+    socket.on("type:list", (data) => pprint("type:list | $data"));
+    socket.on("message", (data) => pprint(data));
+    socket.connect();
+    sockets[identifier] = socket;
+  }
 
-    // await RawDatagramSocket.bind(InternetAddress.anyIPv4, 2399).then((RawDatagramSocket socket){
-    //   print('Datagram socket ready to receive');
-    //   print('${socket.address.address}:${socket.port}');
-      
-    //   socket.listen((RawSocketEvent e){
-    //     Datagram d = socket.receive();
-    //     print("${d.data}");
+  bool isProbablyConnected(String identifier){
+    return _isProbablyConnected[identifier]??false;
+  }
 
-    //     if (d == null) return;
-    //     setState(() {
-    //         message = new String.fromCharCodes(d.data).trim();
-    //     });
+  disconnect(String identifier) async {
+    await manager.clearInstance(sockets[identifier]);
+    setState(() => _isProbablyConnected[identifier] = false);
+  }
 
-    //     print('Datagram from ${d.address.address}:${d.port}: $message');
-    //     });
-    //   });  
-}
+  sendMessage(identifier) {
+    if (sockets[identifier] != null) {
+      pprint("sending message from '$identifier'...");
+      sockets[identifier].emit("message", [
+        "Hello world!",
+        1908,
+        {
+          "wonder": "Woman",
+          "comics": ["DC", "Marvel"]
+        },
+        {
+          "test": "=!./"
+        },
+        [
+          "I'm glad",
+          2019,
+          {
+            "come back": "Tony",
+            "adhara means": ["base", "foundation"]
+          },
+          {
+            "test": "=!./"
+          },
+        ]
+      ]);
+      pprint("Message emitted from '$identifier'...");
+    }
+  }
 
+  sendMessageWithACK(identifier){
+    pprint("Sending ACK message from '$identifier'...");
+    List msg = ["Hello world!", 1, true, {"p":1}, [3,'r']];
+    sockets[identifier].emitWithAck("ack-message", msg).then( (data) {
+      // this callback runs when this specific message is acknowledged by the server
+      pprint("ACK recieved from '$identifier' for $msg: $data");
+    });
+  }
 
+  pprint(data) {
+    setState(() {
+      if (data is Map) {
+        data = json.encode(data);
+      }
+      print(data);
+      toPrint.add(data);
+    });
+  }
 
+  Container getButtonSet(String identifier){
+    bool ipc = isProbablyConnected(identifier);
+    return Container(
+      height: 60.0,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 8.0),
+            child: RaisedButton(
+              child: Text("Connect"),
+              onPressed: ipc?null:()=>initSocket(identifier),
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
+            ),
+          ),
+          Container(
+              margin: EdgeInsets.symmetric(horizontal: 8.0),
+              child: RaisedButton(
+                child: Text("Send Message"),
+                onPressed: ipc?()=>sendMessage(identifier):null,
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+              )
+          ),
+          Container(
+              margin: EdgeInsets.symmetric(horizontal: 8.0),
+              child: RaisedButton(
+                child: Text("Send w/ ACK"), //Send message with ACK
+                onPressed: ipc?()=>sendMessageWithACK(identifier):null,
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+              )
+          ),
+          Container(
+              margin: EdgeInsets.symmetric(horizontal: 8.0),
+              child: RaisedButton(
+                child: Text("Disconnect"),
+                onPressed: ipc?()=>disconnect(identifier):null,
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+              )
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-              child: Column(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Text("$message")]
-                  ),
-                ButtonBar(
-                      alignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        ButtonTheme(
-                          minWidth: 300.0,
-                          height: 100.0,
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(30.0)),
-                            color: Colors.white,
-                            child: Row(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.camera_alt,
-                                  size: 35,
-                                ),
-                                SizedBox(width: 40.0),
-                                Text(
-                                  'Testar Socket',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 25),
-                                ),
-                              ],
-                            ),
-                            onPressed: () {
-                              informations();
-                            },
-                          ),
-                        ),
-                      ],
-                    ),  
-                ],
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+          textTheme: TextTheme(
+            title: TextStyle(color: Colors.white),
+            headline: TextStyle(color: Colors.white),
+            subtitle: TextStyle(color: Colors.white),
+            subhead: TextStyle(color: Colors.white),
+            body1: TextStyle(color: Colors.white),
+            body2: TextStyle(color: Colors.white),
+            button: TextStyle(color: Colors.white),
+            caption: TextStyle(color: Colors.white),
+            overline: TextStyle(color: Colors.white),
+            display1: TextStyle(color: Colors.white),
+            display2: TextStyle(color: Colors.white),
+            display3: TextStyle(color: Colors.white),
+            display4: TextStyle(color: Colors.white),
+          ),
+          buttonTheme: ButtonThemeData(
+              padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 12.0),
+              disabledColor: Colors.lightBlueAccent.withOpacity(0.5),
+              buttonColor: Colors.lightBlue,
+              splashColor: Colors.cyan
+          )
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Adhara Socket.IO example'),
+          backgroundColor: Colors.black,
+          elevation: 0.0,
+        ),
+        body: Container(
+          color: Colors.black,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Expanded(
+                  child: Center(
+                    child: ListView(
+                      children: toPrint.map((String _) => Text(_ ?? "")).toList(),
+                    ),
+                  )
               ),
-            
-            ),   
+              Padding(
+                padding: EdgeInsets.only(left: 8.0, bottom: 8.0),
+                child: Text("Default Connection",),
+              ),
+              getButtonSet("default"),
+              Padding(
+                padding: EdgeInsets.only(left: 8.0, bottom: 8.0, top: 8.0),
+                child: Text("Alternate Connection",),
+              ),
+              getButtonSet("alternate"),
+              Padding(
+                padding: EdgeInsets.only(left: 8.0, bottom: 8.0, top: 8.0),
+                child: Text("Namespace Connection",),
+              ),
+              getButtonSet("namespaced"),
+              SizedBox(height: 12.0,)
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
