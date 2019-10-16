@@ -5,6 +5,7 @@ import 'package:SmartMeat/screens/tutorialWifi.dart';
 import 'package:SmartMeat/screens/tutorial_screen.dart';
 import 'package:SmartMeat/tabs/home_tab.dart';
 import 'package:SmartMeat/screens/introState.dart';
+import 'package:SmartMeat/screens/informationsRasp.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.red,
         ),
         debugShowCheckedModeBanner: false,
-        home: Splash());
+        home: InformationRasp()
+    );
   }
 }
