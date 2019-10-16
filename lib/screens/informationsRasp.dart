@@ -1,3 +1,5 @@
+import 'package:SmartMeat/widgets/bottom_app_bar.dart';
+import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'dart:convert';
@@ -10,7 +12,7 @@ class InformationRasp extends StatefulWidget {
 
 class _InformationRaspState extends State<InformationRasp> {
   //my ip inet = 192.168.15.6
-  String uri = "http://192.168.15.6:7000/";
+  String uri = "http://192.168.15.7:7000/";
   List<String> toPrint = ["trying to connect"];
   SocketIOManager manager;
   Map<String, SocketIO> sockets = {};
@@ -161,39 +163,42 @@ class _InformationRaspState extends State<InformationRasp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp( 
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          textTheme: TextTheme(
-            title: TextStyle(color: Colors.white),
-            headline: TextStyle(color: Colors.white),
-            subtitle: TextStyle(color: Colors.white),
-            subhead: TextStyle(color: Colors.white),
-            body1: TextStyle(color: Colors.white),
-            body2: TextStyle(color: Colors.white),
-            button: TextStyle(color: Colors.white),
-            caption: TextStyle(color: Colors.white),
-            overline: TextStyle(color: Colors.white),
-            display1: TextStyle(color: Colors.white),
-            display2: TextStyle(color: Colors.white),
-            display3: TextStyle(color: Colors.white),
-            display4: TextStyle(color: Colors.white),
-          ),
-          buttonTheme: ButtonThemeData(
-              padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 12.0),
-              disabledColor: Colors.lightBlueAccent.withOpacity(0.5),
-              buttonColor: Colors.lightBlue,
-              splashColor: Colors.cyan
-          )
-      ),
+      // theme: ThemeData(
+      //     textTheme: TextTheme(
+      //       title: TextStyle(color: Colors.white),
+      //       headline: TextStyle(color: Colors.white),
+      //       subtitle: TextStyle(color: Colors.white),
+      //       subhead: TextStyle(color: Colors.white),
+      //       body1: TextStyle(color: Colors.white),
+      //       body2: TextStyle(color: Colors.white),
+      //       button: TextStyle(color: Colors.white),
+      //       caption: TextStyle(color: Colors.white),
+      //       overline: TextStyle(color: Colors.white),
+      //       display1: TextStyle(color: Colors.white),
+      //       display2: TextStyle(color: Colors.white),
+      //       display3: TextStyle(color: Colors.white),
+      //       display4: TextStyle(color: Colors.white),
+      //     ),
+      //     buttonTheme: ButtonThemeData(
+      //         padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 12.0),
+      //         disabledColor: Colors.lightBlueAccent.withOpacity(0.5),
+      //         buttonColor: Colors.lightBlue,
+      //         splashColor: Colors.cyan
+      //     )
+      // ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Adhara Socket.IO example'),
-          backgroundColor: Colors.black,
-          elevation: 0.0,
+            title: const Text("Smart\n       Meat",
+                style: TextStyle(color: Colors.black, fontFamily: 'Pacifico'),
+                textAlign: TextAlign.center,
+                strutStyle: StrutStyle(height: 1.4, forceStrutHeight: true)),
+            centerTitle: true,
+            backgroundColor: Colors.white,
         ),
         body: Container(
-          color: Colors.black,
+          // color: Colors.black,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -224,6 +229,10 @@ class _InformationRaspState extends State<InformationRasp> {
             ],
           ),
         ),
+        bottomNavigationBar: BottomApp(),
+        floatingActionButton: FloatButton(),
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.centerDocked
       ),
     );
   }
