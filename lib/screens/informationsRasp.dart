@@ -17,6 +17,15 @@ class _InformationRaspState extends State<InformationRasp> {
   SocketIOManager manager;
   Map<String, SocketIO> sockets = {};
   Map<String, bool> _isProbablyConnected = {};
+  List<bool> isSelected;
+
+  bool value = false;
+
+  void onChanged(bool value){
+    setState(() {
+      value = value;
+    });
+  }
 
   @override
   void initState() {
@@ -116,6 +125,7 @@ class _InformationRaspState extends State<InformationRasp> {
       toPrint.add(data);
     });
   }
+  
 
   Container getButtonSet(String identifier){
     bool ipc = isProbablyConnected(identifier);
@@ -189,11 +199,11 @@ class _InformationRaspState extends State<InformationRasp> {
       //     )
       // ),
       home: Scaffold(
-        appBar: AppBar(
-            title: const Text("Smart\n       Meat",
-                style: TextStyle(color: Colors.black, fontFamily: 'Pacifico'),
+        appBar: AppBar(  
+            title: const Text('Smart Meat',
+                style: TextStyle(fontSize: 35.0, color: Colors.black87, fontFamily: 'Pacifico'),
                 textAlign: TextAlign.center,
-                strutStyle: StrutStyle(height: 1.4, forceStrutHeight: true)),
+                strutStyle: StrutStyle(height: 2.5, forceStrutHeight: true)),
             centerTitle: true,
             backgroundColor: Colors.white,
         ),
