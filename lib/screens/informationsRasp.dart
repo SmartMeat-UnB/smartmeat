@@ -201,8 +201,7 @@ class _InformationRaspState extends State<InformationRasp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp( 
-      debugShowCheckedModeBanner: false,
+    return Scaffold( 
       // theme: ThemeData(
       //     textTheme: TextTheme(
       //       title: TextStyle(color: Colors.white),
@@ -226,7 +225,7 @@ class _InformationRaspState extends State<InformationRasp> {
       //         splashColor: Colors.cyan
       //     )
       // ),
-      home: Scaffold(
+      body: Scaffold(
         appBar: AppBar(
             leading: Switch(
               activeColor: Colors.green,
@@ -239,7 +238,7 @@ class _InformationRaspState extends State<InformationRasp> {
             centerTitle: true,
             backgroundColor: Colors.white,
         ),
-        body: Churrasqueira(),
+        // body: Churrasqueira(),
         // body: Container(
         //   // color: Colors.black,
         //   child: Column(
