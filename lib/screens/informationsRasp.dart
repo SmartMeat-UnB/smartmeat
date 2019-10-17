@@ -1,3 +1,4 @@
+import 'package:SmartMeat/screens/churrasqueira.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
@@ -27,8 +28,13 @@ class _InformationRaspState extends State<InformationRasp> {
     bool ipc = isProbablyConnected(identifier);
     setState(() {
       if (ipc!=null){
-        onBBQ(identifier);
-        _value=value;
+        if(value == true){
+          onBBQ(identifier);
+          _value=value;
+        }else{
+          offBBQ(identifier);
+          _value=value;
+        }
       }
     });
   }
@@ -115,16 +121,16 @@ class _InformationRaspState extends State<InformationRasp> {
 
   onBBQ(identifier) {
     if (sockets[identifier] != null) {
-      pprint("sending message from '$identifier'...");
+      pprint("sending ON message from '$identifier'...");
       sockets[identifier].emit("message", ['true']);
-      pprint("Message emitted from '$identifier'...");
+      pprint("Message emitted from switch button...");
     }
   }
   offBBQ(identifier) {
     if (sockets[identifier] != null) {
-      pprint("sending message from '$identifier'...");
+      pprint("sending OFF message from '$identifier'...");
       sockets[identifier].emit("message", ['false']);
-      pprint("Message emitted from '$identifier'...");
+      pprint("Message emitted from switch button...");
     }
   }
 
@@ -233,38 +239,39 @@ class _InformationRaspState extends State<InformationRasp> {
             centerTitle: true,
             backgroundColor: Colors.white,
         ),
-        body: Container(
-          // color: Colors.black,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                  child: Center(
-                    child: ListView(
-                      children: toPrint.map((String _) => Text(_ ?? "")).toList(),
-                    ),
-                  )
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 8.0, bottom: 8.0),
-                child: Text("Default Connection",),
-              ),
-              getButtonSet("default"),
-              Padding(
-                padding: EdgeInsets.only(left: 8.0, bottom: 8.0, top: 8.0),
-                child: Text("Alternate Connection",),
-              ),
-              getButtonSet("alternate"),
-              Padding(
-                padding: EdgeInsets.only(left: 8.0, bottom: 8.0, top: 8.0),
-                child: Text("Namespace Connection",),
-              ),
-              getButtonSet("namespaced"),
-              SizedBox(height: 12.0,)
-            ],
-          ),
-        ),
+        body: Churrasqueira(),
+        // body: Container(
+        //   // color: Colors.black,
+        //   child: Column(
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     mainAxisAlignment: MainAxisAlignment.start,
+        //     children: <Widget>[
+        //       Expanded(
+        //           child: Center(
+        //             child: ListView(
+        //               children: toPrint.map((String _) => Text(_ ?? "")).toList(),
+        //             ),
+        //           )
+        //       ),
+        //       Padding(
+        //         padding: EdgeInsets.only(left: 8.0, bottom: 8.0),
+        //         child: Text("Default Connection",),
+        //       ),
+        //       getButtonSet("default"),
+        //       Padding(
+        //         padding: EdgeInsets.only(left: 8.0, bottom: 8.0, top: 8.0),
+        //         child: Text("Alternate Connection",),
+        //       ),
+        //       getButtonSet("alternate"),
+        //       Padding(
+        //         padding: EdgeInsets.only(left: 8.0, bottom: 8.0, top: 8.0),
+        //         child: Text("Namespace Connection",),
+        //       ),
+        //       getButtonSet("namespaced"),
+        //       SizedBox(height: 12.0,)
+        //     ],
+        //   ),
+        // ),
         bottomNavigationBar: BottomApp(),
         floatingActionButton: FloatButton(),
         floatingActionButtonLocation:

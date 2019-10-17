@@ -1,4 +1,3 @@
-import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class Churrasqueira extends StatelessWidget {
@@ -20,6 +19,7 @@ class Churrasqueira extends StatelessWidget {
 
     return Scaffold(
       body: Container(
+        alignment: Alignment.center,
         margin: EdgeInsets.all(30),
         child: Stack(
           children: <Widget>[
