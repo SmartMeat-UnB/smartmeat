@@ -29,7 +29,8 @@ class MyApp extends StatelessWidget {
         //   primarySwatch: Colors.red,
         // ),
         debugShowCheckedModeBanner: false,
-        home: InformationRasp()
+        // home: InformationRasp()
+        home: Receita()
     );
   }
 }

@@ -1,9 +1,10 @@
-
+import 'dart:io';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
-
+import 'package:http/http.dart' as http;
 import 'crop.dart';
 
 class Receita extends StatefulWidget {
@@ -14,10 +15,26 @@ class Receita extends StatefulWidget {
 }
 
 class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
-  Image imageFile;
+  File image;
+  final String inverseCookingEndPoint = 'http://localhost:3000/predict';
 
-  void pedirReceita() {
-    Navigator.pushNamed(context, '/resultado');
+  // void pedirReceita() {
+  //   Navigator.pushNamed(context, '/resultado');
+  // }
+
+  void getRecipe() {
+    if (image == null) return;
+    String base64Image = base64Encode(image.readAsBytesSync());
+    String fileName = image.path.split("/").last;
+
+    http.post(inverseCookingEndPoint, body: {
+      "image": base64Image,
+      "name": fileName,
+    }).then((res) {
+      print(res.statusCode);
+    }).catchError((err) {
+      print(err);
+    });
   }
 
   Future getImage() async {
@@ -31,12 +48,17 @@ class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
   }
 
   Future getImageGallery() async {
+    print("Started image getter");
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    print("Image read!");
 
     setState(() {
-      if (image != null)
+      if (image != null) {
+      print("Set State, image not null!!");
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => CropImage(image)));
+      print("Exiting");
+      }
     });
   }
 
