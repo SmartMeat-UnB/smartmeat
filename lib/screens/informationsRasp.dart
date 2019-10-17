@@ -17,13 +17,19 @@ class _InformationRaspState extends State<InformationRasp> {
   SocketIOManager manager;
   Map<String, SocketIO> sockets = {};
   Map<String, bool> _isProbablyConnected = {};
-  List<bool> isSelected;
+  // List<bool> isSelected;
+  
+  //Vai ser setado de acordo com o valor que vai chegar da churrasqueira
+  //para saber se está ou não ligada, uma variavel para o estado da churrasqueira
+  bool _value = false;
 
-  bool value = false;
-
-  void onChanged(bool value){
+  void onChanged(String identifier, bool value){
+    bool ipc = isProbablyConnected(identifier);
     setState(() {
-      value = value;
+      if (ipc!=null){
+        onBBQ(identifier);
+        _value=value;
+      }
     });
   }
 
@@ -107,6 +113,21 @@ class _InformationRaspState extends State<InformationRasp> {
     }
   }
 
+  onBBQ(identifier) {
+    if (sockets[identifier] != null) {
+      pprint("sending message from '$identifier'...");
+      sockets[identifier].emit("message", ['true']);
+      pprint("Message emitted from '$identifier'...");
+    }
+  }
+  offBBQ(identifier) {
+    if (sockets[identifier] != null) {
+      pprint("sending message from '$identifier'...");
+      sockets[identifier].emit("message", ['false']);
+      pprint("Message emitted from '$identifier'...");
+    }
+  }
+
   sendMessageWithACK(identifier){
     pprint("Sending ACK message from '$identifier'...");
     List msg = ["Hello world!", 1, true, {"p":1}, [3,'r']];
@@ -131,43 +152,44 @@ class _InformationRaspState extends State<InformationRasp> {
     bool ipc = isProbablyConnected(identifier);
     return Container(
       height: 60.0,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 8.0),
-            child: RaisedButton(
-              child: Text("Connect"),
-              onPressed: ipc?null:()=>initSocket(identifier),
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
-            ),
-          ),
-          Container(
+      // child: ListView(
+      //   scrollDirection: Axis.horizontal,
+        // children: <Widget>[
+          // Container(
+          //   margin: EdgeInsets.symmetric(horizontal: 8.0),
+          //   child: RaisedButton(
+          //     child: Text("Connect"),
+          //     onPressed: ipc?null:()=>initSocket(identifier),
+          //     padding: EdgeInsets.symmetric(horizontal: 8.0),
+          //   ),
+          // ),
+          // Container(
               margin: EdgeInsets.symmetric(horizontal: 8.0),
               child: RaisedButton(
                 child: Text("Send Message"),
                 onPressed: ipc?()=>sendMessage(identifier):null,
                 padding: EdgeInsets.symmetric(horizontal: 8.0),
               )
-          ),
-          Container(
-              margin: EdgeInsets.symmetric(horizontal: 8.0),
-              child: RaisedButton(
-                child: Text("Send w/ ACK"), //Send message with ACK
-                onPressed: ipc?()=>sendMessageWithACK(identifier):null,
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-              )
-          ),
-          Container(
-              margin: EdgeInsets.symmetric(horizontal: 8.0),
-              child: RaisedButton(
-                child: Text("Disconnect"),
-                onPressed: ipc?()=>disconnect(identifier):null,
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-              )
-          ),
-        ],
-      ),
+          // ),
+          // ),
+          // Container(
+          //     margin: EdgeInsets.symmetric(horizontal: 8.0),
+          //     child: RaisedButton(
+          //       child: Text("Send w/ ACK"), //Send message with ACK
+          //       onPressed: ipc?()=>sendMessageWithACK(identifier):null,
+          //       padding: EdgeInsets.symmetric(horizontal: 8.0),
+          //     )
+          // ),
+          // Container(
+          //     margin: EdgeInsets.symmetric(horizontal: 8.0),
+          //     child: RaisedButton(
+          //       child: Text("Disconnect"),
+          //       onPressed: ipc?()=>disconnect(identifier):null,
+          //       padding: EdgeInsets.symmetric(horizontal: 8.0),
+          //     )
+          // ),
+      //   ],
+      // ),
     );
   }
 
@@ -199,7 +221,11 @@ class _InformationRaspState extends State<InformationRasp> {
       //     )
       // ),
       home: Scaffold(
-        appBar: AppBar(  
+        appBar: AppBar(
+            leading: Switch(
+              activeColor: Colors.green,
+              value: _value, 
+              onChanged: (bool value){onChanged("default", value);}),  
             title: const Text('Smart Meat',
                 style: TextStyle(fontSize: 35.0, color: Colors.black87, fontFamily: 'Pacifico'),
                 textAlign: TextAlign.center,
