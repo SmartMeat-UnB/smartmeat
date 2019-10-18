@@ -5,7 +5,7 @@ class ResultIA extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('receita'),
+        title: Text('recipe'),
         backgroundColor: Color.fromARGB(255, 169, 0, 52),
         centerTitle: true,
       ),

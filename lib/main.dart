@@ -1,7 +1,7 @@
 import 'package:SmartMeat/screens/churrasqueira.dart';
 import 'package:flutter/material.dart';
 import 'package:SmartMeat/screens/introState.dart';
-import 'package:SmartMeat/screens/receita.dart';
+import 'package:SmartMeat/screens/recipe.dart';
 import 'package:SmartMeat/screens/result_IA.dart';
 import 'package:SmartMeat/screens/tutorialWifi.dart';
 import 'package:SmartMeat/screens/tutorial_screen.dart';
@@ -19,14 +19,15 @@ class MyApp extends StatelessWidget {
         routes: {
           '/home': (context) => HomeTab(),
           '/resultado': (context) => ResultIA(),
-          '/receita': (context) => Receita(),
+          '/recipe': (context) => Recipe(),
           '/tutorial': (context) => TutorialScreen(),
           '/tutorial1': (context) => TutorialWifi(),
         },
-        title: 'Smart\n Meat',
-        theme: ThemeData(
-          primarySwatch: Colors.red,
-        ),
+        // title: 'Smart Meat',
+        // theme: ThemeData(fontFamily: 'Pacifico-Regular'), 
+        // theme: ThemeData(
+        //   primarySwatch: Colors.red,
+        // ),
         debugShowCheckedModeBanner: false,
         home: InformationRasp()
     );

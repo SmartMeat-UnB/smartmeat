@@ -1,3 +1,4 @@
+import 'package:SmartMeat/screens/churrasqueira.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,26 @@ class _InformationRaspState extends State<InformationRasp> {
   SocketIOManager manager;
   Map<String, SocketIO> sockets = {};
   Map<String, bool> _isProbablyConnected = {};
+  // List<bool> isSelected;
+  
+  //Vai ser setado de acordo com o valor que vai chegar da churrasqueira
+  //para saber se está ou não ligada, uma variavel para o estado da churrasqueira
+  bool _value = false;
+
+  void onChanged(String identifier, bool value){
+    bool ipc = isProbablyConnected(identifier);
+    setState(() {
+      if (ipc!=null){
+        if(value == true){
+          onBBQ(identifier);
+          _value=value;
+        }else{
+          offBBQ(identifier);
+          _value=value;
+        }
+      }
+    });
+  }
 
   @override
   void initState() {
@@ -98,6 +119,21 @@ class _InformationRaspState extends State<InformationRasp> {
     }
   }
 
+  onBBQ(identifier) {
+    if (sockets[identifier] != null) {
+      pprint("sending ON message from '$identifier'...");
+      sockets[identifier].emit("message", ['true']);
+      pprint("Message emitted from switch button...");
+    }
+  }
+  offBBQ(identifier) {
+    if (sockets[identifier] != null) {
+      pprint("sending OFF message from '$identifier'...");
+      sockets[identifier].emit("message", ['false']);
+      pprint("Message emitted from switch button...");
+    }
+  }
+
   sendMessageWithACK(identifier){
     pprint("Sending ACK message from '$identifier'...");
     List msg = ["Hello world!", 1, true, {"p":1}, [3,'r']];
@@ -116,48 +152,50 @@ class _InformationRaspState extends State<InformationRasp> {
       toPrint.add(data);
     });
   }
+  
 
   Container getButtonSet(String identifier){
     bool ipc = isProbablyConnected(identifier);
     return Container(
       height: 60.0,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 8.0),
-            child: RaisedButton(
-              child: Text("Connect"),
-              onPressed: ipc?null:()=>initSocket(identifier),
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
-            ),
-          ),
-          Container(
+      // child: ListView(
+      //   scrollDirection: Axis.horizontal,
+        // children: <Widget>[
+          // Container(
+          //   margin: EdgeInsets.symmetric(horizontal: 8.0),
+          //   child: RaisedButton(
+          //     child: Text("Connect"),
+          //     onPressed: ipc?null:()=>initSocket(identifier),
+          //     padding: EdgeInsets.symmetric(horizontal: 8.0),
+          //   ),
+          // ),
+          // Container(
               margin: EdgeInsets.symmetric(horizontal: 8.0),
               child: RaisedButton(
                 child: Text("Send Message"),
                 onPressed: ipc?()=>sendMessage(identifier):null,
                 padding: EdgeInsets.symmetric(horizontal: 8.0),
               )
-          ),
-          Container(
-              margin: EdgeInsets.symmetric(horizontal: 8.0),
-              child: RaisedButton(
-                child: Text("Send w/ ACK"), //Send message with ACK
-                onPressed: ipc?()=>sendMessageWithACK(identifier):null,
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-              )
-          ),
-          Container(
-              margin: EdgeInsets.symmetric(horizontal: 8.0),
-              child: RaisedButton(
-                child: Text("Disconnect"),
-                onPressed: ipc?()=>disconnect(identifier):null,
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-              )
-          ),
-        ],
-      ),
+          // ),
+          // ),
+          // Container(
+          //     margin: EdgeInsets.symmetric(horizontal: 8.0),
+          //     child: RaisedButton(
+          //       child: Text("Send w/ ACK"), //Send message with ACK
+          //       onPressed: ipc?()=>sendMessageWithACK(identifier):null,
+          //       padding: EdgeInsets.symmetric(horizontal: 8.0),
+          //     )
+          // ),
+          // Container(
+          //     margin: EdgeInsets.symmetric(horizontal: 8.0),
+          //     child: RaisedButton(
+          //       child: Text("Disconnect"),
+          //       onPressed: ipc?()=>disconnect(identifier):null,
+          //       padding: EdgeInsets.symmetric(horizontal: 8.0),
+          //     )
+          // ),
+      //   ],
+      // ),
     );
   }
 
@@ -190,45 +228,50 @@ class _InformationRaspState extends State<InformationRasp> {
       // ),
       home: Scaffold(
         appBar: AppBar(
-            title: const Text("Smart\n       Meat",
-                style: TextStyle(color: Colors.black, fontFamily: 'Pacifico'),
+            leading: Switch(
+              activeColor: Colors.green,
+              value: _value, 
+              onChanged: (bool value){onChanged("default", value);}),  
+            title: const Text('Smart Meat',
+                style: TextStyle(fontSize: 35.0, color: Colors.black87, fontFamily: 'Pacifico'),
                 textAlign: TextAlign.center,
-                strutStyle: StrutStyle(height: 1.4, forceStrutHeight: true)),
+                strutStyle: StrutStyle(height: 2.5, forceStrutHeight: true)),
             centerTitle: true,
             backgroundColor: Colors.white,
         ),
-        body: Container(
-          // color: Colors.black,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                  child: Center(
-                    child: ListView(
-                      children: toPrint.map((String _) => Text(_ ?? "")).toList(),
-                    ),
-                  )
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 8.0, bottom: 8.0),
-                child: Text("Default Connection",),
-              ),
-              getButtonSet("default"),
-              Padding(
-                padding: EdgeInsets.only(left: 8.0, bottom: 8.0, top: 8.0),
-                child: Text("Alternate Connection",),
-              ),
-              getButtonSet("alternate"),
-              Padding(
-                padding: EdgeInsets.only(left: 8.0, bottom: 8.0, top: 8.0),
-                child: Text("Namespace Connection",),
-              ),
-              getButtonSet("namespaced"),
-              SizedBox(height: 12.0,)
-            ],
-          ),
-        ),
+        body: Churrasqueira(),
+        // body: Container(
+        //   // color: Colors.black,
+        //   child: Column(
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     mainAxisAlignment: MainAxisAlignment.start,
+        //     children: <Widget>[
+        //       Expanded(
+        //           child: Center(
+        //             child: ListView(
+        //               children: toPrint.map((String _) => Text(_ ?? "")).toList(),
+        //             ),
+        //           )
+        //       ),
+        //       Padding(
+        //         padding: EdgeInsets.only(left: 8.0, bottom: 8.0),
+        //         child: Text("Default Connection",),
+        //       ),
+        //       getButtonSet("default"),
+        //       Padding(
+        //         padding: EdgeInsets.only(left: 8.0, bottom: 8.0, top: 8.0),
+        //         child: Text("Alternate Connection",),
+        //       ),
+        //       getButtonSet("alternate"),
+        //       Padding(
+        //         padding: EdgeInsets.only(left: 8.0, bottom: 8.0, top: 8.0),
+        //         child: Text("Namespace Connection",),
+        //       ),
+        //       getButtonSet("namespaced"),
+        //       SizedBox(height: 12.0,)
+        //     ],
+        //   ),
+        // ),
         bottomNavigationBar: BottomApp(),
         floatingActionButton: FloatButton(),
         floatingActionButtonLocation:

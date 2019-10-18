@@ -1,3 +1,5 @@
+import 'package:SmartMeat/screens/tutorial_screen.dart';
+import 'package:SmartMeat/tabs/home_tab.dart';
 import 'package:flutter/material.dart';
 
 class BottomApp extends StatelessWidget {
@@ -20,9 +22,10 @@ class BottomApp extends StatelessWidget {
                         : Colors.grey[700],
                   ),
                   onPressed: () {
-                    ModalRoute.of(context).settings.name != ('/home')
-                        ? Navigator.pushNamed(context, '/home')
-                        : null;
+                    Navigator.push(context, new MaterialPageRoute(
+                        builder: (context) =>
+                        new HomeTab())
+                      );
                   },
                 ),
                 IconButton(
@@ -34,9 +37,10 @@ class BottomApp extends StatelessWidget {
                         : Colors.grey[700],
                   ),
                   onPressed: () {
-                    ModalRoute.of(context).settings.name != ('/tutorial1')
-                        ? Navigator.pushNamed(context, '/tutorial1')
-                        : null;
+                    Navigator.push(context, new MaterialPageRoute(
+                        builder: (context) =>
+                        new TutorialScreen())
+                      );
                   },
                 ),
                 SizedBox(
