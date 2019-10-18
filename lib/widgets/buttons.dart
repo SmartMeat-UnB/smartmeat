@@ -14,8 +14,10 @@ class  Botao extends StatelessWidget {
     prefs.setString('nome', this.userName); 
     prefs.setBool('seen', true);
     print(this.userName);
-    Navigator.of(context).pushReplacement(
-                     MaterialPageRoute(builder: (context) => HomeTab()));
+    Navigator.push(context, new MaterialPageRoute(
+              builder: (context) =>
+                 new HomeTab())
+              );
 }
     return Center(
       child: Column(

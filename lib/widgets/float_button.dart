@@ -1,3 +1,4 @@
+import 'package:SmartMeat/screens/receita.dart';
 import 'package:flutter/material.dart';
 
 class FloatButton extends StatelessWidget {
@@ -6,9 +7,10 @@ class FloatButton extends StatelessWidget {
     Widget _buildButton() => FloatingActionButton(
           backgroundColor: Color.fromARGB(255, 169, 0, 52),
           onPressed: () {
-            ModalRoute.of(context).settings.name != ('/receita')
-                ? Navigator.pushNamed(context, '/receita')
-                : null;
+            Navigator.push(context, new MaterialPageRoute(
+              builder: (context) =>
+                 new Receita())
+              );
           },
           child: Icon(
             Icons.camera,

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
-
 import 'crop.dart';
 
 class Receita extends StatefulWidget {
@@ -15,10 +14,6 @@ class Receita extends StatefulWidget {
 
 class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
   Image imageFile;
-
-  void pedirReceita() {
-    Navigator.pushNamed(context, '/resultado');
-  }
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
