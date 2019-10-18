@@ -225,20 +225,18 @@ class _InformationRaspState extends State<InformationRasp> {
       //         splashColor: Colors.cyan
       //     )
       // ),
-      body: Scaffold(
-        appBar: AppBar(
-            leading: Switch(
-              activeColor: Colors.green,
-              value: _value, 
-              onChanged: (bool value){onChanged("default", value);}),  
-            title: const Text('Smart Meat',
-                style: TextStyle(fontSize: 35.0, color: Colors.black87, fontFamily: 'Pacifico'),
-                textAlign: TextAlign.center,
-                strutStyle: StrutStyle(height: 2.5, forceStrutHeight: true)),
-            centerTitle: true,
-            backgroundColor: Colors.white,
-        ),
-        // body: Churrasqueira(),
+      appBar: AppBar(
+          leading: Switch(
+            activeColor: Colors.green,
+            value: _value, 
+            onChanged: (bool value){onChanged("default", value);}),  
+          title: const Text('Smart Meat',
+              style: TextStyle(fontSize: 35.0, color: Colors.black87, fontFamily: 'Pacifico'),
+              textAlign: TextAlign.center,
+              strutStyle: StrutStyle(height: 2.5, forceStrutHeight: true)),
+          centerTitle: true,
+          backgroundColor: Colors.white,),
+        body: Churrasqueira(),
         // body: Container(
         //   // color: Colors.black,
         //   child: Column(
@@ -275,7 +273,7 @@ class _InformationRaspState extends State<InformationRasp> {
         floatingActionButton: FloatButton(),
         floatingActionButtonLocation:
             FloatingActionButtonLocation.centerDocked
-      ),
+      // ),
     );
   }
 }
