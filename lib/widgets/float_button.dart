@@ -1,4 +1,4 @@
-import 'package:SmartMeat/screens/receita.dart';
+import 'package:SmartMeat/screens/recipe.dart';
 import 'package:flutter/material.dart';
 
 class FloatButton extends StatelessWidget {
@@ -9,7 +9,7 @@ class FloatButton extends StatelessWidget {
           onPressed: () {
             Navigator.push(context, new MaterialPageRoute(
               builder: (context) =>
-                 new Receita())
+                 new Recipe())
               );
           },
           child: Icon(

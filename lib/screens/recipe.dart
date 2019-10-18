@@ -5,14 +5,14 @@ import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'crop.dart';
 
-class Receita extends StatefulWidget {
-  Receita();
+class Recipe extends StatefulWidget {
+  Recipe();
 
   @override
-  _ReceitaState createState() => _ReceitaState();
+  _RecipeState createState() => _RecipeState();
 }
 
-class _ReceitaState extends State<Receita> with SingleTickerProviderStateMixin {
+class _RecipeState extends State<Recipe> with SingleTickerProviderStateMixin {
   Image imageFile;
 
   Future getImage() async {
