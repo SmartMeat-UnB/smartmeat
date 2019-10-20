@@ -1,4 +1,5 @@
 import 'package:SmartMeat/screens/churrasqueira.dart';
+import 'package:SmartMeat/screens/stepper.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,8 @@ class InformationRasp extends StatefulWidget {
 }
 
 class _InformationRaspState extends State<InformationRasp> {
-  //my ip inet = 192.168.15.6
-  String uri = "http://192.168.15.7:7000/";
+  //my ip inet = 192.168.15.?
+  String uri = "http://192.168.15.2:7000/";
   List<String> toPrint = ["trying to connect"];
   SocketIOManager manager;
   Map<String, SocketIO> sockets = {};
@@ -22,20 +23,30 @@ class _InformationRaspState extends State<InformationRasp> {
   
   //Vai ser setado de acordo com o valor que vai chegar da churrasqueira
   //para saber se está ou não ligada, uma variavel para o estado da churrasqueira
-  bool _value = false;
+  bool _state = false;
+  int _temperature = 0;
 
   void onChanged(String identifier, bool value){
     bool ipc = isProbablyConnected(identifier);
     setState(() {
       if (ipc!=null){
-        if(value == true){
-          onBBQ(identifier);
-          _value=value;
-        }else{
-          offBBQ(identifier);
-          _value=value;
-        }
+          sendMessage(identifier);
+          _state=value;
       }
+    });
+  }
+
+  void subtractNumbers() {
+    setState(() {
+      _temperature = _temperature - 2;
+      sendMessage("default");
+    });
+  }
+
+  void addNumbers() {
+    setState(() {
+      _temperature = _temperature + 2;
+      sendMessage("default");
     });
   }
 
@@ -65,7 +76,7 @@ class _InformationRaspState extends State<InformationRasp> {
     socket.onConnect((data) {
       pprint("connected...");
       pprint(data);
-      sendMessage(identifier);
+      // sendMessage(identifier);
     });
     socket.onConnectError(pprint);
     socket.onConnectTimeout(pprint);
@@ -94,45 +105,48 @@ class _InformationRaspState extends State<InformationRasp> {
     if (sockets[identifier] != null) {
       pprint("sending message from '$identifier'...");
       sockets[identifier].emit("message", [
-        "Hello world!",
-        1908,
-        {
-          "wonder": "Woman",
-          "comics": ["DC", "Marvel"]
-        },
-        {
-          "test": "=!./"
-        },
-        [
-          "I'm glad",
-          2019,
           {
-            "come back": "Tony",
-            "adhara means": ["base", "foundation"]
-          },
-          {
-            "test": "=!./"
-          },
+            "smartmeat": {
+              "on": _state,
+              "temperature": _temperature,
+              "stick1": {
+                "active": false,
+                "time_active": "00:00"
+              },
+              "stick2": {
+                "active": false,
+                "time_active": "00:00"
+              },
+              "stick3": {
+                "active": false,
+                "time_active": "00:00"
+              },
+              "stick4": {
+                "active": false,
+                "time_active": "00:00"
+              }
+            }
+          }
         ]
-      ]);
+      );
       pprint("Message emitted from '$identifier'...");
     }
   }
 
-  onBBQ(identifier) {
-    if (sockets[identifier] != null) {
-      pprint("sending ON message from '$identifier'...");
-      sockets[identifier].emit("message", ['true']);
-      pprint("Message emitted from switch button...");
-    }
-  }
-  offBBQ(identifier) {
-    if (sockets[identifier] != null) {
-      pprint("sending OFF message from '$identifier'...");
-      sockets[identifier].emit("message", ['false']);
-      pprint("Message emitted from switch button...");
-    }
-  }
+  // onBBQ(identifier) {
+  //   if (sockets[identifier] != null) {
+  //     pprint("sending ON message from '$identifier'...");
+  //     sockets[identifier].emit("message", ['true']);
+  //     pprint("Message emitted from switch button...");
+  //   }
+  // }
+  // offBBQ(identifier) {
+  //   if (sockets[identifier] != null) {
+  //     pprint("sending OFF message from '$identifier'...");
+  //     sockets[identifier].emit("message", ['false']);
+  //     pprint("Message emitted from switch button...");
+  //   }
+  // }
 
   sendMessageWithACK(identifier){
     pprint("Sending ACK message from '$identifier'...");
@@ -152,131 +166,110 @@ class _InformationRaspState extends State<InformationRasp> {
       toPrint.add(data);
     });
   }
-  
 
-  Container getButtonSet(String identifier){
-    bool ipc = isProbablyConnected(identifier);
-    return Container(
-      height: 60.0,
-      // child: ListView(
-      //   scrollDirection: Axis.horizontal,
-        // children: <Widget>[
-          // Container(
-          //   margin: EdgeInsets.symmetric(horizontal: 8.0),
-          //   child: RaisedButton(
-          //     child: Text("Connect"),
-          //     onPressed: ipc?null:()=>initSocket(identifier),
-          //     padding: EdgeInsets.symmetric(horizontal: 8.0),
-          //   ),
-          // ),
-          // Container(
-              margin: EdgeInsets.symmetric(horizontal: 8.0),
-              child: RaisedButton(
-                child: Text("Send Message"),
-                onPressed: ipc?()=>sendMessage(identifier):null,
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-              )
-          // ),
-          // ),
-          // Container(
-          //     margin: EdgeInsets.symmetric(horizontal: 8.0),
-          //     child: RaisedButton(
-          //       child: Text("Send w/ ACK"), //Send message with ACK
-          //       onPressed: ipc?()=>sendMessageWithACK(identifier):null,
-          //       padding: EdgeInsets.symmetric(horizontal: 8.0),
-          //     )
-          // ),
-          // Container(
-          //     margin: EdgeInsets.symmetric(horizontal: 8.0),
-          //     child: RaisedButton(
-          //       child: Text("Disconnect"),
-          //       onPressed: ipc?()=>disconnect(identifier):null,
-          //       padding: EdgeInsets.symmetric(horizontal: 8.0),
-          //     )
-          // ),
-      //   ],
-      // ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp( 
-      debugShowCheckedModeBanner: false,
-      // theme: ThemeData(
-      //     textTheme: TextTheme(
-      //       title: TextStyle(color: Colors.white),
-      //       headline: TextStyle(color: Colors.white),
-      //       subtitle: TextStyle(color: Colors.white),
-      //       subhead: TextStyle(color: Colors.white),
-      //       body1: TextStyle(color: Colors.white),
-      //       body2: TextStyle(color: Colors.white),
-      //       button: TextStyle(color: Colors.white),
-      //       caption: TextStyle(color: Colors.white),
-      //       overline: TextStyle(color: Colors.white),
-      //       display1: TextStyle(color: Colors.white),
-      //       display2: TextStyle(color: Colors.white),
-      //       display3: TextStyle(color: Colors.white),
-      //       display4: TextStyle(color: Colors.white),
-      //     ),
-      //     buttonTheme: ButtonThemeData(
-      //         padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 12.0),
-      //         disabledColor: Colors.lightBlueAccent.withOpacity(0.5),
-      //         buttonColor: Colors.lightBlue,
-      //         splashColor: Colors.cyan
-      //     )
-      // ),
-      home: Scaffold(
-        appBar: AppBar(
-            leading: Switch(
-              activeColor: Colors.green,
-              value: _value, 
-              onChanged: (bool value){onChanged("default", value);}),  
-            title: const Text('Smart Meat',
-                style: TextStyle(fontSize: 35.0, color: Colors.black87, fontFamily: 'Pacifico'),
-                textAlign: TextAlign.center,
-                strutStyle: StrutStyle(height: 2.5, forceStrutHeight: true)),
-            centerTitle: true,
-            backgroundColor: Colors.white,
-        ),
-        body: Churrasqueira(),
-        // body: Container(
-        //   // color: Colors.black,
-        //   child: Column(
-        //     crossAxisAlignment: CrossAxisAlignment.start,
-        //     mainAxisAlignment: MainAxisAlignment.start,
-        //     children: <Widget>[
-        //       Expanded(
-        //           child: Center(
-        //             child: ListView(
-        //               children: toPrint.map((String _) => Text(_ ?? "")).toList(),
-        //             ),
-        //           )
-        //       ),
-        //       Padding(
-        //         padding: EdgeInsets.only(left: 8.0, bottom: 8.0),
-        //         child: Text("Default Connection",),
-        //       ),
-        //       getButtonSet("default"),
-        //       Padding(
-        //         padding: EdgeInsets.only(left: 8.0, bottom: 8.0, top: 8.0),
-        //         child: Text("Alternate Connection",),
-        //       ),
-        //       getButtonSet("alternate"),
-        //       Padding(
-        //         padding: EdgeInsets.only(left: 8.0, bottom: 8.0, top: 8.0),
-        //         child: Text("Namespace Connection",),
-        //       ),
-        //       getButtonSet("namespaced"),
-        //       SizedBox(height: 12.0,)
-        //     ],
-        //   ),
-        // ),
+    return Scaffold( 
+      appBar: AppBar(
+          leading: Switch(
+            activeColor: Colors.green,
+            value: _state, 
+            onChanged: (bool value){onChanged("default", value);}),  
+          title: const Text('Smart Meat',
+              style: TextStyle(fontSize: 35.0, color: Colors.black87, fontFamily: 'Pacifico'),
+              textAlign: TextAlign.center,
+              strutStyle: StrutStyle(height: 2.5, forceStrutHeight: true)),
+          centerTitle: true,
+          backgroundColor: Colors.white,),
+          body: Center(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.topCenter,
+                  width: 500.0,
+                  height: 300.0,
+                  child: Churrasqueira(),
+                ),
+                Text(
+                  'Temperatura',
+                  style: TextStyle(
+                    fontSize: 35.0,      
+                  ),
+                    ),
+                Text(
+                  '$_temperature°',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 110.0,
+                    fontFamily: 'Roboto',
+                    // backgroundColor: Colors.black,
+                    color: Colors.black87,
+                  ),
+                  
+                ),
+                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    RaisedButton(
+                      onPressed: subtractNumbers,
+                      textColor: Colors.white,
+                      color: Colors.red,
+                      padding: const EdgeInsets.all(8.0),
+                      child:  Text(
+                                    "-",
+                                    style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 35.0,
+                                              fontFamily: 'Roboto',
+                                          ),
+                                  ),
+                    ),
+                    RaisedButton(
+                      padding: const EdgeInsets.all(8.0),
+                      textColor: Colors.white,
+                      color: Colors.blue,
+                      onPressed: addNumbers,
+                      child:  Text(
+                                  "+",
+                                  style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 35.0,
+                                          fontFamily: 'Roboto',
+                                        ),
+                              ),
+                    ),
+                  ],
+                )
+
+
+                // Spacer(flex: 1),
+                // Text(
+                //   "Temperatura",
+                //   softWrap: true,
+                //   style: TextStyle(
+                //             fontSize: 25.0,
+                //           ),
+                //   ),
+                // Container(
+                //   decoration: BoxDecoration(
+                //                 border: Border.all(color: Colors.black, width: 1.0),
+                //               ),
+                //   child: StepperTouch(
+                //           initialValue: 0,
+                //           onChanged: (int value) => print('new value $value'),
+                //         ),
+                // ),
+                // Spacer(flex: 1)
+              ],
+            ),
+          ),
+
         bottomNavigationBar: BottomApp(),
         floatingActionButton: FloatButton(),
         floatingActionButtonLocation:
             FloatingActionButtonLocation.centerDocked
-      ),
+      // ),
     );
   }
 }
