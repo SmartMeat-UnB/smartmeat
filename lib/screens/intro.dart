@@ -1,5 +1,5 @@
+import 'package:SmartMeat/screens/tutorialWifi.dart';
 import 'package:flutter/material.dart';
-import 'name_user.dart';
 
 class WelcomePage extends StatelessWidget {
   @override
@@ -48,13 +48,12 @@ class WelcomePage extends StatelessWidget {
                           controller.animateTo(choices.length - 1);
                         }
                         Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => NameUser()));
+                        MaterialPageRoute(builder: (context) => TutorialWifi()));
                       },
                   )
                 ),
               ),
               TabPageSelector(color: Colors.white,selectedColor: Colors.red,)
-              // TabPageSelector(color: Colors.white,selectedColor: Colors.red,),
             ],
           ),
         ),

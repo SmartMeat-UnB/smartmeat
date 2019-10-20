@@ -1,7 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:system_setting/system_setting.dart';
+import 'package:SmartMeat/screens/informationsRasp.dart';
 
 class TutorialWifi extends StatefulWidget {
   @override
@@ -9,49 +8,42 @@ class TutorialWifi extends StatefulWidget {
 }
 
 class _TutorialWifiState extends State<TutorialWifi> {
-  String _nome;
-  Future checkFirstSeen() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _nome = (prefs.getString('nome'));
-    });
-    
-}
-  @override
-  void initState() {
-      super.initState();
-      Timer( Duration(milliseconds: 20), () {
-      checkFirstSeen();
-      });
+
+  _jumpToSettingWifi() {
+    SystemSetting.goto(SettingTarget.WIFI);
+  }
+
+  _jumpToSettingBT() {
+    SystemSetting.goto(SettingTarget.BLUETOOTH);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        backgroundColor: Colors.white,
-      ),
+      // appBar: AppBar(
+      //   leading: IconButton(
+      //       icon: Icon(
+      //         Icons.arrow_back,
+      //         color: Colors.black,
+      //       ),
+      //       onPressed: () {
+      //         Navigator.pop(context);
+      //       },
+      //     ),
+      //   backgroundColor: Colors.white,
+      // ),
       body: Container(
         child: Column(
           children: <Widget>[
             SizedBox(
-                  height: 10,
+                  height: 100,
                 ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Image.asset(
-                          "images/ok.jpg",
+                          "images/smartphone.png",
                           fit: BoxFit.cover,
                           height: 190.0,
                         )
@@ -65,8 +57,8 @@ class _TutorialWifiState extends State<TutorialWifi> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text("Tudo certo $_nome\n vamos começar.\nO primeiro passo\n é conectar seu\n celular a\n churrasqueira via\n wifi",
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.w300 ),
+                Text("Tudo certo \n vamos começar.\nO primeiro passo\n é conectar seu\n celular a\n churrasqueira via\n wifi",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300 ),
                 textAlign: TextAlign.center,)
                  
               ],
@@ -76,26 +68,71 @@ class _TutorialWifiState extends State<TutorialWifi> {
                   height: 15,
                 ),
             Row(
-              
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                SizedBox(
-                  width: 280,
+                // SizedBox(
+                //   height: 25,
+                // ),
+                RaisedButton(
+                  onPressed: _jumpToSettingWifi,
+                  textColor: Colors.white,
+                  color: Colors.blue,
+                  padding: const EdgeInsets.all(8.0),
+                  child:  Text(
+                                "Wifi",
+                                style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 35.0,
+                                          fontFamily: 'Roboto',
+                                      ),
+                              ),
                 ),
-                IconButton(
-                icon: Icon(
-                  Icons.navigate_next,
-                  size: 60,
-                  color: Colors.grey,
-                 ), 
-                 onPressed: () {
-                   Navigator.pushNamed(context, '/tutorial');
-                 },
+                RaisedButton(
+                  padding: const EdgeInsets.all(8.0),
+                  textColor: Colors.white,
+                  color: Colors.blue,
+                  onPressed: _jumpToSettingBT,
+                  child:  Text(
+                              "Bluetooth",
+                              style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 35.0,
+                                      fontFamily: 'Roboto',
+                                    ),
+                          ),
                 ),
-              ],            
+              ]
+            ),
+            SizedBox(
+              height: 100,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                ButtonTheme(
+                  minWidth: 100.0,
+                  height: 60.0,                  
+                    child:RaisedButton(
+                      child: Text('INICIAR',
+                                  style: TextStyle(
+                                            fontSize: 40.0,
+                                            color: Colors.white,
+                                          ),
+                                ),
+                      color: Colors.green,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => InformationRasp()));
+                      },
+                  )
+                ),
+              ],
+            ),
+              ],           
             )
-          ],
         ),
-      ),
     );
   }
 }

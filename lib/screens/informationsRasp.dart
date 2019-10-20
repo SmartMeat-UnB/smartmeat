@@ -187,17 +187,6 @@ class _InformationRaspState extends State<InformationRasp> {
                     fontSize: 35.0,      
                   ),
                     ),
-                // Text(
-                //   '$_temperature°',
-                //   style: TextStyle(
-                //     fontWeight: FontWeight.bold,
-                //     fontSize: 110.0,
-                //     fontFamily: 'Roboto',
-                //     // backgroundColor: Colors.black,
-                //     color: Colors.black87,
-                //   ),
-                  
-                // ),
                  Row( 
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[

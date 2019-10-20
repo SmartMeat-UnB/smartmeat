@@ -24,7 +24,6 @@ String v = "";
     return Scaffold(
         resizeToAvoidBottomInset: false,
       body: Column(
-        
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -36,10 +35,10 @@ String v = "";
                 _doSomething(text);    
             },
             decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: '      Insira seu nome',
-            labelText: "      Nome:",
-            labelStyle: TextStyle(height:0, fontSize: 20,color: Colors.black,),
+              border: InputBorder.none,
+              hintText: '      Insira seu nome',
+              labelText: "      Nome:",
+              labelStyle: TextStyle(height:0, fontSize: 25,color: Colors.black,),
             ),
           ),        
         Botao('PRONTO!', v),
