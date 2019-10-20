@@ -1,9 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 
 class CropImage extends StatefulWidget {
   final File imageFile;
@@ -14,6 +16,8 @@ class CropImage extends StatefulWidget {
 
 class _CropImageState extends State<CropImage> {
   Image imageCropped;
+  File croppedFile;
+
   Future<Null> _cropImage(File imageFile) async {
     File croppedFile = await ImageCropper.cropImage(
       sourcePath: imageFile.path,
@@ -29,8 +33,30 @@ class _CropImageState extends State<CropImage> {
         croppedFile,
         fit: BoxFit.cover,
       );
+      this.croppedFile = croppedFile;
+      getRecipe();
     });
   }
+
+  // final String inverseCookingEndPoint = 'http://localhost:3000/predict';
+  final String inverseCookingEndPoint = 'http://10.0.2.2:3000/predict';
+  // final String inverseCookingEndPoint = "ubuntu@ec2-18-231-150-126.sa-east-1.compute.amazonaws.com:3000/predict";
+
+  Future<String> getRecipe() async {
+      if (croppedFile == null) return "Cropped file returned Null";
+      String base64Image = base64Encode(croppedFile.readAsBytesSync());
+      String fileName = croppedFile.path.split("/").last;
+
+      await http.post(inverseCookingEndPoint, body: {
+        "image": base64Image,
+        "name": fileName,
+      }).then((res) {
+        print(res.statusCode);
+        print(res.body);
+      }).catchError((err) {
+        print(err);
+      });
+    }
 
   @override
   Widget build(BuildContext context) {

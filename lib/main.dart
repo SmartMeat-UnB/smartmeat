@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:SmartMeat/screens/receita.dart';
+import 'package:SmartMeat/screens/recipe.dart';
 import 'package:SmartMeat/screens/result_IA.dart';
 import 'package:SmartMeat/screens/tutorialWifi.dart';
 import 'package:SmartMeat/screens/tutorial_screen.dart';
 import 'package:SmartMeat/tabs/home_tab.dart';
 import 'package:SmartMeat/screens/informationsRasp.dart';
-import 'package:flutter/rendering.dart';
 
 
 void main() {
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/home': (context) => HomeTab(),
           '/resultado': (context) => ResultIA(),
-          '/receita': (context) => Receita(),
+          '/recipe': (context) => Recipe(),
           '/tutorial': (context) => TutorialScreen(),
           '/tutorial1': (context) => TutorialWifi(),
         },
