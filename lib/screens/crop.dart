@@ -1,11 +1,11 @@
 import 'dart:io';
+import 'package:SmartMeat/screens/result_IA.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
 
 class CropImage extends StatefulWidget {
   final File imageFile;
@@ -34,7 +34,7 @@ class _CropImageState extends State<CropImage> {
         fit: BoxFit.cover,
       );
       this.croppedFile = croppedFile;
-      getRecipe();
+      //getRecipe();
     });
   }
 
@@ -43,20 +43,20 @@ class _CropImageState extends State<CropImage> {
   // final String inverseCookingEndPoint = "ubuntu@ec2-18-231-150-126.sa-east-1.compute.amazonaws.com:3000/predict";
 
   Future<String> getRecipe() async {
-      if (croppedFile == null) return "Cropped file returned Null";
-      String base64Image = base64Encode(croppedFile.readAsBytesSync());
-      String fileName = croppedFile.path.split("/").last;
+    if (croppedFile == null) return "Cropped file returned Null";
+    String base64Image = base64Encode(croppedFile.readAsBytesSync());
+    String fileName = croppedFile.path.split("/").last;
 
-      await http.post(inverseCookingEndPoint, body: {
-        "image": base64Image,
-        "name": fileName,
-      }).then((res) {
-        print(res.statusCode);
-        print(res.body);
-      }).catchError((err) {
-        print(err);
-      });
-    }
+    await http.post(inverseCookingEndPoint, body: {
+      "image": base64Image,
+      "name": fileName,
+    }).then((res) {
+      print(res.statusCode);
+      print(res.body);
+    }).catchError((err) {
+      print(err);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +112,10 @@ class _CropImageState extends State<CropImage> {
                                   TextStyle(color: Colors.white, fontSize: 20),
                             ),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/resultado');
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      ResultIA(widget.imageFile)));
+                              ;
                             },
                           ),
                         )
