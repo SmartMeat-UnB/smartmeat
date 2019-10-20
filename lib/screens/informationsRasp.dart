@@ -24,7 +24,7 @@ class _InformationRaspState extends State<InformationRasp> {
   //Vai ser setado de acordo com o valor que vai chegar da churrasqueira
   //para saber se está ou não ligada, uma variavel para o estado da churrasqueira
   bool _state = false;
-  int _temperature = 0;
+  int _temperature = 25;
 
   void onChanged(String identifier, bool value){
     bool ipc = isProbablyConnected(identifier);
@@ -37,17 +37,21 @@ class _InformationRaspState extends State<InformationRasp> {
   }
 
   void subtractNumbers() {
-    setState(() {
-      _temperature = _temperature - 2;
-      sendMessage("default");
-    });
+    if(_temperature>=25){
+      setState(() {
+        _temperature = _temperature - 2;
+        sendMessage("default");
+      });
+    }
   }
 
   void addNumbers() {
-    setState(() {
-      _temperature = _temperature + 2;
-      sendMessage("default");
-    });
+    if(_temperature<=80){
+      setState(() {
+        _temperature = _temperature + 2;
+        sendMessage("default");
+      });
+    }
   }
 
   @override
@@ -133,20 +137,6 @@ class _InformationRaspState extends State<InformationRasp> {
     }
   }
 
-  // onBBQ(identifier) {
-  //   if (sockets[identifier] != null) {
-  //     pprint("sending ON message from '$identifier'...");
-  //     sockets[identifier].emit("message", ['true']);
-  //     pprint("Message emitted from switch button...");
-  //   }
-  // }
-  // offBBQ(identifier) {
-  //   if (sockets[identifier] != null) {
-  //     pprint("sending OFF message from '$identifier'...");
-  //     sockets[identifier].emit("message", ['false']);
-  //     pprint("Message emitted from switch button...");
-  //   }
-  // }
 
   sendMessageWithACK(identifier){
     pprint("Sending ACK message from '$identifier'...");
@@ -197,18 +187,18 @@ class _InformationRaspState extends State<InformationRasp> {
                     fontSize: 35.0,      
                   ),
                     ),
-                Text(
-                  '$_temperature°',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 110.0,
-                    fontFamily: 'Roboto',
-                    // backgroundColor: Colors.black,
-                    color: Colors.black87,
-                  ),
+                // Text(
+                //   '$_temperature°',
+                //   style: TextStyle(
+                //     fontWeight: FontWeight.bold,
+                //     fontSize: 110.0,
+                //     fontFamily: 'Roboto',
+                //     // backgroundColor: Colors.black,
+                //     color: Colors.black87,
+                //   ),
                   
-                ),
-                 Row(
+                // ),
+                 Row( 
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
@@ -224,6 +214,16 @@ class _InformationRaspState extends State<InformationRasp> {
                                               fontFamily: 'Roboto',
                                           ),
                                   ),
+                    ),
+                    Text(
+                      '$_temperature°',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 80.0,
+                        fontFamily: 'Roboto',
+                        color: Colors.black87,
+                        backgroundColor: Colors.black.withOpacity(0.2),                        
+                      ),
                     ),
                     RaisedButton(
                       padding: const EdgeInsets.all(8.0),
@@ -241,26 +241,6 @@ class _InformationRaspState extends State<InformationRasp> {
                     ),
                   ],
                 )
-
-
-                // Spacer(flex: 1),
-                // Text(
-                //   "Temperatura",
-                //   softWrap: true,
-                //   style: TextStyle(
-                //             fontSize: 25.0,
-                //           ),
-                //   ),
-                // Container(
-                //   decoration: BoxDecoration(
-                //                 border: Border.all(color: Colors.black, width: 1.0),
-                //               ),
-                //   child: StepperTouch(
-                //           initialValue: 0,
-                //           onChanged: (int value) => print('new value $value'),
-                //         ),
-                // ),
-                // Spacer(flex: 1)
               ],
             ),
           ),
