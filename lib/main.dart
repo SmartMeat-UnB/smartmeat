@@ -23,11 +23,6 @@ class MyApp extends StatelessWidget {
           '/tutorial': (context) => TutorialScreen(),
           '/tutorial1': (context) => TutorialWifi(),
         },
-        // title: 'Smart Meat',
-        // theme: ThemeData(fontFamily: 'Pacifico-Regular'), 
-        // theme: ThemeData(
-        //   primarySwatch: Colors.red,
-        // ),
         debugShowCheckedModeBanner: false,
         home: InformationRasp()
     );

@@ -1,4 +1,5 @@
 import 'package:SmartMeat/screens/churrasqueira.dart';
+import 'package:SmartMeat/screens/stepper.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
@@ -236,7 +237,89 @@ class _InformationRaspState extends State<InformationRasp> {
               strutStyle: StrutStyle(height: 2.5, forceStrutHeight: true)),
           centerTitle: true,
           backgroundColor: Colors.white,),
-        body: Churrasqueira(),
+          body: Center(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.topCenter,
+                  width: 500.0,
+                  height: 300.0,
+                  child: Churrasqueira(),
+                ),
+                Text(
+                  "Temperatura",
+                  softWrap: true,
+                  style: TextStyle(
+                            fontSize: 25.0,
+                          ),
+                  ),
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  child: StepperTouch(
+                          initialValue: 0,
+                          onChanged: (int value) => print('new value $value'),
+                        ),
+                ),
+              ],
+            ),
+          ),
+          
+          // body: Column(children: <Widget>[
+          //     Align(
+          //       alignment: Alignment.topCenter,
+          //       child: Churrasqueira(),
+          //     )
+          //     // Row(
+          //     //   //ROW 1
+          //     //   children: [
+          //     //     Expanded(
+          //     //       flex: 7,
+          //     //       child: Churrasqueira(),
+          //     //     ),
+          //     //   ],
+          //     // ),
+          //     // Row(//ROW 2
+          //     //     children: [
+          //     //   Container(
+          //     //     color: Colors.orange,
+          //     //     margin: EdgeInsets.all(25.0),
+          //     //     child: StepperTouch(
+          //     //             initialValue: 0,
+          //     //             onChanged: (int value) => print('new value $value'),
+          //     //           ),
+          //     //     // alignment: Alignment(0.0, 0.8),
+          //     //   ),
+          //     // ]),
+          // ]
+          // // body: SafeArea(
+          // //   child: Container(
+          // //     child: StepperTouch(
+          // //             initialValue: 0,
+          // //             onChanged: (int value) => print('new value $value'),
+          // //            ),
+          // //     alignment: Alignment(0.0, 0.8),
+          // //     decoration: BoxDecoration(
+          // //                   color: Colors.green,
+          // //                   border: Border.all(),
+          // //                 ),
+          // //   ),
+            
+          //   // child: Center(
+          //   //   child: Column(
+          //   //     mainAxisAlignment: MainAxisAlignment.center,
+          //   //     children: <Widget>[
+          //   //       Padding(
+          //   //         padding: const EdgeInsets.all(8.0),
+          //   //         child: StepperTouch(
+          //   //           initialValue: 0,
+          //   //           onChanged: (int value) => print('new value $value'),
+          //   //         ),
+          //   //       ),
+          //   //     ],
+          //   //   ),
+          //   // ),
+          // ),
+        // body: Churrasqueira(),
         // body: Container(
         //   // color: Colors.black,
         //   child: Column(
