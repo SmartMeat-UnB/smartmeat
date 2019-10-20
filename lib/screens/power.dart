@@ -14,7 +14,7 @@ class power extends StatelessWidget {
         title: Text('Hello'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
@@ -23,8 +23,8 @@ class power extends StatelessWidget {
         children: <Widget>[
           IconButton(
             icon: Icon(Icons.power_settings_new,),iconSize: 90,
-            tooltip: 'Ligar/Desligar',
-            color: Colors.black,
+            tooltip: 'Ligar',
+            //color: Colors.black,
             onPressed: () {}
           ),
 
@@ -42,3 +42,4 @@ class power extends StatelessWidget {
         );
   }
 }
+

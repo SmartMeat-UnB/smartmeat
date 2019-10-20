@@ -8,15 +8,7 @@ import 'power.dart';
 class dash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold (
-        body: Column(
-          temp(); 
-           power();
-        )
-          
-
-    );
+    return power();
     
-      
   }
 }
