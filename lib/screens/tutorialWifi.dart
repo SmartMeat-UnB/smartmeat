@@ -57,7 +57,7 @@ class _TutorialWifiState extends State<TutorialWifi> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text("Tudo certo \n vamos começar.\nO primeiro passo\n é conectar seu\n celular a\n churrasqueira via\n wifi",
+                Text("Faça a conexão do seu celular\n a mesma rede Wifi que esta a \nchurrasqueira ou ao Bluetooth.",
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300 ),
                 textAlign: TextAlign.center,)
                  
@@ -65,7 +65,7 @@ class _TutorialWifiState extends State<TutorialWifi> {
 
             ),
              SizedBox(
-                  height: 15,
+                  height: 90,
                 ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -104,7 +104,7 @@ class _TutorialWifiState extends State<TutorialWifi> {
               ]
             ),
             SizedBox(
-              height: 100,
+              height: 120,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -114,7 +114,7 @@ class _TutorialWifiState extends State<TutorialWifi> {
                   minWidth: 100.0,
                   height: 60.0,                  
                     child:RaisedButton(
-                      child: Text('INICIAR',
+                      child: Text('PRONTO',
                                   style: TextStyle(
                                             fontSize: 40.0,
                                             color: Colors.white,
