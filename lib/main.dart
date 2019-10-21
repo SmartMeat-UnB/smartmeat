@@ -1,3 +1,4 @@
+import 'package:SmartMeat/screens/testt.dart';
 import 'package:flutter/material.dart';
 import 'package:SmartMeat/screens/recipe.dart';
 import 'package:SmartMeat/screens/result_IA.dart';
@@ -19,6 +20,6 @@ class MyApp extends StatelessWidget {
       '/recipe': (context) => Recipe(),
       '/tutorial': (context) => TutorialScreen(),
       '/tutorial1': (context) => TutorialWifi(),
-    }, debugShowCheckedModeBanner: false, home: Recipe());
+    }, debugShowCheckedModeBanner: false, home: Blabla());
   }
 }
