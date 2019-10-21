@@ -104,7 +104,11 @@ class _TutorialWifiState extends State<TutorialWifi> {
               ]
             ),
             SizedBox(
+<<<<<<< HEAD
               height: 185,
+=======
+              height: 120,
+>>>>>>> 6d664042b74a8d13979a78932edf07bb547b7544
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
