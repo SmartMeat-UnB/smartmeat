@@ -1,5 +1,4 @@
 import 'package:SmartMeat/screens/churrasqueira.dart';
-import 'package:SmartMeat/screens/stepper.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
