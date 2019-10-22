@@ -5,16 +5,16 @@ import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
 
-class Receita {
-  List<Recipes> recipes;
+class Recipes {
+  List<Recipe> recipes;
 
-  Receita({this.recipes});
+  Recipes({this.recipes});
 
-  Receita.fromJson(Map<String, dynamic> json) {
+  Recipes.fromJson(Map<String, dynamic> json) {
     if (json['recipes'] != null) {
-      recipes = new List<Recipes>();
+      recipes = new List<Recipe>();
       json['recipes'].forEach((v) {
-        recipes.add(new Recipes.fromJson(v));
+        recipes.add(new Recipe.fromJson(v));
       });
     }
   }
@@ -28,14 +28,14 @@ class Receita {
   }
 }
 
-class Recipes {
+class Recipe {
   List<String> ingrs;
   List<String> recipe;
   String title;
 
-  Recipes({this.ingrs, this.recipe, this.title});
+  Recipe({this.ingrs, this.recipe, this.title});
 
-  Recipes.fromJson(Map<String, dynamic> json) {
+  Recipe.fromJson(Map<String, dynamic> json) {
     ingrs = json['ingrs'].cast<String>();
     recipe = json['recipe'].cast<String>();
     title = json['title'];
@@ -55,11 +55,11 @@ class ResultIA extends StatelessWidget {
   ResultIA(this.imageFile);
   @override
   Widget build(BuildContext context) {
-    Receita teste() {
+    Recipes teste() {
       var jsonData =
           '{"recipes": [{"ingrs": ["zucchini","oil","salt","squash","pepper","eggplant"],"recipe": ["Preheat grill to medium-high.","Brush eggplant slices with oil and season with salt and pepper.","Grill, turning once, until tender and lightly charred, about 10 minutes.","Transfer to a platter and let cool.","Cut into 1/2-inch slices.","Serve with grilled zucchini."],"title": "Grilled eggplant and zucchini"},{"ingrs": ["zucchini","oil","salt","squash","pepper","eggplant"],"recipe": ["Slice the squash and slice into rounds, then brush with olive oil.","Season with salt and pepper.","Grill over high heat, turning once to char all sides.","Sprinkle with fresh grated cheese and serve."],"title": "Eggplant with zucchini (aubergine)"}]}';
       var parsedJson = json.decode(jsonData);
-      var user = Receita.fromJson(parsedJson);
+      var user = Recipes.fromJson(parsedJson);
       return user;
     }
 
@@ -100,7 +100,7 @@ class ResultIA extends StatelessWidget {
     }
 
     Widget buildResults() {
-      Receita receita = teste();
+      Recipes receita = teste();
 
       return ListView.builder(
         shrinkWrap: true,
