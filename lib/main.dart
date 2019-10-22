@@ -1,11 +1,9 @@
+import 'package:SmartMeat/screens/introState.dart';
 import 'package:flutter/material.dart';
-import 'package:SmartMeat/screens/recipe.dart';
-import 'package:SmartMeat/screens/result_IA.dart';
+import 'package:SmartMeat/screens/imagecell.dart';
 import 'package:SmartMeat/screens/tutorialWifi.dart';
 import 'package:SmartMeat/screens/tutorial_screen.dart';
 import 'package:SmartMeat/tabs/home_tab.dart';
-import 'package:SmartMeat/screens/informationsRasp.dart';
-
 
 void main() {
   // debugPaintSizeEnabled = true;
@@ -15,17 +13,11 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        routes: {
-          '/home': (context) => HomeTab(),
-          '/resultado': (context) => ResultIA(),
-          '/recipe': (context) => Recipe(),
-          '/tutorial': (context) => TutorialScreen(),
-          '/tutorial1': (context) => TutorialWifi(),
-        },
-        
-        debugShowCheckedModeBanner: false,
-        home: InformationRasp()
-    );
+    return MaterialApp(routes: {
+      '/home': (context) => HomeTab(),
+      '/recipe': (context) => ImagesCell(),
+      '/tutorial': (context) => TutorialScreen(),
+      '/tutorial1': (context) => TutorialWifi(),
+    }, debugShowCheckedModeBanner: false, home: Splash());
   }
 }
