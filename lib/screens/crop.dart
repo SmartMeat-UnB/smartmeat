@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:SmartMeat/screens/recipes/recipes.dart';
 import 'package:SmartMeat/screens/recipes/result_IA.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -58,6 +59,16 @@ class _CropImageState extends State<CropImage> {
     });
   }
 
+  String jsonString =
+      '{"recipes": [{"ingrs": ["zucchini","oil","salt","squash","pepper","eggplant"],"recipe": ["Preheat grill to medium-high.","Brush eggplant slices with oil and season with salt and pepper.","Grill, turning once, until tender and lightly charred, about 10 minutes.","Transfer to a platter and let cool.","Cut into 1/2-inch slices.","Serve with grilled zucchini."],"title": "Grilled eggplant and zucchini"},{"ingrs": ["zucchini","oil","salt","squash","pepper","eggplant"],"recipe": ["Slice the squash and slice into rounds, then brush with olive oil.","Season with salt and pepper.","Grill over high heat, turning once to char all sides.","Sprinkle with fresh grated cheese and serve."],"title": "Eggplant with zucchini (aubergine)"}]}';
+  // jsonString eh onde precisa armazenar o retorno das receitas em formato de String
+  Recipes recipesData() {
+    String jsonData = jsonString;
+    var parsedJson = json.decode(jsonData);
+    Recipes recipes = Recipes.fromJson(parsedJson);
+    return recipes;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,8 +124,8 @@ class _CropImageState extends State<CropImage> {
                             ),
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      ResultIA(widget.imageFile)));
+                                  builder: (context) => ResultIA(
+                                      widget.imageFile, recipesData())));
                             },
                           ),
                         )

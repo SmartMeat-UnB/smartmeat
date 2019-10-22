@@ -9,19 +9,12 @@ import 'package:flutter/material.dart';
 
 class ResultIA extends StatelessWidget {
   final File imageFile;
-  ResultIA(this.imageFile);
+  final Recipes receita;
+  ResultIA(this.imageFile, this.receita);
 
   @override
   Widget build(BuildContext context) {
-    Recipes teste() {
-      var jsonData =
-          '{"recipes": [{"ingrs": ["zucchini","oil","salt","squash","pepper","eggplant"],"recipe": ["Preheat grill to medium-high.","Brush eggplant slices with oil and season with salt and pepper.","Grill, turning once, until tender and lightly charred, about 10 minutes.","Transfer to a platter and let cool.","Cut into 1/2-inch slices.","Serve with grilled zucchini."],"title": "Grilled eggplant and zucchini"},{"ingrs": ["zucchini","oil","salt","squash","pepper","eggplant"],"recipe": ["Slice the squash and slice into rounds, then brush with olive oil.","Season with salt and pepper.","Grill over high heat, turning once to char all sides.","Sprinkle with fresh grated cheese and serve."],"title": "Eggplant with zucchini (aubergine)"}]}';
-      var parsedJson = json.decode(jsonData);
-      var user = Recipes.fromJson(parsedJson);
-      return user;
-    }
-
-    Recipes receita = teste();
+    Recipes receita = this.receita;
     Widget results(int contador) {
       return ButtonBar(
         alignment: MainAxisAlignment.spaceEvenly,
