@@ -21,6 +21,6 @@ class MyApp extends StatelessWidget {
       '/recipe': (context) => ImagesCell(),
       '/tutorial': (context) => TutorialScreen(),
       '/tutorial1': (context) => TutorialWifi(),
-    }, debugShowCheckedModeBanner: false, home: RecipeResult());
+    }, debugShowCheckedModeBanner: false, home: ImagesCell());
   }
 }

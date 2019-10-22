@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:SmartMeat/screens/recipeResult.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
@@ -91,7 +92,8 @@ class ResultIA extends StatelessWidget {
                 ],
               ),
               onPressed: () {
-                //getImageGallery();
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => RecipeResult(imageFile)));
               },
             ),
           ),

@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
 
 class RecipeResult extends StatelessWidget {
+  final File imageFile;
+  RecipeResult(this.imageFile);
   @override
   Widget build(BuildContext context) {
     String title = 'Salada com Queijo';
@@ -64,10 +68,10 @@ class RecipeResult extends StatelessWidget {
                       child: Container(
                     width: 120,
                     height: 120,
-                    // child: Image.file(
-                    //   imageFile,
-                    //   fit: BoxFit.cover,
-                    // ),
+                    child: Image.file(
+                      imageFile,
+                      fit: BoxFit.cover,
+                    ),
                   )),
                   SizedBox(width: 50.0),
                   Text(

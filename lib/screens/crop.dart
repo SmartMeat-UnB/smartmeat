@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:SmartMeat/screens/recipeResult.dart';
 import 'package:SmartMeat/screens/result_IA.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -115,7 +116,6 @@ class _CropImageState extends State<CropImage> {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
                                       ResultIA(widget.imageFile)));
-                              ;
                             },
                           ),
                         )
