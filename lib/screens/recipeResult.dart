@@ -5,52 +5,65 @@ import 'package:flutter/material.dart';
 class RecipeResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String titulo = 'Salada com Queijo';
     return Scaffold(
         bottomNavigationBar: BottomApp(),
         body: Container(
-          padding: EdgeInsets.symmetric(vertical: 10.0),
+          padding: EdgeInsets.symmetric(vertical: 7.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("Resultados",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
-              SizedBox(
-                height: 20,
-              ),
-              ButtonBar(
-                alignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  ButtonTheme(
-                    minWidth: 300,
-                    height: 100.0,
-                    child: RaisedButton(
-                      color: Colors.white,
-                      child: Row(
-                        children: <Widget>[
-                          Card(
-                              child: Container(
-                            width: 80,
-                            height: 80,
-                            // child: Image.file(
-                            //   imageFile,
-                            //   fit: BoxFit.cover,
-                            // ),
-                          )),
-                          SizedBox(width: 50.0),
-                          Text(
-                            'Receita ',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ],
-                      ),
-                      onPressed: () {
-                        //getImageGallery();
-                      },
+              Container(
+                child: Column(children: <Widget>[
+                  Center(
+                    child: Text(
+                      "Resultados",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                ],
-              )
+                  SizedBox(
+                    height: 7,
+                  ),
+                  Card(
+                      child: Container(
+                    width: 120,
+                    height: 120,
+                    // child: Image.file(
+                    //   imageFile,
+                    //   fit: BoxFit.cover,
+                    // ),
+                  )),
+                  SizedBox(width: 50.0),
+                  Text(
+                    '$titulo',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ]),
+              ),
+              Container(
+                child: Column(
+                  children: <Widget>[
+                    Text("  Ingredientes:",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 17),
+                        textAlign: TextAlign.left),
+                  ],
+                ),
+              ),
+              SizedBox(height: 22.0),
+              Container(
+                child: Column(
+                  children: <Widget>[
+                    Text("  Modo de preparo:",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 17),
+                        textAlign: TextAlign.left),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
