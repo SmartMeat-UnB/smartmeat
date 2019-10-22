@@ -1,32 +1,20 @@
 import 'dart:io';
 
+import 'package:SmartMeat/screens/result_IA.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
 
 class RecipeResult extends StatelessWidget {
   final File imageFile;
-  RecipeResult(this.imageFile);
+  final Recipes receita;
+  final int contador;
+  RecipeResult(this.imageFile, this.receita, this.contador);
   @override
   Widget build(BuildContext context) {
-    String title = 'Salada com Queijo';
-    int receita = 1;
-    List<String> ingrs = [
-      "zucchini",
-      "oil",
-      "salt",
-      "squash",
-      "pepper",
-      "eggplant"
-    ];
-    List<String> recipe = [
-      "Preheat grill to medium-high.",
-      "Brush eggplant slices with oil and season with salt and pepper.",
-      "Grill, turning once, until tender and lightly charred, about 10 minutes.",
-      "Transfer to a platter and let cool.",
-      "Cut into 1/2-inch slices.",
-      "Serve with grilled zucchini."
-    ];
+    String title = this.receita.recipes[contador].title;
+    List<String> ingrs = this.receita.recipes[contador].ingrs;
+    List<String> recipe = this.receita.recipes[contador].recipe;
 
     Widget buildIngrs() {
       return Text("$ingrs", style: TextStyle(fontSize: 15));

@@ -54,6 +54,7 @@ class Recipe {
 class ResultIA extends StatelessWidget {
   final File imageFile;
   ResultIA(this.imageFile);
+
   @override
   Widget build(BuildContext context) {
     Recipes teste() {
@@ -64,7 +65,8 @@ class ResultIA extends StatelessWidget {
       return user;
     }
 
-    Widget results(int receita) {
+    Recipes receita = teste();
+    Widget results(int contador) {
       return ButtonBar(
         alignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
@@ -86,14 +88,15 @@ class ResultIA extends StatelessWidget {
                   )),
                   SizedBox(width: 50.0),
                   Text(
-                    'Receita $receita',
+                    'Receita $contador',
                     style: TextStyle(fontSize: 20),
                   ),
                 ],
               ),
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => RecipeResult(imageFile)));
+                    builder: (context) =>
+                        RecipeResult(imageFile, receita, contador - 1)));
               },
             ),
           ),
@@ -102,8 +105,6 @@ class ResultIA extends StatelessWidget {
     }
 
     Widget buildResults() {
-      Recipes receita = teste();
-
       return ListView.builder(
         shrinkWrap: true,
         itemCount: receita.recipes.length,
