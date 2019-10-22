@@ -5,7 +5,40 @@ import 'package:flutter/material.dart';
 class RecipeResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    String titulo = 'Salada com Queijo';
+    String title = 'Salada com Queijo';
+    int receita = 1;
+    List<String> ingrs = [
+      "zucchini",
+      "oil",
+      "salt",
+      "squash",
+      "pepper",
+      "eggplant"
+    ];
+    List<String> recipe = [
+      "Preheat grill to medium-high.",
+      "Brush eggplant slices with oil and season with salt and pepper.",
+      "Grill, turning once, until tender and lightly charred, about 10 minutes.",
+      "Transfer to a platter and let cool.",
+      "Cut into 1/2-inch slices.",
+      "Serve with grilled zucchini."
+    ];
+
+    Widget buildIngrs() {
+      return Text("$ingrs", style: TextStyle(fontSize: 15));
+    }
+
+    Widget buildRecipes() {
+      return ListView.builder(
+        shrinkWrap: true,
+        itemCount: recipe.length,
+        itemBuilder: (BuildContext context, int index) {
+          String recipes = recipe[index];
+          return Text("- $recipes", style: TextStyle(fontSize: 15));
+        },
+      );
+    }
+
     return Scaffold(
         bottomNavigationBar: BottomApp(),
         body: Container(
@@ -18,7 +51,7 @@ class RecipeResult extends StatelessWidget {
                 child: Column(children: <Widget>[
                   Center(
                     child: Text(
-                      "Resultados",
+                      "Receita $receita",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                       textAlign: TextAlign.center,
@@ -38,29 +71,48 @@ class RecipeResult extends StatelessWidget {
                   )),
                   SizedBox(width: 50.0),
                   Text(
-                    '$titulo',
+                    '$title',
                     style: TextStyle(fontSize: 15),
                   ),
                 ]),
               ),
+              SizedBox(height: 18.0),
               Container(
+                padding: EdgeInsets.symmetric(horizontal: 7.0),
                 child: Column(
                   children: <Widget>[
-                    Text("  Ingredientes:",
+                    Text("Ingredientes:",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 17),
                         textAlign: TextAlign.left),
                   ],
                 ),
               ),
-              SizedBox(height: 22.0),
               Container(
+                padding: EdgeInsets.symmetric(horizontal: 7.0),
                 child: Column(
                   children: <Widget>[
-                    Text("  Modo de preparo:",
+                    buildIngrs(),
+                  ],
+                ),
+              ),
+              SizedBox(height: 22.0),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 7.0),
+                child: Column(
+                  children: <Widget>[
+                    Text("Modo de preparo:",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 17),
                         textAlign: TextAlign.left),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 7.0),
+                child: Column(
+                  children: <Widget>[
+                    buildRecipes(),
                   ],
                 ),
               ),
