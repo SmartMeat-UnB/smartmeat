@@ -1,4 +1,3 @@
-// import 'package:SmartMeat/screens/testt.dart';
 import 'package:flutter/material.dart';
 import 'package:SmartMeat/screens/imagecell.dart';
 import 'package:SmartMeat/screens/tutorialWifi.dart';
