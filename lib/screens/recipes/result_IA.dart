@@ -36,10 +36,18 @@ class ResultIA extends StatelessWidget {
                     ),
                   )),
                   SizedBox(width: 50.0),
-                  Text(
-                    'Receita $contador',
-                    style: TextStyle(fontSize: 20),
-                  ),
+                  // Flexible(child:
+                    Container (child:
+                      Text(
+                        'Receita $contador',
+                        // '${receita.recipes[contador-1].title}',
+                        style: TextStyle(
+                          fontSize: 16
+                          ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    )
+                  // )
                 ],
               ),
               onPressed: () {
@@ -71,7 +79,7 @@ class ResultIA extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text("Resultados",
+              Text("Receitas",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
               SizedBox(
                 height: 20,

@@ -35,15 +35,16 @@ class _CropImageState extends State<CropImage> {
         fit: BoxFit.cover,
       );
       this.croppedFile = croppedFile;
-      //getRecipe();
+      getRecipe();
     });
   }
 
+  String jsonRecipe;
   // final String inverseCookingEndPoint = 'http://localhost:3000/predict';
   final String inverseCookingEndPoint = 'http://10.0.2.2:3000/predict';
   // final String inverseCookingEndPoint = "ubuntu@ec2-18-231-150-126.sa-east-1.compute.amazonaws.com:3000/predict";
 
-  Future<String> getRecipe() async {
+  Future getRecipe() async {
     if (croppedFile == null) return "Cropped file returned Null";
     String base64Image = base64Encode(croppedFile.readAsBytesSync());
     String fileName = croppedFile.path.split("/").last;
@@ -52,18 +53,20 @@ class _CropImageState extends State<CropImage> {
       "image": base64Image,
       "name": fileName,
     }).then((res) {
-      print(res.statusCode);
-      print(res.body);
+      if (res.statusCode == 200)
+        jsonRecipe = res.body;
+      else 
+        print("Server returned a non 200 status, status received: ${res.statusCode}");
     }).catchError((err) {
       print(err);
     });
   }
 
-  String jsonString =
-      '{"recipes": [{"ingrs": ["zucchini","oil","salt","squash","pepper","eggplant"],"recipe": ["Preheat grill to medium-high.","Brush eggplant slices with oil and season with salt and pepper.","Grill, turning once, until tender and lightly charred, about 10 minutes.","Transfer to a platter and let cool.","Cut into 1/2-inch slices.","Serve with grilled zucchini."],"title": "Grilled eggplant and zucchini"},{"ingrs": ["zucchini","oil","salt","squash","pepper","eggplant"],"recipe": ["Slice the squash and slice into rounds, then brush with olive oil.","Season with salt and pepper.","Grill over high heat, turning once to char all sides.","Sprinkle with fresh grated cheese and serve."],"title": "Eggplant with zucchini (aubergine)"}]}';
-  // jsonString eh onde precisa armazenar o retorno das receitas em formato de String
+  // String jsonRecipe =
+  //     '{"recipes": [{"ingrs": ["zucchini","oil","salt","squash","pepper","eggplant"],"recipe": ["Preheat grill to medium-high.","Brush eggplant slices with oil and season with salt and pepper.","Grill, turning once, until tender and lightly charred, about 10 minutes.","Transfer to a platter and let cool.","Cut into 1/2-inch slices.","Serve with grilled zucchini."],"title": "Grilled eggplant and zucchini"},{"ingrs": ["zucchini","oil","salt","squash","pepper","eggplant"],"recipe": ["Slice the squash and slice into rounds, then brush with olive oil.","Season with salt and pepper.","Grill over high heat, turning once to char all sides.","Sprinkle with fresh grated cheese and serve."],"title": "Eggplant with zucchini (aubergine)"}]}';
+  // jsonRecipe eh onde precisa armazenar o retorno das receitas em formato de String
   Recipes recipesData() {
-    String jsonData = jsonString;
+    String jsonData = jsonRecipe;
     var parsedJson = json.decode(jsonData);
     Recipes recipes = Recipes.fromJson(parsedJson);
     return recipes;

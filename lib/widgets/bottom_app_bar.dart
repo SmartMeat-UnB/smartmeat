@@ -1,3 +1,4 @@
+import 'package:SmartMeat/screens/tutorialWifi.dart';
 import 'package:SmartMeat/screens/tutorial_screen.dart';
 import 'package:SmartMeat/tabs/home_tab.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class BottomApp extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(context, new MaterialPageRoute(
                         builder: (context) =>
-                        new TutorialScreen())
+                        new TutorialWifi())
                       );
                   },
                 ),

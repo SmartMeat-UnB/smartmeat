@@ -1,3 +1,4 @@
+import 'package:SmartMeat/screens/introState.dart';
 import 'package:flutter/material.dart';
 import 'package:SmartMeat/screens/imagecell.dart';
 import 'package:SmartMeat/screens/tutorialWifi.dart';
@@ -17,6 +18,6 @@ class MyApp extends StatelessWidget {
       '/recipe': (context) => ImagesCell(),
       '/tutorial': (context) => TutorialScreen(),
       '/tutorial1': (context) => TutorialWifi(),
-    }, debugShowCheckedModeBanner: false, home: ImagesCell());
+    }, debugShowCheckedModeBanner: false, home: Splash());
   }
 }
