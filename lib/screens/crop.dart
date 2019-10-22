@@ -1,6 +1,5 @@
 import 'dart:io';
-import 'package:SmartMeat/screens/recipeResult.dart';
-import 'package:SmartMeat/screens/result_IA.dart';
+import 'package:SmartMeat/screens/recipes/result_IA.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';

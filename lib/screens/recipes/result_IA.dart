@@ -1,55 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:SmartMeat/screens/recipeResult.dart';
+import 'package:SmartMeat/screens/recipes/recipeResult.dart';
+import 'package:SmartMeat/screens/recipes/recipes.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
-
-class Recipes {
-  List<Recipe> recipes;
-
-  Recipes({this.recipes});
-
-  Recipes.fromJson(Map<String, dynamic> json) {
-    if (json['recipes'] != null) {
-      recipes = new List<Recipe>();
-      json['recipes'].forEach((v) {
-        recipes.add(new Recipe.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.recipes != null) {
-      data['recipes'] = this.recipes.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class Recipe {
-  List<String> ingrs;
-  List<String> recipe;
-  String title;
-
-  Recipe({this.ingrs, this.recipe, this.title});
-
-  Recipe.fromJson(Map<String, dynamic> json) {
-    ingrs = json['ingrs'].cast<String>();
-    recipe = json['recipe'].cast<String>();
-    title = json['title'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ingrs'] = this.ingrs;
-    data['recipe'] = this.recipe;
-    data['title'] = this.title;
-    return data;
-  }
-}
 
 class ResultIA extends StatelessWidget {
   final File imageFile;

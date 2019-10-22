@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:SmartMeat/screens/result_IA.dart';
+import 'package:SmartMeat/screens/recipes/recipes.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
