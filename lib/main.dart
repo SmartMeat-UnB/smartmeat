@@ -1,7 +1,6 @@
 import 'package:SmartMeat/screens/introState.dart';
 import 'package:flutter/material.dart';
-import 'package:SmartMeat/screens/recipe.dart';
-import 'package:SmartMeat/screens/result_IA.dart';
+import 'package:SmartMeat/screens/imagecell.dart';
 import 'package:SmartMeat/screens/tutorialWifi.dart';
 import 'package:SmartMeat/screens/tutorial_screen.dart';
 import 'package:SmartMeat/screens/informationsRasp.dart';
@@ -18,8 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         routes: {
           '/home': (context) => InformationRasp(),
-          '/resultado': (context) => ResultIA(),
-          '/recipe': (context) => Recipe(),
+          '/recipe': (context) => ImagesCell(),
           '/tutorial': (context) => TutorialScreen(),
           '/tutorial1': (context) => TutorialWifi(),
         },

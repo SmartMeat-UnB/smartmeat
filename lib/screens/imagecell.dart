@@ -1,18 +1,18 @@
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'crop.dart';
 
-class Recipe extends StatefulWidget {
-  Recipe();
+class ImagesCell extends StatefulWidget {
+  ImagesCell();
 
   @override
-  _RecipeState createState() => _RecipeState();
+  _ImagesCellState createState() => _ImagesCellState();
 }
 
-class _RecipeState extends State<Recipe> with SingleTickerProviderStateMixin {
+class _ImagesCellState extends State<ImagesCell>
+    with SingleTickerProviderStateMixin {
   Image imageFile;
 
   Future getImage() async {
@@ -20,8 +20,8 @@ class _RecipeState extends State<Recipe> with SingleTickerProviderStateMixin {
 
     setState(() {
       if (image != null)
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => CropImage(image)));
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => CropImage(image)));
     });
   }
 
@@ -30,8 +30,8 @@ class _RecipeState extends State<Recipe> with SingleTickerProviderStateMixin {
 
     setState(() {
       if (image != null)
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => CropImage(image)));
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => CropImage(image)));
     });
   }
 
