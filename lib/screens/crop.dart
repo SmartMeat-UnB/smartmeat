@@ -38,7 +38,10 @@ class _CropImageState extends State<CropImage> {
         fit: BoxFit.cover,
       );
       this.croppedFile = croppedFile;
-      getRecipe();
+      jsonRecipe =
+          '{"recipes": [{"ingrs": ["zucchini","oil","salt","squash","pepper","eggplant"],"recipe": ["Preheat grill to medium-high.","Brush eggplant slices with oil and season with salt and pepper.","Grill, turning once, until tender and lightly charred, about 10 minutes.","Transfer to a platter and let cool.","Cut into 1/2-inch slices.","Serve with grilled zucchini."],"title": "Grilled eggplant and zucchini"},{"ingrs": ["zucchini","oil","salt","squash","pepper","eggplant"],"recipe": ["Slice the squash and slice into rounds, then brush with olive oil.","Season with salt and pepper.","Grill over high heat, turning once to char all sides.","Sprinkle with fresh grated cheese and serve."],"title": "Eggplant with zucchini (aubergine)"}]}';
+
+      // getRecipe();
     });
   }
 
@@ -56,7 +59,9 @@ class _CropImageState extends State<CropImage> {
       "name": fileName,
     }).then((res) {
       if (res.statusCode == 200)
-        jsonRecipe = res.body;
+        setState(() {
+          jsonRecipe = res.body;
+        });
       else
         print(
             "Server returned a non 200 status, status received: ${res.statusCode}");
@@ -67,7 +72,7 @@ class _CropImageState extends State<CropImage> {
 
   // String jsonRecipe =
   //     '{"recipes": [{"ingrs": ["zucchini","oil","salt","squash","pepper","eggplant"],"recipe": ["Preheat grill to medium-high.","Brush eggplant slices with oil and season with salt and pepper.","Grill, turning once, until tender and lightly charred, about 10 minutes.","Transfer to a platter and let cool.","Cut into 1/2-inch slices.","Serve with grilled zucchini."],"title": "Grilled eggplant and zucchini"},{"ingrs": ["zucchini","oil","salt","squash","pepper","eggplant"],"recipe": ["Slice the squash and slice into rounds, then brush with olive oil.","Season with salt and pepper.","Grill over high heat, turning once to char all sides.","Sprinkle with fresh grated cheese and serve."],"title": "Eggplant with zucchini (aubergine)"}]}';
-  // jsonRecipe eh onde precisa armazenar o retorno das receitas em formato de String
+  // // jsonRecipe eh onde precisa armazenar o retorno das receitas em formato de String
   Recipes recipesData() {
     String jsonData = jsonRecipe;
     var parsedJson = json.decode(jsonData);
