@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:system_setting/system_setting.dart';
 import 'package:SmartMeat/screens/informationsRasp.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class TutorialWifi extends StatefulWidget {
   @override
@@ -19,119 +20,94 @@ class _TutorialWifiState extends State<TutorialWifi> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   leading: IconButton(
-      //       icon: Icon(
-      //         Icons.arrow_back,
-      //         color: Colors.black,
-      //       ),
-      //       onPressed: () {
-      //         Navigator.pop(context);
-      //       },
-      //     ),
-      //   backgroundColor: Colors.white,
-      // ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-                  height: 100,
-                ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Image.asset(
-                          "images/smartphone.png",
-                          fit: BoxFit.cover,
-                          height: 190.0,
-                        )
-                
-              ],            
-            ),
-            SizedBox(
-                  height: 20,
-                ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text("Faça a conexão do seu celular\n a mesma rede Wifi que esta a \nchurrasqueira ou ao Bluetooth.",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300 ),
-                textAlign: TextAlign.center,)
-                 
-              ],
+    final _width = MediaQuery.of(context).size.width;
+    final _height= MediaQuery.of(context).size.height;
 
-            ),
-             SizedBox(
-                  height: 90,
-                ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                // SizedBox(
-                //   height: 25,
-                // ),
-                RaisedButton(
-                  onPressed: _jumpToSettingWifi,
-                  textColor: Colors.white,
-                  color: Colors.blue,
-                  padding: const EdgeInsets.all(8.0),
-                  child:  Text(
-                                "Wifi",
-                                style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 35.0,
-                                          fontFamily: 'Roboto',
-                                      ),
-                              ),
-                ),
-                RaisedButton(
-                  padding: const EdgeInsets.all(8.0),
-                  textColor: Colors.white,
-                  color: Colors.blue,
-                  onPressed: _jumpToSettingBT,
-                  child:  Text(
-                              "Bluetooth",
-                              style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 35.0,
-                                      fontFamily: 'Roboto',
-                                    ),
+    return Scaffold(
+      body: Container(
+        width: _width,
+        height: _height,
+        child: SafeArea(
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: _height*0.04),
+              FractionallySizedBox(
+                alignment: Alignment.topCenter,
+                child:  Image.asset(
+                            "images/smartphone.png",
+                            fit: BoxFit.cover,
+                            height: 190.0,
                           ),
-                ),
-              ]
-            ),
-            SizedBox(
-              height: 185,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                ButtonTheme(
-                  minWidth: 100.0,
-                  height: 60.0,                  
-                    child:RaisedButton(
-                      child: Text('PRONTO',
+              ),
+              SizedBox(height: _height*0.03),
+              AutoSizeText(
+                "Faça a conexão do seu celular\n na mesma rede Wifi que esta a \nchurrasqueira ou conecte ao Bluetooth da SmartMeat.",
+                presetFontSizes: [40.0, 20.0, 14.0],
+                maxLines: 5,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: _height*0.07),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  RaisedButton(
+                    onPressed: _jumpToSettingWifi,
+                    textColor: Colors.white,
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(8.0),
+                    child:  Text(
+                                  "Wifi",
                                   style: TextStyle(
-                                            fontSize: 40.0,
-                                            color: Colors.white,
-                                          ),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 28.0,
+                                            fontFamily: 'Roboto',
+                                        ),
                                 ),
-                      color: Colors.green,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                      onPressed: () {
-                        Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => InformationRasp()));
-                      },
-                  )
-                ),
-              ],
-            ),
-              ],           
-            )
+                  ),
+                  RaisedButton(
+                    padding: const EdgeInsets.all(8.0),
+                    textColor: Colors.white,
+                    color: Colors.blue,
+                    onPressed: _jumpToSettingBT,
+                    child:  Text(
+                                "Bluetooth",
+                                style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 28.0,
+                                        fontFamily: 'Roboto',
+                                      ),
+                            ),
+                  ),
+                ]
+              ),
+              SizedBox(height: _height*0.05),
+              Container(
+                alignment: Alignment(0.0,0.9),
+                padding: EdgeInsets.all(20.0),
+                child: 
+                  ButtonTheme(
+                    minWidth: 100.0,
+                    height: 60.0,                  
+                      child:RaisedButton(
+                        child: Text('PRONTO',
+                                    style: TextStyle(
+                                              fontSize: 40.0,
+                                              color: Colors.white,
+                                            ),
+                                  ),
+                        color: Colors.green,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => InformationRasp()));
+                        },
+                    )
+                  ),
+              ),
+                ],           
+              )
+          )
         ),
     );
   }
