@@ -56,7 +56,9 @@ class _CropImageState extends State<CropImage> {
       "name": fileName,
     }).then((res) {
       if (res.statusCode == 200)
-        jsonRecipe = res.body;
+        setState(() {
+         jsonRecipe = res.body;
+        });
       else
         print(
             "Server returned a non 200 status, status received: ${res.statusCode}");
