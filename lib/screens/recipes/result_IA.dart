@@ -5,6 +5,7 @@ import 'package:SmartMeat/screens/recipes/recipeResult.dart';
 import 'package:SmartMeat/screens/recipes/recipes.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class ResultIA extends StatelessWidget {
@@ -37,16 +38,18 @@ class ResultIA extends StatelessWidget {
                   )),
                   SizedBox(width: 50.0),
                   // Flexible(child:
-                    Container (child:
-                      Text(
-                        'Receita $contador',
-                        // '${receita.recipes[contador-1].title}',
-                        style: TextStyle(
-                          fontSize: 16
-                          ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    )
+                  Container(
+                    width: 140,
+                    height: 40,
+                    child: AutoSizeText(
+                      // 'Receita $contador',
+                      '${receita.recipes[contador - 1].title}',
+                      style: TextStyle(fontSize: 16),
+                      minFontSize: 14,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )
                   // )
                 ],
               ),

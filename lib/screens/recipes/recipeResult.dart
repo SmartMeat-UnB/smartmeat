@@ -43,7 +43,7 @@ class RecipeResult extends StatelessWidget {
                 child: Column(children: <Widget>[
                   Center(
                     child: Text(
-                      "Receita ${contador+1}",
+                      "Receita ${contador + 1}",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                       textAlign: TextAlign.center,
