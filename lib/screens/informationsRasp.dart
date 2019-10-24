@@ -198,7 +198,7 @@ class _InformationRaspState extends State<InformationRasp> {
                                     "-",
                                     style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 35.0,
+                                              fontSize: 28.0,
                                               fontFamily: 'Roboto',
                                           ),
                                   ),
@@ -207,7 +207,7 @@ class _InformationRaspState extends State<InformationRasp> {
                       '$_temperature°',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 80.0,
+                        fontSize: 60.0,
                         fontFamily: 'Roboto',
                         color: Colors.black87,
                         backgroundColor: Colors.black.withOpacity(0.2),                        
@@ -222,7 +222,7 @@ class _InformationRaspState extends State<InformationRasp> {
                                   "+",
                                   style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 35.0,
+                                          fontSize: 28.0,
                                           fontFamily: 'Roboto',
                                         ),
                               ),
