@@ -1,5 +1,6 @@
 import 'package:SmartMeat/screens/tutorialWifi.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class WelcomePage extends StatelessWidget {
   @override
@@ -88,7 +89,6 @@ class ChoiceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return 
       Center(
-
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -100,8 +100,16 @@ class ChoiceCard extends StatelessWidget {
                           height: 190.0,
                         ),
             SizedBox(height: 50,),
-            
-            Text(choice.text, style: TextStyle(height: 1, fontSize: 60), textAlign: TextAlign.center,),
+
+            Expanded( 
+              child: AutoSizeText(
+                choice.text,
+                presetFontSizes: [40.0, 20.0, 14.0],
+                maxLines: 4,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+              )
+            ),
           ],
         ),
       );
