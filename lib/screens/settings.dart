@@ -10,6 +10,7 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   String _nome;
+  bool _state = false;
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -37,6 +38,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomPadding: false,
         appBar: PreferredSize(
           child: AppBar(
             title: Text('Configurações',
@@ -100,7 +102,65 @@ class _SettingsState extends State<Settings> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[],
+                    children: <Widget>[
+                      Row(children: <Widget>[
+                        Icon(
+                          Icons.speaker_phone,
+                          size: 40,
+                          color: Colors.black,
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text("Conexão:", style: TextStyle(fontSize: 18)),
+                      ]),
+                      Row(children: <Widget>[
+                        Icon(
+                          Icons.wifi,
+                          size: 40,
+                          color: Colors.black,
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text("Wi-Fi", style: TextStyle(fontSize: 18)),
+                        SizedBox(
+                          width: 165,
+                        ),
+                        Switch(
+                          onChanged: (bool value) {
+                            setState(() {
+                              value = !_state;
+                            });
+                          },
+                          activeColor: Colors.green,
+                          value: _state,
+                        ),
+                      ]),
+                      Row(children: <Widget>[
+                        Icon(
+                          Icons.bluetooth,
+                          size: 40,
+                          color: Colors.black,
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text("Bluetooth", style: TextStyle(fontSize: 18)),
+                        SizedBox(
+                          width: 125,
+                        ),
+                        Switch(
+                          onChanged: (bool value) {
+                            setState(() {
+                              value = !_state;
+                            });
+                          },
+                          activeColor: Colors.green,
+                          value: _state,
+                        ),
+                      ]),
+                    ],
                   ),
                 ),
               ],
