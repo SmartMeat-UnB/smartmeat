@@ -23,25 +23,26 @@ class BottomApp extends StatelessWidget {
                         : Colors.grey[700],
                   ),
                   onPressed: () {
-                    Navigator.push(context, new MaterialPageRoute(
-                        builder: (context) =>
-                        new HomeTab())
-                      );
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => new HomeTab()));
                   },
                 ),
                 IconButton(
                   icon: Icon(
                     Icons.wifi,
                     size: 32,
-                    color: ModalRoute.of(context).settings.name == ('/tutorial1')
-                        ? Color.fromARGB(255, 169, 0, 52)
-                        : Colors.grey[700],
+                    color:
+                        ModalRoute.of(context).settings.name == ('/tutorial1')
+                            ? Color.fromARGB(255, 169, 0, 52)
+                            : Colors.grey[700],
                   ),
                   onPressed: () {
-                    Navigator.push(context, new MaterialPageRoute(
-                        builder: (context) =>
-                        new TutorialWifi())
-                      );
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => new TutorialWifi()));
                   },
                 ),
                 SizedBox(

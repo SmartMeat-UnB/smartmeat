@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -6,33 +9,33 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  String _nome;
+  Future checkFirstSeen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _nome = (prefs.getString('nome'));
+      print(_nome);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Timer(Duration(milliseconds: 20), () {
+      checkFirstSeen();
+    });
+  }
+
+  Future _doSomething(String text) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('nome', text);
+    setState(() {
+      _nome = text;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    String v = "";
-    Widget _nomeWidget() {
-      return Row(children: <Widget>[
-        SizedBox(
-          width: 15,
-          height: 55,
-        ),
-        Icon(
-          Icons.edit,
-          size: 40,
-          color: Colors.black,
-        ),
-        SizedBox(
-          width: 20,
-        ),
-        Text("Nome: ", style: TextStyle(fontSize: 18)),
-      ]);
-    }
-
-    void _doSomething(String text) {
-      setState(() {
-        v = text;
-      });
-    }
-
     return Scaffold(
         appBar: PreferredSize(
           child: AppBar(
@@ -64,62 +67,42 @@ class _SettingsState extends State<Settings> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          TextField(
-                            onChanged: (text) {
-                              _doSomething(text);
-                            },
-                            decoration: InputDecoration(
-                              suffixIcon: Icon(
-                                Icons.edit,
-                                size: 40,
-                                color: Colors.black,
-                              ),
-                              border: InputBorder.none,
-                              hintText: '$v',
-                              labelText: "Nome:",
-                              labelStyle: TextStyle(
-                          fontWeight: FontWeight.bold,
-                                height: 0,
-                                fontSize: 20,
-                                color: Colors.black,
-                              ),
-                            ),
+                      TextField(
+                        onChanged: (text) {
+                          _doSomething(text);
+                        },
+                        decoration: InputDecoration(
+                          suffixIcon: Icon(
+                            Icons.edit,
+                            size: 40,
+                            color: Colors.black,
                           ),
-                        ],
+                          border: InputBorder.none,
+                          hintText: '$_nome',
+                          labelText: "Nome:",
+                          labelStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            height: 0,
+                            fontSize: 20,
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
-                      Row(children: <Widget>[
-                        // SizedBox(
-                        //   height: 70,
-                        // ),
-                        // SizedBox(
-                        //   width: 220,
-                        // ),
-                        // Icon(
-                        //   Icons.edit,
-                        //   size: 40,
-                        //   // color: Colors.transparent,
-                        // ),
-                      ])
                     ],
                   ),
-                ),
-                SizedBox(
-                  height: 55,
                 ),
                 Container(
+                  padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
+                  decoration: BoxDecoration(
+                      border: Border(
+                    bottom: BorderSide(color: Colors.black),
+                  )),
                   child: Column(
-                    children: <Widget>[
-                      // _buildRow(1),
-                      // _buildRow(2),
-                      // _buildRow(3),
-                      // _buildRow(4),
-                      // _buildRow(5),
-                      // _buildRow(6),
-                    ],
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[],
                   ),
-                )
+                ),
               ],
             ),
           ),
