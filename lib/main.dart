@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       '/recipe': (context) => ImagesCell(),
       '/tutorial': (context) => TutorialScreen(),
       '/tutorial1': (context) => TutorialWifi(),
-    }, debugShowCheckedModeBanner: false, home: Settings());
+      '/settings': (context) => Settings(),
+    }, debugShowCheckedModeBanner: false, home: Splash());
   }
 }

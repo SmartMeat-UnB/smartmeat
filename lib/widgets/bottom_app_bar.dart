@@ -52,10 +52,9 @@ class BottomApp extends StatelessWidget {
                   icon: Icon(
                     Icons.settings,
                     size: 32,
-                    // color: _controller.page.round() ==
-                    //         1000 // alterar quando a pagina for criada
-                    //     ? Color.fromARGB(255, 169, 0, 52)
-                    //     : Colors.grey[700],
+                    color: ModalRoute.of(context).settings.name == ('/settings')
+                        ? Color.fromARGB(255, 169, 0, 52)
+                        : Colors.grey[700],
                   ),
                   onPressed: () {},
                 ),
