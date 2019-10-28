@@ -23,10 +23,9 @@ class BottomApp extends StatelessWidget {
                         : Colors.grey[700],
                   ),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (context) => new HomeTab()));
+                    ModalRoute.of(context).settings.name != ('/home')
+                        ? Navigator.pushNamed(context, '/home')
+                        : null;
                   },
                 ),
                 IconButton(
@@ -39,10 +38,9 @@ class BottomApp extends StatelessWidget {
                             : Colors.grey[700],
                   ),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (context) => new TutorialWifi()));
+                    ModalRoute.of(context).settings.name != ('/tutorial1')
+                        ? Navigator.pushNamed(context, '/tutorial1')
+                        : null;
                   },
                 ),
                 SizedBox(
@@ -56,7 +54,11 @@ class BottomApp extends StatelessWidget {
                         ? Color.fromARGB(255, 169, 0, 52)
                         : Colors.grey[700],
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    ModalRoute.of(context).settings.name != ('/settings')
+                        ? Navigator.pushNamed(context, '/settings')
+                        : null;
+                  },
                 ),
                 IconButton(
                   icon: Icon(
