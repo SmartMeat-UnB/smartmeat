@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:SmartMeat/widgets/bottom_app_bar.dart';
+import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -55,7 +57,7 @@ class _SettingsState extends State<Settings> {
               },
             ),
           ),
-          preferredSize: Size.fromHeight(100.0),
+          preferredSize: Size.fromHeight(70.0),
         ),
         body: Container(
           child: Container(
@@ -114,6 +116,9 @@ class _SettingsState extends State<Settings> {
                         ),
                         Text("Conexão:", style: TextStyle(fontSize: 18)),
                       ]),
+                      SizedBox(
+                        height: 15,
+                      ),
                       Row(children: <Widget>[
                         Icon(
                           Icons.wifi,
@@ -137,6 +142,9 @@ class _SettingsState extends State<Settings> {
                           value: _state,
                         ),
                       ]),
+                       SizedBox(
+                        height: 15,
+                      ),
                       Row(children: <Widget>[
                         Icon(
                           Icons.bluetooth,
@@ -182,9 +190,9 @@ class _SettingsState extends State<Settings> {
                         SizedBox(
                           width: 20,
                         ),
-                        Text("Wi-Fi", style: TextStyle(fontSize: 18)),
+                        Text("Notficações", style: TextStyle(fontSize: 18)),
                         SizedBox(
-                          width: 165,
+                          width: 104,
                         ),
                         Switch(
                           onChanged: (bool value) {
@@ -226,6 +234,10 @@ class _SettingsState extends State<Settings> {
               ],
             ),
           ),
-        ));
+        ),
+        bottomNavigationBar: BottomApp(),
+        floatingActionButton: FloatButton(),
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.centerDocked);
   }
 }
