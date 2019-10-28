@@ -1,30 +1,43 @@
 import 'package:flutter/material.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
+  @override
+  _SettingsState createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
-    Widget _buildRow(int v) {
+    String v = "";
+    Widget _nomeWidget() {
       return Row(children: <Widget>[
         SizedBox(
           width: 15,
           height: 55,
         ),
         Icon(
-          Icons.wifi,
+          Icons.edit,
           size: 40,
           color: Colors.black,
         ),
         SizedBox(
           width: 20,
         ),
-        Text("Wi-Fi $v", style: TextStyle(fontSize: 18)),
+        Text("Nome: ", style: TextStyle(fontSize: 18)),
       ]);
+    }
+
+    void _doSomething(String text) {
+      setState(() {
+        v = text;
+      });
     }
 
     return Scaffold(
         appBar: PreferredSize(
           child: AppBar(
-            title: Text('Wi-Fi', style: TextStyle(color: Colors.black)),
+            title: Text('Configurações',
+                style: TextStyle(color: Colors.black, fontSize: 25)),
             centerTitle: true,
             backgroundColor: Colors.white,
             leading: IconButton(
@@ -44,27 +57,51 @@ class Settings extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Container(
+                  padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.black)),
-                  child: Row(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      SizedBox(
-                        width: 15,
+                      Column(
+                        children: <Widget>[
+                          TextField(
+                            onChanged: (text) {
+                              _doSomething(text);
+                            },
+                            decoration: InputDecoration(
+                              suffixIcon: Icon(
+                                Icons.edit,
+                                size: 40,
+                                color: Colors.black,
+                              ),
+                              border: InputBorder.none,
+                              hintText: '$v',
+                              labelText: "Nome:",
+                              labelStyle: TextStyle(
+                          fontWeight: FontWeight.bold,
+                                height: 0,
+                                fontSize: 20,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: 90,
-                      ),
-                      Text("Wi-Fi",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18)),
-                      SizedBox(
-                        width: 220,
-                      ),
-                      Icon(
-                        Icons.wifi,
-                        size: 40,
-                        color: Colors.greenAccent,
-                      ),
+                      Row(children: <Widget>[
+                        // SizedBox(
+                        //   height: 70,
+                        // ),
+                        // SizedBox(
+                        //   width: 220,
+                        // ),
+                        // Icon(
+                        //   Icons.edit,
+                        //   size: 40,
+                        //   // color: Colors.transparent,
+                        // ),
+                      ])
                     ],
                   ),
                 ),
@@ -74,12 +111,12 @@ class Settings extends StatelessWidget {
                 Container(
                   child: Column(
                     children: <Widget>[
-                      _buildRow(1),
-                      _buildRow(2),
-                      _buildRow(3),
-                      _buildRow(4),
-                      _buildRow(5),
-                      _buildRow(6),
+                      // _buildRow(1),
+                      // _buildRow(2),
+                      // _buildRow(3),
+                      // _buildRow(4),
+                      // _buildRow(5),
+                      // _buildRow(6),
                     ],
                   ),
                 )
