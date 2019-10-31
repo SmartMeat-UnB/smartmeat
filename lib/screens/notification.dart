@@ -18,7 +18,7 @@ class _LocalNotificationState extends State<LocalNotification> {
       ),
       body: Center(
         child: RaisedButton(
-          // onPressed: showNotification,
+          onPressed: showNotification,
           child: Text(
             'teste',
             style: Theme.of(context).textTheme.headline,
@@ -26,5 +26,14 @@ class _LocalNotificationState extends State<LocalNotification> {
         ),
       ),
     );
+  }
+
+  showNotification() async {
+    var android = AndroidNotificationDetails('carne', 'assada', 'no ponto',
+        priority: Priority.High, importance: Importance.Max);
+    var iOS = IOSNotificationDetails();
+    var platform = NotificationDetails(android, iOS);
+    await flutterLocalNotificationsPlugin.show(0, ' pi2', 'smart', platform,
+        payload: 'meat');
   }
 }
