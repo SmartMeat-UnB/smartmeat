@@ -4,7 +4,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class LocalNotification extends StatefulWidget {
   @override
-  _LocalNotificationState createState() => new _LocalNotificationState();
+  _LocalNotificationState createState() => _LocalNotificationState();
 }
 
 class _LocalNotificationState extends State<LocalNotification> {
@@ -13,10 +13,10 @@ class _LocalNotificationState extends State<LocalNotification> {
   @override
   void initState() {
     super.initState();
-    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-    var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
-    var iOS = new IOSInitializationSettings();
-    var initSetttings = new InitializationSettings(android, iOS);
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    var android = AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iOS = IOSInitializationSettings();
+    var initSetttings = InitializationSettings(android, iOS);
     flutterLocalNotificationsPlugin.initialize(initSetttings,
         onSelectNotification: onSelectNotification);
   }
@@ -25,9 +25,9 @@ class _LocalNotificationState extends State<LocalNotification> {
     debugPrint("payload : $payload");
     showDialog(
       context: context,
-      builder: (_) => new AlertDialog(
-        title: new Text('Notification'),
-        content: new Text('$payload'),
+      builder: (_) => AlertDialog(
+        title: Text('Notification'),
+        content: Text('$payload'),
       ),
     );
   }
