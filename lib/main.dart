@@ -1,4 +1,5 @@
 import 'package:SmartMeat/screens/introState.dart';
+import 'package:SmartMeat/screens/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:SmartMeat/screens/imagecell.dart';
 import 'package:SmartMeat/screens/tutorialWifi.dart';
@@ -14,16 +15,12 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        routes: {
-          '/home': (context) => InformationRasp(),
-          '/recipe': (context) => ImagesCell(),
-          '/tutorial': (context) => TutorialScreen(),
-          '/tutorial1': (context) => TutorialWifi(),
-        },
-        
-        debugShowCheckedModeBanner: false,
-        home: Splash()
-    );
+    return MaterialApp(routes: {
+      '/home': (context) => InformationRasp(),
+      '/recipe': (context) => ImagesCell(),
+      '/tutorial': (context) => TutorialScreen(),
+      '/tutorial1': (context) => TutorialWifi(),
+      '/settings': (context) => Settings(),
+    }, debugShowCheckedModeBanner: false, home: Splash());
   }
 }
