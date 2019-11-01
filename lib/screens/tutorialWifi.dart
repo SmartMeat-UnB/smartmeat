@@ -25,88 +25,93 @@ class _TutorialWifiState extends State<TutorialWifi> {
 
     return Scaffold(
       body: Container(
+        padding: const EdgeInsets.all(8.0),
         width: _width,
         height: _height,
         child: SafeArea(
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: _height*0.04),
-              FractionallySizedBox(
-                alignment: Alignment.topCenter,
-                child:  Image.asset(
-                            "images/smartphone.png",
-                            fit: BoxFit.cover,
-                            height: 190.0,
-                          ),
-              ),
-              SizedBox(height: _height*0.03),
-              AutoSizeText(
-                "Faça a conexão do seu celular\n na mesma rede Wifi que esta a \nchurrasqueira ou conecte ao Bluetooth da SmartMeat.",
-                presetFontSizes: [40.0, 20.0, 14.0],
-                maxLines: 5,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: _height*0.07),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  RaisedButton(
-                    onPressed: _jumpToSettingWifi,
-                    textColor: Colors.white,
-                    color: Colors.blue,
-                    padding: const EdgeInsets.all(8.0),
-                    child:  Text(
-                                  "Wifi",
-                                  style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 28.0,
-                                            fontFamily: 'Roboto',
-                                        ),
-                                ),
-                  ),
-                  RaisedButton(
-                    padding: const EdgeInsets.all(8.0),
-                    textColor: Colors.white,
-                    color: Colors.blue,
-                    onPressed: _jumpToSettingBT,
-                    child:  Text(
-                                "Bluetooth",
-                                style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 28.0,
-                                        fontFamily: 'Roboto',
-                                      ),
+          child:Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(height: _height*0.04),
+                Expanded(
+                  child: Image.asset(
+                              "images/smartphone.png",
+                              fit: BoxFit.cover,
+                              height: 190.0,
+                              alignment: Alignment.topCenter,
                             ),
-                  ),
-                ]
-              ),
-              SizedBox(height: _height*0.05),
-              Container(
-                alignment: Alignment(0.0,0.9),
-                padding: EdgeInsets.all(20.0),
-                child: 
-                  ButtonTheme(
-                    minWidth: 100.0,
-                    height: 60.0,                  
-                      child:RaisedButton(
-                        child: Text('PRONTO',
+                ),
+                SizedBox(height: _height*0.03),
+                AutoSizeText(
+                  "Faça a conexão do seu celular\n na mesma rede Wifi que esta a \nchurrasqueira ou conecte ao Bluetooth da SmartMeat.",
+                  presetFontSizes: [40.0, 20.0, 14.0],
+                  maxLines: 5,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: _height*0.07),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    RaisedButton(
+                      onPressed: _jumpToSettingWifi,
+                      textColor: Colors.white,
+                      color: Colors.blue,
+                      padding: const EdgeInsets.all(8.0),
+                      child:  Text(
+                                    "Wifi",
                                     style: TextStyle(
-                                              fontSize: 40.0,
-                                              color: Colors.white,
-                                            ),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 28.0,
+                                              fontFamily: 'Roboto',
+                                          ),
                                   ),
-                        color: Colors.green,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                        onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => InformationRasp()));
-                        },
-                    )
-                  ),
-              ),
-                ],           
-              )
+                    ),
+                    RaisedButton(
+                      padding: const EdgeInsets.all(8.0),
+                      textColor: Colors.white,
+                      color: Colors.blue,
+                      onPressed: _jumpToSettingBT,
+                      child:  Text(
+                                  "Bluetooth",
+                                  style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 28.0,
+                                          fontFamily: 'Roboto',
+                                        ),
+                              ),
+                    ),
+                  ]
+                ),
+                SizedBox(height: _height*0.05),
+                Container(
+                  alignment: Alignment(0.0,0.9),
+                  padding: EdgeInsets.all(20.0),
+                  child: 
+                    ButtonTheme(
+                      minWidth: 100.0,
+                      height: 60.0,                  
+                        child:RaisedButton(
+                          child: Text('PRONTO',
+                                      style: TextStyle(
+                                                fontSize: 40.0,
+                                                color: Colors.white,
+                                              ),
+                                    ),
+                          color: Colors.green,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                          onPressed: () {
+                            Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) => InformationRasp()));
+                          },
+                      )
+                    ),
+                ),
+                  ],           
+                )
+            )
           )
         ),
     );
