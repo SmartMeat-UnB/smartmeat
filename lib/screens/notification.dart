@@ -1,61 +1,65 @@
 import 'dart:async';
+import 'dart:typed_data';
+import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-class LocalNotification extends StatefulWidget {
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+class LocalNotificationa extends StatefulWidget {
   @override
-  _LocalNotificationState createState() => _LocalNotificationState();
+  _LocalNotificationaState createState() => _LocalNotificationaState();
 }
 
-class _LocalNotificationState extends State<LocalNotification> {
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-
+class _LocalNotificationaState extends State<LocalNotificationa> {
   @override
-  void initState() {
+  initState() {
     super.initState();
-    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    var android = AndroidInitializationSettings('@mipmap/ic_launcher');
-    var iOS = IOSInitializationSettings();
-    var initSetttings = InitializationSettings(android, iOS);
-    flutterLocalNotificationsPlugin.initialize(initSetttings,
-        onSelectNotification: onSelectNotification);
-  }
-
-  Future onSelectNotification(String payload) {
-    debugPrint("payload : $payload");
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text('Notification'),
-        content: Text('$payload'),
-      ),
-    );
+    var initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettingsIOS = IOSInitializationSettings();
+    var initializationSettings = InitializationSettings(
+        initializationSettingsAndroid, initializationSettingsIOS);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('A Carne esta ao ponto'),
-      ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: showNotification,
-          child: Text(
-            'teste',
-            style: Theme.of(context).textTheme.headline,
-          ),
-        ),
-      ),
+    return MaterialApp(
+      home: Scaffold(),
     );
   }
 
-  showNotification() async {
-    var android = AndroidNotificationDetails('carne', 'assada', 'no ponto',
-        priority: Priority.High, importance: Importance.Max);
-    var iOS = IOSNotificationDetails();
-    var platform = NotificationDetails(android, iOS);
-    await flutterLocalNotificationsPlugin.show(0, ' pi2', 'smart', platform,
-        payload: 'meat');
+  Future<void> _scheduleNotification() async {
+    var scheduledNotificationDateTime =
+        DateTime.now().add(Duration(seconds: 5));
+    var vibrationPattern = Int64List(4);
+    vibrationPattern[0] = 0;
+    vibrationPattern[1] = 1000;
+    vibrationPattern[2] = 5000;
+    vibrationPattern[3] = 2000;
+
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'your other channel id',
+        'your other channel name',
+        'your other channel description',
+        largeIconBitmapSource: BitmapSource.Drawable,
+        vibrationPattern: vibrationPattern,
+        enableLights: true,
+        color: const Color.fromARGB(255, 255, 0, 0),
+        ledColor: const Color.fromARGB(255, 255, 0, 0),
+        ledOnMs: 1000,
+        ledOffMs: 500);
+    var iOSPlatformChannelSpecifics =
+        IOSNotificationDetails(sound: "slow_spring_board.aiff");
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.schedule(
+        0,
+        'scheduled title',
+        'scheduled body',
+        scheduledNotificationDateTime,
+        platformChannelSpecifics);
   }
 }
