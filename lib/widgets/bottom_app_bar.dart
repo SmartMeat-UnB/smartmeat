@@ -1,6 +1,6 @@
+import 'package:SmartMeat/screens/informationsRasp.dart';
 import 'package:SmartMeat/screens/tutorialWifi.dart';
 import 'package:SmartMeat/screens/tutorial_screen.dart';
-import 'package:SmartMeat/tabs/home_tab.dart';
 import 'package:flutter/material.dart';
 
 class BottomApp extends StatelessWidget {
@@ -25,7 +25,7 @@ class BottomApp extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(context, new MaterialPageRoute(
                         builder: (context) =>
-                        new HomeTab())
+                        new InformationRasp())
                       );
                   },
                 ),
