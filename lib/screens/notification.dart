@@ -27,7 +27,35 @@ class _LocalNotificationaState extends State<LocalNotificationa> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Plugin example app'),
+        ),
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
+                    child: Text(
+                        'Tap on a notification when it appears to trigger navigation'),
+                  ),
+                  PaddedRaisedButton(
+                    buttonText:
+                        'Schedule notification to appear in 5 seconds, custom sound, red colour, large icon, red LED',
+                    onPressed: () async {
+                      await _scheduleNotification();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
