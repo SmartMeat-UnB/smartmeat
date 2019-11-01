@@ -1,7 +1,7 @@
 import 'dart:async';
+import 'package:SmartMeat/screens/informationsRasp.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:SmartMeat/tabs/home_tab.dart';
 import 'intro.dart';
 
 class Splash extends StatefulWidget {
@@ -15,7 +15,7 @@ class SplashState extends State<Splash> {
     bool _seen = (prefs.getBool('seen') ?? false);
     if (_seen) {
       Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => HomeTab()));
+          .pushReplacement(MaterialPageRoute(builder: (context) => InformationRasp()));
     } else {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => WelcomePage()));
