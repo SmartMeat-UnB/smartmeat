@@ -6,7 +6,7 @@ class Churrasqueira extends StatelessWidget {
     Widget espeto(bool d) {
       return Visibility(
         child: Image.asset(
-          "images/espeto.jpg",
+          "images/espeto.png",
           fit: BoxFit.cover,
           height: 150.0,
         ),
@@ -26,7 +26,7 @@ class Churrasqueira extends StatelessWidget {
             Column(
               children: <Widget>[
                 Image.asset(
-                  "images/churrasqueira.png",
+                  "images/bbq.png",
                   fit: BoxFit.cover,
                   height: 190.0,
                 ),
@@ -37,25 +37,24 @@ class Churrasqueira extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   SizedBox(
-                    width: 43,
+                    width: 48,
                   ),
                   espeto(true),
                   SizedBox(
-                    width: 9,
+                    width: 10,
                   ),
-                  espeto(false),
+                  espeto(true),
                   SizedBox(
                     width: 8,
                   ),
                   espeto(true),
                   SizedBox(
-                    width: 9,
-                  ),
-                  espeto(false),
-                  SizedBox(
-                    width: 9,
+                    width: 5,
                   ),
                   espeto(true),
+                  SizedBox(
+                    width: 4,
+                  ),
                 ],
               ),
             ),

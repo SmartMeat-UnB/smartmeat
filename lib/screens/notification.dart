@@ -42,7 +42,7 @@ class _LocalNotificationaState extends State<LocalNotificationa> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      Padding(
+      body: Padding(
         padding: EdgeInsets.all(8.0),
         child: Center(
           child: Column(
