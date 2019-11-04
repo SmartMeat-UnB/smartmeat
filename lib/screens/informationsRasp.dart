@@ -9,6 +9,7 @@ import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
@@ -19,7 +20,7 @@ class InformationRasp extends StatefulWidget {
 
 class _InformationRaspState extends State<InformationRasp> {
   //my ip inet = 192.168.15.?
-  int tempo = 900;
+
   String uri = "http://192.168.15.2:7000/";
   List<String> toPrint = ["trying to connect"];
   SocketIOManager manager;
@@ -52,7 +53,7 @@ class _InformationRaspState extends State<InformationRasp> {
   }
 
   void addNumbers() {
-    scheduleNotification(true, 1, tempo);
+    scheduleNotification(true, 1);
     if (_temperature <= 80) {
       setState(() {
         _temperature = _temperature + 2;
@@ -74,10 +75,17 @@ class _InformationRaspState extends State<InformationRasp> {
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
-  Future<void> scheduleNotification(bool confirma, int stick, int tempo) async {
+  Future<void> scheduleNotification(bool confirma, int stick) async {
+    int tempo;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    tempo = (prefs.getInt('tempo') ?? 0);
+    if (tempo == 0) {
+      prefs.setInt('tempo', 900);
+      tempo = 900;
+    }
     if (confirma) {
       var scheduledNotificationDateTime =
-          DateTime.now().add(Duration(seconds: 5));
+          DateTime.now().add(Duration(seconds: tempo));
       var vibrationPattern = Int64List(4);
       vibrationPattern[0] = 0;
       vibrationPattern[1] = 1000;
@@ -85,7 +93,7 @@ class _InformationRaspState extends State<InformationRasp> {
       vibrationPattern[3] = 2000;
 
       var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-          '3', '4', '5',
+          'your channel id', 'your channel name', 'your channel description',
           largeIconBitmapSource: BitmapSource.Drawable,
           vibrationPattern: vibrationPattern,
           enableLights: true,
