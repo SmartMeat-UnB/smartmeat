@@ -1,5 +1,4 @@
 import 'package:SmartMeat/screens/introState.dart';
-import 'package:SmartMeat/screens/notification.dart';
 import 'package:SmartMeat/screens/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:SmartMeat/screens/imagecell.dart';
