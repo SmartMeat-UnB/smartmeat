@@ -17,6 +17,20 @@ class Churrasqueira extends StatelessWidget {
       );
     }
 
+    Widget espet(bool d) {
+      return Visibility(
+        child: Image.asset(
+          "images/quadrado.png",
+          fit: BoxFit.cover,
+          height: 50.0,
+        ),
+        maintainSize: true,
+        maintainAnimation: true,
+        maintainState: true,
+        visible: d,
+      );
+    }
+
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
@@ -52,6 +66,32 @@ class Churrasqueira extends StatelessWidget {
                     width: 5,
                   ),
                   espeto(true),
+                  SizedBox(
+                    width: 4,
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              top: 200,
+              child: Row(
+                children: <Widget>[
+                  SizedBox(
+                    width: 48,
+                  ),
+                  espet(true),
+                  SizedBox(
+                    width: 13,
+                  ),
+                  espet(true),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  espet(true),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  espet(true),
                   SizedBox(
                     width: 4,
                   ),
