@@ -19,6 +19,7 @@ class InformationRasp extends StatefulWidget {
 
 class _InformationRaspState extends State<InformationRasp> {
   //my ip inet = 192.168.15.?
+  int tempo = 900;
   String uri = "http://192.168.15.2:7000/";
   List<String> toPrint = ["trying to connect"];
   SocketIOManager manager;
@@ -51,6 +52,7 @@ class _InformationRaspState extends State<InformationRasp> {
   }
 
   void addNumbers() {
+    scheduleNotification(true, 1, tempo);
     if (_temperature <= 80) {
       setState(() {
         _temperature = _temperature + 2;
@@ -72,30 +74,36 @@ class _InformationRaspState extends State<InformationRasp> {
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
-  Future<void> scheduleNotification() async {
-    var scheduledNotificationDateTime =
-        DateTime.now().add(Duration(seconds: 5));
-    var vibrationPattern = Int64List(4);
-    vibrationPattern[0] = 0;
-    vibrationPattern[1] = 1000;
-    vibrationPattern[2] = 5000;
-    vibrationPattern[3] = 2000;
+  Future<void> scheduleNotification(bool confirma, int stick, int tempo) async {
+    if (confirma) {
+      var scheduledNotificationDateTime =
+          DateTime.now().add(Duration(seconds: 5));
+      var vibrationPattern = Int64List(4);
+      vibrationPattern[0] = 0;
+      vibrationPattern[1] = 1000;
+      vibrationPattern[2] = 5000;
+      vibrationPattern[3] = 2000;
 
-    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        '3', '4', '5',
-        largeIconBitmapSource: BitmapSource.Drawable,
-        vibrationPattern: vibrationPattern,
-        enableLights: true,
-        color: const Color.fromARGB(255, 255, 0, 0),
-        ledColor: const Color.fromARGB(255, 255, 0, 0),
-        ledOnMs: 1000,
-        ledOffMs: 500);
-    var iOSPlatformChannelSpecifics =
-        IOSNotificationDetails(sound: "slow_spring_board.aiff");
-    var platformChannelSpecifics = NotificationDetails(
-        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-    await flutterLocalNotificationsPlugin.schedule(
-        0, '6', '7', scheduledNotificationDateTime, platformChannelSpecifics);
+      var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+          '3', '4', '5',
+          largeIconBitmapSource: BitmapSource.Drawable,
+          vibrationPattern: vibrationPattern,
+          enableLights: true,
+          color: const Color.fromARGB(255, 255, 0, 0),
+          ledColor: const Color.fromARGB(255, 255, 0, 0),
+          ledOnMs: 1000,
+          ledOffMs: 500);
+      var iOSPlatformChannelSpecifics =
+          IOSNotificationDetails(sound: "slow_spring_board.aiff");
+      var platformChannelSpecifics = NotificationDetails(
+          androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+      await flutterLocalNotificationsPlugin.schedule(
+          stick,
+          'Seu churrasco te espera!',
+          'o seu espetinho ' + stick.toString() + ' ja esta pronto!',
+          scheduledNotificationDateTime,
+          platformChannelSpecifics);
+    }
   }
 
   initSocket(String identifier) async {
