@@ -58,6 +58,7 @@ class _InformationRaspState extends State<InformationRasp> {
       setState(() {
         _temperature = _temperature + 2;
         sendMessage("default");
+        initState();
       });
     }
   }
