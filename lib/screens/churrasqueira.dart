@@ -1,6 +1,10 @@
+import 'package:SmartMeat/screens/smartMeat/generalSmartMeat.dart';
 import 'package:flutter/material.dart';
 
 class Churrasqueira extends StatelessWidget {
+  final GeneralSmartMeat smartMeat;
+
+  const Churrasqueira(this.smartMeat);
   @override
   Widget build(BuildContext context) {
     Widget espeto(bool d) {
@@ -53,19 +57,19 @@ class Churrasqueira extends StatelessWidget {
                   SizedBox(
                     width: 48,
                   ),
-                  espeto(true),
+                  espeto(smartMeat.smartmeat.stick1.active),
                   SizedBox(
                     width: 10,
                   ),
-                  espeto(true),
+                  espeto(smartMeat.smartmeat.stick2.active),
                   SizedBox(
                     width: 8,
                   ),
-                  espeto(true),
+                  espeto(smartMeat.smartmeat.stick3.active),
                   SizedBox(
                     width: 5,
                   ),
-                  espeto(true),
+                  espeto(smartMeat.smartmeat.stick4.active),
                   SizedBox(
                     width: 4,
                   ),
