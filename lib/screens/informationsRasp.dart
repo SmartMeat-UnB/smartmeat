@@ -11,10 +11,9 @@ class InformationRasp extends StatefulWidget {
   _InformationRaspState createState() => _InformationRaspState();
 }
 
-String jsonSmartMeat = 'vazio';
-
 class _InformationRaspState extends State<InformationRasp> {
   //my ip inet = 192.168.15.?
+  GeneralSmartMeat smartMeat;
   String uri = "http://192.168.15.2:7000/";
   List<String> toPrint = ["trying to connect"];
   SocketIOManager manager;
@@ -27,11 +26,12 @@ class _InformationRaspState extends State<InformationRasp> {
   bool _state = false;
   int _temperature = 25;
 
-  GeneralSmartMeat smartMeatData() {
+  String jsonSmartMeat =
+      '{"smartmeat": { "on": true,"stick1": {"active": true,"time_active": "12:45"},"stick2": {"active": true,"time_active": "10:08"},"stick3": {"active": false,"time_active": "00:00"},"stick4": {"active": false,"time_active": "00:00"},"temperature": 175}}';
+  void smartMeatData() {
     String jsonData = jsonSmartMeat;
     var parsedJson = json.decode(jsonData);
-    GeneralSmartMeat smartMeat = GeneralSmartMeat.fromJson(parsedJson);
-    return smartMeat;
+    smartMeat = GeneralSmartMeat.fromJson(parsedJson);
   }
 
   void onChanged(String identifier, bool value) {
@@ -67,6 +67,7 @@ class _InformationRaspState extends State<InformationRasp> {
     super.initState();
     manager = SocketIOManager();
     initSocket("default");
+    smartMeatData();
   }
 
   initSocket(String identifier) async {
@@ -165,7 +166,7 @@ class _InformationRaspState extends State<InformationRasp> {
         appBar: AppBar(
           leading: Switch(
               activeColor: Colors.green,
-              value: _state,
+              value: smartMeat.smartmeat.on,
               onChanged: (bool value) {
                 onChanged("default", value);
               }),
@@ -186,7 +187,7 @@ class _InformationRaspState extends State<InformationRasp> {
                 alignment: Alignment.topCenter,
                 width: 500.0,
                 height: 300.0,
-                child: Churrasqueira(),
+                child: Churrasqueira(smartMeat),
               ),
               Text(
                 'Temperatura',
