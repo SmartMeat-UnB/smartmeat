@@ -103,8 +103,7 @@ class _TutorialWifiState extends State<TutorialWifi> {
                           color: Colors.green,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                           onPressed: () {
-                            Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) => InformationRasp()));
+                             Navigator.pushNamed(context, '/home');
                           },
                       )
                     ),
