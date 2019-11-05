@@ -213,7 +213,7 @@ class _InformationRaspState extends State<InformationRasp> {
                     ),
                   ),
                   Text(
-                    '$_temperature°',
+                    '${smartMeat.smartmeat.temperature}°',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 60.0,
