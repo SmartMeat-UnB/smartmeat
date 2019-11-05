@@ -1,4 +1,5 @@
 import 'package:SmartMeat/screens/smartMeat/generalSmartMeat.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class Churrasqueira extends StatelessWidget {
@@ -21,17 +22,17 @@ class Churrasqueira extends StatelessWidget {
       );
     }
 
-    Widget espet(bool d) {
+    Widget timer() {
       return Visibility(
         child: Image.asset(
           "images/quadrado.png",
           fit: BoxFit.cover,
-          height: 50.0,
+          height: 40.0,
         ),
         maintainSize: true,
         maintainAnimation: true,
         maintainState: true,
-        visible: d,
+        visible: true,
       );
     }
 
@@ -77,31 +78,136 @@ class Churrasqueira extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 200,
+              top: 185,
               child: Row(
                 children: <Widget>[
                   SizedBox(
                     width: 48,
                   ),
-                  espet(true),
+                  timer(),
                   SizedBox(
-                    width: 13,
+                    width: 20,
                   ),
-                  espet(true),
+                  timer(),
                   SizedBox(
-                    width: 10,
+                    width: 20,
                   ),
-                  espet(true),
+                  timer(),
                   SizedBox(
-                    width: 8,
+                    width: 23,
                   ),
-                  espet(true),
+                  timer(),
                   SizedBox(
                     width: 4,
                   ),
                 ],
               ),
             ),
+            Positioned(
+              top: 223,
+              child: Row(
+                children: <Widget>[
+                  SizedBox(
+                    width: 48,
+                  ),
+                  AutoSizeText(
+                    "min",
+                    presetFontSizes: [20.0, 20.0, 14.0],
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    width: 24,
+                  ),
+                  AutoSizeText(
+                    "min",
+                    presetFontSizes: [20.0, 20.0, 14.0],
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                  ),                  
+                  SizedBox(
+                    width: 24,
+                  ),
+                  AutoSizeText(
+                    "min",
+                    presetFontSizes: [20.0, 20.0, 14.0],
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    width: 23,
+                  ),
+                  AutoSizeText(
+                    "min",
+                    presetFontSizes: [20.0, 20.0, 14.0],
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    width: 4,
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              top: 193,
+              child: Row(
+                children: <Widget>[
+                  SizedBox(
+                    width: 54,
+                  ),
+                  AutoSizeText(
+                    "5",
+                    presetFontSizes: [30.0, 20.0, 14.0],
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  SizedBox(
+                    width: 37,
+                  ),
+                  AutoSizeText(
+                    "3",
+                    presetFontSizes: [30.0, 20.0, 14.0],
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white),
+                  ),                  
+                  SizedBox(
+                    width: 31,
+                  ),
+                  AutoSizeText(
+                    "10",
+                    presetFontSizes: [30.0, 20.0, 14.0],
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  SizedBox(
+                    width: 26,
+                  ),
+                  AutoSizeText(
+                    "15",
+                    presetFontSizes: [30.0, 20.0, 14.0],
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  SizedBox(
+                    width: 4,
+                  ),
+                ],
+              ),
+            ),            
+
           ],
         ),
       ),
