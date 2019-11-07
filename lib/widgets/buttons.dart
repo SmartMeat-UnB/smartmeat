@@ -1,4 +1,3 @@
-import 'package:SmartMeat/screens/informationsRasp.dart';
 import 'package:SmartMeat/screens/tutorialWifi.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

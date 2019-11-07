@@ -1,5 +1,4 @@
 import 'package:SmartMeat/screens/name_user.dart';
-import 'package:SmartMeat/screens/tutorialWifi.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
