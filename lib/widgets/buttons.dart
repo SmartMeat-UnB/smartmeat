@@ -12,6 +12,7 @@ class Botao extends StatelessWidget {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('nome', this.userName);
       prefs.setBool('seen', true);
+      prefs.setBool('notificacao', true);
       print(this.userName);
       Navigator.push(context,
           new MaterialPageRoute(builder: (context) => new TutorialWifi()));
