@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'dart:convert';
 
+import 'package:flutter_xlider/flutter_xlider.dart';
+
 class InformationRasp extends StatefulWidget {
   @override
   _InformationRaspState createState() => _InformationRaspState();
@@ -20,6 +22,8 @@ class _InformationRaspState extends State<InformationRasp> {
   Map<String, SocketIO> sockets = {};
   Map<String, bool> _isProbablyConnected = {};
   // List<bool> isSelected;
+  String _lowerValue;
+  double _upperValue = 180;
 
   //Vai ser setado de acordo com o valor que vai chegar da churrasqueira
   //para saber se está ou não ligada, uma variavel para o estado da churrasqueira
@@ -196,48 +200,55 @@ class _InformationRaspState extends State<InformationRasp> {
                   fontSize: 35.0,
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  RaisedButton(
-                    onPressed: subtractNumbers,
-                    textColor: Colors.white,
-                    color: Colors.red,
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 28.0,
-                        fontFamily: 'Roboto',
-                      ),
-                    ),
+              FlutterSlider(
+                trackBar: FlutterSliderTrackBar(
+                  activeTrackBarHeight: 30,
+                  inactiveTrackBarHeight: 30,
+                  inactiveTrackBar: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.black12,
+                    border: Border.all(width: 3, color: Colors.yellow),
                   ),
-                  Text(
-                    '${smartMeat.smartmeat.temperature}°',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 60.0,
-                      fontFamily: 'Roboto',
-                      color: Colors.black87,
-                      backgroundColor: Colors.black.withOpacity(0.2),
-                    ),
-                  ),
-                  RaisedButton(
-                    padding: const EdgeInsets.all(8.0),
-                    textColor: Colors.white,
-                    color: Colors.blue,
-                    onPressed: addNumbers,
-                    child: Text(
-                      "+",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 28.0,
-                        fontFamily: 'Roboto',
-                      ),
-                    ),
-                  ),
+                  activeTrackBar: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.red),
+                ),
+                values: [10, 50],
+                fixedValues: [
+                  FlutterSliderFixedValue(percent: 0, value: "0"),
+                  FlutterSliderFixedValue(percent: 25, value: "25 C°"),
+                  FlutterSliderFixedValue(percent: 50, value: "50 C°"),
+                  FlutterSliderFixedValue(percent: 75, value: "75 C°"),
+                  FlutterSliderFixedValue(percent: 100, value: "100 C°"),
                 ],
+                handlerAnimation: FlutterSliderHandlerAnimation(
+                    curve: Curves.elasticOut,
+                    reverseCurve: Curves.bounceIn,
+                    duration: Duration(milliseconds: 500),
+                    scale: 1.5),
+                tooltip: FlutterSliderTooltip(
+                    textStyle: TextStyle(fontSize: 17, color: Colors.white),
+                    boxStyle: FlutterSliderTooltipBox(
+                        decoration: BoxDecoration(
+                            color: Colors.redAccent.withOpacity(0.7)))),
+                onDragging: (handlerIndex, lowerValue, upperValue) {
+                  _lowerValue = lowerValue;
+                  print(_lowerValue);
+                  setState(() {});
+                },
+                // hatchMark: FlutterSliderHatchMark(
+                //   distanceFromTrackBar: 10,
+                //   density: 0.5, // means 50 lines, from 0 to 100 percent
+                //   labels: [
+                //     FlutterSliderHatchMarkLabel(percent: 0, label: 'Start'),
+                //     FlutterSliderHatchMarkLabel(percent: 10, label: '10,000'),
+                //     FlutterSliderHatchMarkLabel(percent: 50, label: '50 %'),
+                //     FlutterSliderHatchMarkLabel(percent: 80, label: '80,000'),
+                //     FlutterSliderHatchMarkLabel(percent: 100, label: 'Finish'),
+                //   ],
+                // ),
+                max: 50,
+                min: 0,
               )
             ],
           ),
