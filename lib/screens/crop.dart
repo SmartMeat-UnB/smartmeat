@@ -131,7 +131,7 @@ class _CropImageState extends State<CropImage> {
                                         new BorderRadius.circular(30.0)),
                                 color: Colors.green,
                                 child: Text(
-                                  'Enviar',
+                                  'Receitas',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 20),
                                 ),
@@ -169,6 +169,26 @@ class _CropImageState extends State<CropImage> {
                                 },
                               ),
                             ),
+                            ButtonTheme(
+                              minWidth: 150.0,
+                              height: 50.0,
+                              child: RaisedButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(30.0)),
+                                color: Colors.green,
+                                child: Text(
+                                  'Receitas',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => ResultIA(
+                                          widget.imageFile, recipesData())));
+                                },
+                              ),
+                            )
                     ],
                   ),
                 ],
