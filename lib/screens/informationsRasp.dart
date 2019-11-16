@@ -16,7 +16,11 @@ class InformationRasp extends StatefulWidget {
 class _InformationRaspState extends State<InformationRasp> {
   //my ip inet = 192.168.15.?
   GeneralSmartMeat smartMeat;
-  String uri = "http://192.168.15.2:7000/";
+  // String uri = "http://192.168.15.2:8080/";
+  // String uri = "http://192.168.15.2:8080/";
+  // Emulator URI
+  String uri = "http://10.0.2.2:8080/";
+
   List<String> toPrint = ["trying to connect"];
   SocketIOManager manager;
   Map<String, SocketIO> sockets = {};
@@ -94,9 +98,9 @@ class _InformationRaspState extends State<InformationRasp> {
         ] //Enable required transport
         ));
     socket.onConnect((data) {
-      pprint("connected...");
+      pprint("Connected...");
       pprint(data);
-      // sendMessage(identifier);
+      // sendMessage("default");
     });
     socket.onConnectError(pprint);
     socket.onConnectTimeout(pprint);
@@ -107,7 +111,7 @@ class _InformationRaspState extends State<InformationRasp> {
     socket.on("type:number", (data) => pprint("type:number | $data"));
     socket.on("type:object", (data) => pprint("type:object | $data"));
     socket.on("type:list", (data) => pprint("type:list | $data"));
-    socket.on("message", (data) => pprint(data));
+    socket.on("message", (data) => pprint("MESSAGE RECEIVED $data"));
     socket.connect();
     sockets[identifier] = socket;
   }
@@ -164,6 +168,7 @@ class _InformationRaspState extends State<InformationRasp> {
       toPrint.add(data);
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
