@@ -5,8 +5,8 @@ import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'dart:convert';
-
 import 'package:flutter_xlider/flutter_xlider.dart';
+
 
 class InformationRasp extends StatefulWidget {
   @override
@@ -26,16 +26,14 @@ class _InformationRaspState extends State<InformationRasp> {
   Map<String, SocketIO> sockets = {};
   Map<String, bool> _isProbablyConnected = {};
   // List<bool> isSelected;
-  String _lowerValue;
-  double _upperValue = 180;
+  int _level = 0;
 
   //Vai ser setado de acordo com o valor que vai chegar da churrasqueira
   //para saber se está ou não ligada, uma variavel para o estado da churrasqueira
   bool _state = false;
-  int _temperature = 25;
 
   String jsonSmartMeat =
-      '{"smartmeat": { "on": true,"stick1": {"active": true,"time_active": "12:45"},"stick2": {"active": true,"time_active": "10:08"},"stick3": {"active": false,"time_active": "00:00"},"stick4": {"active": false,"time_active": "00:00"},"temperature": 175}}';
+      '{"smartmeat": { "on": true,"stick1": {"active": false,"time_active": "12:45"},"stick2": {"active": true,"time_active": "10:08"},"stick3": {"active": false,"time_active": "00:00"},"stick4": {"active": false,"time_active": "00:00"},"temperature": 3}}';
   void smartMeatData() {
     String jsonData = jsonSmartMeat;
     var parsedJson = json.decode(jsonData);
@@ -52,25 +50,6 @@ class _InformationRaspState extends State<InformationRasp> {
     });
   }
 
-  void subtractNumbers() {
-    if (_temperature >= 25) {
-      setState(() {
-        _temperature = _temperature - 2;
-        sendMessage("default");
-      });
-    }
-  }
-
-  void addNumbers() {
-    if (_temperature <= 80) {
-      setState(() {
-        _temperature = _temperature + 2;
-        sendMessage("default");
-        initState();
-      });
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -85,12 +64,6 @@ class _InformationRaspState extends State<InformationRasp> {
         //Socket IO server URI
         uri,
         nameSpace: (identifier == "namespaced") ? "/adhara" : "/",
-        //Query params - can be used for authentication
-        query: {
-          "auth": "--SOME AUTH STRING---",
-          "info": "new connection from adhara-socketio",
-          "timestamp": DateTime.now().toString()
-        },
         //Enable or disable platform channel logging
         enableLogging: false,
         transports: [
@@ -132,7 +105,7 @@ class _InformationRaspState extends State<InformationRasp> {
         {
           "smartmeat": {
             "on": _state,
-            "temperature": _temperature,
+            "temperature": _level,
             "stick1": {"active": false, "time_active": "00:00"},
             "stick2": {"active": false, "time_active": "00:00"},
             "stick3": {"active": false, "time_active": "00:00"},
@@ -207,54 +180,65 @@ class _InformationRaspState extends State<InformationRasp> {
               ),
               FlutterSlider(
                 trackBar: FlutterSliderTrackBar(
-                  activeTrackBarHeight: 30,
-                  inactiveTrackBarHeight: 30,
+                  activeTrackBarHeight: 18,
+                  inactiveTrackBarHeight: 14,
                   inactiveTrackBar: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.black12,
-                    border: Border.all(width: 3, color: Colors.yellow),
+                    border: Border.all(width: 1, color: Colors.grey),
                   ),
                   activeTrackBar: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.red),
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.redAccent),
                 ),
-                values: [10, 50],
+                values: [25],
+                max: 5,
+                min: 0,
+                selectByTap: true, // default is true
+                jump: true,
+                touchSize: 25,
+                // visibleTouchArea: true,
                 fixedValues: [
                   FlutterSliderFixedValue(percent: 0, value: "0"),
-                  FlutterSliderFixedValue(percent: 25, value: "25 C°"),
-                  FlutterSliderFixedValue(percent: 50, value: "50 C°"),
-                  FlutterSliderFixedValue(percent: 75, value: "75 C°"),
-                  FlutterSliderFixedValue(percent: 100, value: "100 C°"),
+                  FlutterSliderFixedValue(percent: 25, value: "1"),
+                  FlutterSliderFixedValue(percent: 50, value: "2"),
+                  FlutterSliderFixedValue(percent: 75, value: "3"),
+                  FlutterSliderFixedValue(percent: 100, value: "4"),
                 ],
+                // TODO make hatchmark appear
+                hatchMark: FlutterSliderHatchMark(
+                  distanceFromTrackBar: 5,
+                  density: 0.5, // means 50 lines, from 0 to 100 percent
+                  labels: [
+                    FlutterSliderHatchMarkLabel(percent: 0, label: "Level 1"),
+                    FlutterSliderHatchMarkLabel(percent: 25, label: "Level 2"),
+                    FlutterSliderHatchMarkLabel(percent: 50, label: "Level 3"),
+                    FlutterSliderHatchMarkLabel(percent: 75, label: "Level 4"),
+                    FlutterSliderHatchMarkLabel(percent: 100, label: "Level 5"),
+                  ],
+                ),
                 handlerAnimation: FlutterSliderHandlerAnimation(
                     curve: Curves.elasticOut,
                     reverseCurve: Curves.bounceIn,
                     duration: Duration(milliseconds: 500),
                     scale: 1.5),
                 tooltip: FlutterSliderTooltip(
-                    textStyle: TextStyle(fontSize: 17, color: Colors.white),
+                    textStyle: TextStyle(fontSize: 20, color: Colors.white),
                     boxStyle: FlutterSliderTooltipBox(
                         decoration: BoxDecoration(
-                            color: Colors.redAccent.withOpacity(0.7)))),
-                onDragging: (handlerIndex, lowerValue, upperValue) {
-                  _lowerValue = lowerValue;
-                  print(_lowerValue);
+                            color: Colors.redAccent.withOpacity(0.5)))),
+                onDragCompleted: (handlerIndex, lowerValue, upperValue) {
+                  _level = int.parse(lowerValue);
+                  sendMessage("default");
                   setState(() {});
                 },
-                // hatchMark: FlutterSliderHatchMark(
-                //   distanceFromTrackBar: 10,
-                //   density: 0.5, // means 50 lines, from 0 to 100 percent
-                //   labels: [
-                //     FlutterSliderHatchMarkLabel(percent: 0, label: 'Start'),
-                //     FlutterSliderHatchMarkLabel(percent: 10, label: '10,000'),
-                //     FlutterSliderHatchMarkLabel(percent: 50, label: '50 %'),
-                //     FlutterSliderHatchMarkLabel(percent: 80, label: '80,000'),
-                //     FlutterSliderHatchMarkLabel(percent: 100, label: 'Finish'),
-                //   ],
-                // ),
-                max: 50,
-                min: 0,
-              )
+              ),
+              Text(
+                "Level " + _level.toString(),
+                style: TextStyle(
+                  fontSize: 35.0,
+                ),
+              ),
             ],
           ),
         ),
