@@ -5,33 +5,43 @@ import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'dart:convert';
+import 'package:flutter_xlider/flutter_xlider.dart';
+
 
 class InformationRasp extends StatefulWidget {
   @override
   _InformationRaspState createState() => _InformationRaspState();
 }
 
-String jsonSmartMeat = 'vazio';
-
 class _InformationRaspState extends State<InformationRasp> {
   //my ip inet = 192.168.15.?
-  String uri = "http://192.168.15.2:7000/";
+  GeneralSmartMeat smartMeat;
+  // String uri = "http://192.168.15.2:8080/";
+  // String uri = "http://192.168.15.2:8080/";
+  // Emulator URI
+  String uri = "http://10.0.2.2:8080/";
+
   List<String> toPrint = ["trying to connect"];
   SocketIOManager manager;
   Map<String, SocketIO> sockets = {};
   Map<String, bool> _isProbablyConnected = {};
   // List<bool> isSelected;
+  int _level = 0;
 
   //Vai ser setado de acordo com o valor que vai chegar da churrasqueira
   //para saber se está ou não ligada, uma variavel para o estado da churrasqueira
   bool _state = false;
-  int _temperature = 25;
 
-  GeneralSmartMeat smartMeatData() {
-    String jsonData = jsonSmartMeat;
-    var parsedJson = json.decode(jsonData);
-    GeneralSmartMeat smartMeat = GeneralSmartMeat.fromJson(parsedJson);
-    return smartMeat;
+  String _jsonData = '{"smartmeat": { "on": false,"stick1": {"active": false,"time_active": "12:45"},"stick2": {"active": false,"time_active": "10:08"},"stick3": {"active": false,"time_active": "00:00"},"stick4": {"active": false,"time_active": "00:00"},"temperature": 3}}';
+
+
+  void smartMeatData(jsonData) {
+    print("Incoming data $_jsonData");
+    setState(() {
+      _jsonData = jsonData.toString();
+    });
+    var parsedJson = json.decode(_jsonData);
+    smartMeat = GeneralSmartMeat.fromJson(parsedJson);
   }
 
   void onChanged(String identifier, bool value) {
@@ -44,29 +54,12 @@ class _InformationRaspState extends State<InformationRasp> {
     });
   }
 
-  void subtractNumbers() {
-    if (_temperature >= 25) {
-      setState(() {
-        _temperature = _temperature - 2;
-        sendMessage("default");
-      });
-    }
-  }
-
-  void addNumbers() {
-    if (_temperature <= 80) {
-      setState(() {
-        _temperature = _temperature + 2;
-        sendMessage("default");
-      });
-    }
-  }
-
   @override
   void initState() {
     super.initState();
     manager = SocketIOManager();
     initSocket("default");
+    smartMeatData(_jsonData);
   }
 
   initSocket(String identifier) async {
@@ -75,12 +68,6 @@ class _InformationRaspState extends State<InformationRasp> {
         //Socket IO server URI
         uri,
         nameSpace: (identifier == "namespaced") ? "/adhara" : "/",
-        //Query params - can be used for authentication
-        query: {
-          "auth": "--SOME AUTH STRING---",
-          "info": "new connection from adhara-socketio",
-          "timestamp": DateTime.now().toString()
-        },
         //Enable or disable platform channel logging
         enableLogging: false,
         transports: [
@@ -88,9 +75,9 @@ class _InformationRaspState extends State<InformationRasp> {
         ] //Enable required transport
         ));
     socket.onConnect((data) {
-      pprint("connected...");
+      pprint("Connected...");
       pprint(data);
-      // sendMessage(identifier);
+      // sendMessage("default");
     });
     socket.onConnectError(pprint);
     socket.onConnectTimeout(pprint);
@@ -101,7 +88,9 @@ class _InformationRaspState extends State<InformationRasp> {
     socket.on("type:number", (data) => pprint("type:number | $data"));
     socket.on("type:object", (data) => pprint("type:object | $data"));
     socket.on("type:list", (data) => pprint("type:list | $data"));
-    socket.on("message", (data) => pprint(data));
+    // socket.on("message", (data) => pprint("MESSAGE RECEIVED $data"));
+    socket.on("message", (data) => smartMeatData(data));
+    
     socket.connect();
     sockets[identifier] = socket;
   }
@@ -122,7 +111,7 @@ class _InformationRaspState extends State<InformationRasp> {
         {
           "smartmeat": {
             "on": _state,
-            "temperature": _temperature,
+            "temperature": _level,
             "stick1": {"active": false, "time_active": "00:00"},
             "stick2": {"active": false, "time_active": "00:00"},
             "stick3": {"active": false, "time_active": "00:00"},
@@ -159,13 +148,14 @@ class _InformationRaspState extends State<InformationRasp> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           leading: Switch(
               activeColor: Colors.green,
-              value: _state,
+              value: smartMeat.smartmeat.on,
               onChanged: (bool value) {
                 onChanged("default", value);
               }),
@@ -186,7 +176,7 @@ class _InformationRaspState extends State<InformationRasp> {
                 alignment: Alignment.topCenter,
                 width: 500.0,
                 height: 300.0,
-                child: Churrasqueira(),
+                child: Churrasqueira(smartMeat),
               ),
               Text(
                 'Temperatura',
@@ -194,49 +184,67 @@ class _InformationRaspState extends State<InformationRasp> {
                   fontSize: 35.0,
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  RaisedButton(
-                    onPressed: subtractNumbers,
-                    textColor: Colors.white,
-                    color: Colors.red,
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 28.0,
-                        fontFamily: 'Roboto',
-                      ),
-                    ),
+              FlutterSlider(
+                trackBar: FlutterSliderTrackBar(
+                  activeTrackBarHeight: 18,
+                  inactiveTrackBarHeight: 14,
+                  inactiveTrackBar: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.black12,
+                    border: Border.all(width: 1, color: Colors.grey),
                   ),
-                  Text(
-                    '$_temperature°',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 60.0,
-                      fontFamily: 'Roboto',
-                      color: Colors.black87,
-                      backgroundColor: Colors.black.withOpacity(0.2),
-                    ),
-                  ),
-                  RaisedButton(
-                    padding: const EdgeInsets.all(8.0),
-                    textColor: Colors.white,
-                    color: Colors.blue,
-                    onPressed: addNumbers,
-                    child: Text(
-                      "+",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 28.0,
-                        fontFamily: 'Roboto',
-                      ),
-                    ),
-                  ),
+                  activeTrackBar: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.redAccent),
+                ),
+                values: [0],
+                max: 5,
+                min: 0,
+                selectByTap: true, // default is true
+                jump: true,
+                touchSize: 25,
+                // visibleTouchArea: true,
+                fixedValues: [
+                  FlutterSliderFixedValue(percent: 0, value: "0"),
+                  FlutterSliderFixedValue(percent: 25, value: "1"),
+                  FlutterSliderFixedValue(percent: 50, value: "2"),
+                  FlutterSliderFixedValue(percent: 75, value: "3"),
+                  FlutterSliderFixedValue(percent: 100, value: "4"),
                 ],
-              )
+                // TODO make hatchmark appear
+                hatchMark: FlutterSliderHatchMark(
+                  distanceFromTrackBar: 5,
+                  density: 0.5, // means 50 lines, from 0 to 100 percent
+                  labels: [
+                    FlutterSliderHatchMarkLabel(percent: 0, label: "Level 1"),
+                    FlutterSliderHatchMarkLabel(percent: 25, label: "Level 2"),
+                    FlutterSliderHatchMarkLabel(percent: 50, label: "Level 3"),
+                    FlutterSliderHatchMarkLabel(percent: 75, label: "Level 4"),
+                    FlutterSliderHatchMarkLabel(percent: 100, label: "Level 5"),
+                  ],
+                ),
+                handlerAnimation: FlutterSliderHandlerAnimation(
+                    curve: Curves.elasticOut,
+                    reverseCurve: Curves.bounceIn,
+                    duration: Duration(milliseconds: 500),
+                    scale: 1.5),
+                tooltip: FlutterSliderTooltip(
+                    textStyle: TextStyle(fontSize: 20, color: Colors.white),
+                    boxStyle: FlutterSliderTooltipBox(
+                        decoration: BoxDecoration(
+                            color: Colors.redAccent.withOpacity(0.5)))),
+                onDragCompleted: (handlerIndex, lowerValue, upperValue) {
+                  _level = int.parse(lowerValue);
+                  sendMessage("default");
+                  setState(() {});
+                },
+              ),
+              Text(
+                "Level " + _level.toString(),
+                style: TextStyle(
+                  fontSize: 35.0,
+                ),
+              ),
             ],
           ),
         ),
