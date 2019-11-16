@@ -32,7 +32,7 @@ dependencies:
     git:
       url: https://github.com/Edward608/system_setting.git
   auto_size_text: ^2.1.0
-
+  flutter_xlider: ^2.5.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -68,6 +68,7 @@ flutter:
    - images/intro3.jpg
    - images/bbq.png
    - images/espeto.png
+   - images/quadrado.png
 
   # assets:
   #  - images/a_dot_burr.jpeg
