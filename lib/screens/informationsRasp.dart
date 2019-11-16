@@ -32,11 +32,15 @@ class _InformationRaspState extends State<InformationRasp> {
   //para saber se está ou não ligada, uma variavel para o estado da churrasqueira
   bool _state = false;
 
-  String jsonSmartMeat =
-      '{"smartmeat": { "on": true,"stick1": {"active": false,"time_active": "12:45"},"stick2": {"active": true,"time_active": "10:08"},"stick3": {"active": false,"time_active": "00:00"},"stick4": {"active": false,"time_active": "00:00"},"temperature": 3}}';
-  void smartMeatData() {
-    String jsonData = jsonSmartMeat;
-    var parsedJson = json.decode(jsonData);
+  String _jsonData = '{"smartmeat": { "on": false,"stick1": {"active": false,"time_active": "12:45"},"stick2": {"active": false,"time_active": "10:08"},"stick3": {"active": false,"time_active": "00:00"},"stick4": {"active": false,"time_active": "00:00"},"temperature": 3}}';
+
+
+  void smartMeatData(jsonData) {
+    print("Incoming data $_jsonData");
+    setState(() {
+      _jsonData = jsonData.toString();
+    });
+    var parsedJson = json.decode(_jsonData);
     smartMeat = GeneralSmartMeat.fromJson(parsedJson);
   }
 
@@ -55,7 +59,7 @@ class _InformationRaspState extends State<InformationRasp> {
     super.initState();
     manager = SocketIOManager();
     initSocket("default");
-    smartMeatData();
+    smartMeatData(_jsonData);
   }
 
   initSocket(String identifier) async {
@@ -84,7 +88,9 @@ class _InformationRaspState extends State<InformationRasp> {
     socket.on("type:number", (data) => pprint("type:number | $data"));
     socket.on("type:object", (data) => pprint("type:object | $data"));
     socket.on("type:list", (data) => pprint("type:list | $data"));
-    socket.on("message", (data) => pprint("MESSAGE RECEIVED $data"));
+    // socket.on("message", (data) => pprint("MESSAGE RECEIVED $data"));
+    socket.on("message", (data) => smartMeatData(data));
+    
     socket.connect();
     sockets[identifier] = socket;
   }
@@ -191,7 +197,7 @@ class _InformationRaspState extends State<InformationRasp> {
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.redAccent),
                 ),
-                values: [25],
+                values: [0],
                 max: 5,
                 min: 0,
                 selectByTap: true, // default is true
