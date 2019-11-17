@@ -48,8 +48,8 @@ class _InformationRaspState extends State<InformationRasp> {
     bool ipc = isProbablyConnected(identifier);
     setState(() {
       if (ipc != null) {
+        this._state = value;
         sendMessage(identifier);
-        _state = value;
       }
     });
   }
