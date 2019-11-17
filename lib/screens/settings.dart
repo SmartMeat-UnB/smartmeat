@@ -13,9 +13,11 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   String _nome;
   bool _state = false;
+  bool notificationState = false;
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
+      notificationState = (prefs.getBool('notificacao'));
       _nome = (prefs.getString('nome'));
       print(_nome);
     });
@@ -34,6 +36,14 @@ class _SettingsState extends State<Settings> {
     prefs.setString('nome', text);
     setState(() {
       _nome = text;
+    });
+  }
+
+  Future _alterarStatusNotificacao(bool active) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('notificacao', active);
+    setState(() {
+      notificationState = active;
     });
   }
 
@@ -142,7 +152,7 @@ class _SettingsState extends State<Settings> {
                           value: _state,
                         ),
                       ]),
-                       SizedBox(
+                      SizedBox(
                         height: 15,
                       ),
                       Row(children: <Widget>[
@@ -196,12 +206,10 @@ class _SettingsState extends State<Settings> {
                         ),
                         Switch(
                           onChanged: (bool value) {
-                            setState(() {
-                              value = !_state;
-                            });
+                            _alterarStatusNotificacao(!notificationState);
                           },
                           activeColor: Colors.green,
-                          value: _state,
+                          value: notificationState,
                         ),
                       ]),
                       TextField(

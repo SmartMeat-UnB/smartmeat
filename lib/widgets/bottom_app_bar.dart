@@ -1,10 +1,37 @@
-import 'package:SmartMeat/screens/informationsRasp.dart';
-import 'package:SmartMeat/screens/tutorialWifi.dart';
-import 'package:SmartMeat/screens/tutorial_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class BottomApp extends StatelessWidget {
+class BottomApp extends StatefulWidget {
   const BottomApp();
+
+  @override
+  _BottomAppState createState() => _BottomAppState();
+}
+
+class _BottomAppState extends State<BottomApp> {
+  bool notificationState = false;
+
+  Future checkNotification() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      notificationState = (prefs.getBool('notificacao'));
+    });
+  }
+
+  Future _alterarStatusNotificacao(bool active) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('notificacao', active);
+    setState(() {
+      notificationState = active;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkNotification();
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget _buildBottomBar() => BottomAppBar(
@@ -23,7 +50,6 @@ class BottomApp extends StatelessWidget {
                         : Colors.grey[700],
                   ),
                   onPressed: () {
-
                     ModalRoute.of(context).settings.name != ('/home')
                         ? Navigator.pushNamed(context, '/home')
                         : null;
@@ -62,16 +88,19 @@ class BottomApp extends StatelessWidget {
                   },
                 ),
                 IconButton(
-                  icon: Icon(
-                    Icons.notifications_active,
-                    size: 32,
-                    // color: _controller.page.round() ==
-                    //         1000 // alterar quando a pagina for criada
-                    //     ? Color.fromARGB(255, 169, 0, 52)
-                    //     : Colors.grey[700],
-                  ),
+                  icon: notificationState
+                      ? Icon(
+                          Icons.notifications_active,
+                          size: 32,
+                          color: Colors.grey[700],
+                        )
+                      : Icon(
+                          Icons.notifications_off,
+                          size: 32,
+                          color: Colors.grey[700],
+                        ),
                   onPressed: () {
-                    // setState(() {});
+                    _alterarStatusNotificacao(!notificationState);
                   },
                 )
               ],
