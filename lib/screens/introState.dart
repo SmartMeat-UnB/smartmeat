@@ -16,6 +16,7 @@ class SplashState extends State<Splash> {
       Navigator.pushNamed(context, '/home');
     } else {
       prefs.setBool('notificacao', true);
+      prefs.setInt('tempo', 180);
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => WelcomePage()));
     }

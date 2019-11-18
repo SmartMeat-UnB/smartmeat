@@ -23,6 +23,7 @@ class InformationRasp extends StatefulWidget {
 class _InformationRaspState extends State<InformationRasp> {
   //my ip inet = 192.168.15.?
   GeneralSmartMeat smartMeat;
+  bool notificationState;
   // String uri = "http://192.168.15.2:8080/";
   // String uri = "http://192.168.15.2:8080/";
   // Emulator URI
@@ -40,7 +41,7 @@ class _InformationRaspState extends State<InformationRasp> {
   bool _state = false;
 
   String _jsonData =
-      '{"smartmeat": { "on": false,"stick1": {"active": false,"time_active": "12:45"},"stick2": {"active": false,"time_active": "10:08"},"stick3": {"active": false,"time_active": "00:00"},"stick4": {"active": false,"time_active": "00:00"},"temperature": 3}}';
+      '{"smartmeat": { "on": false,"stick1": {"active": true,"time_active": "12:45"},"stick2": {"active": false,"time_active": "10:08"},"stick3": {"active": false,"time_active": "00:00"},"stick4": {"active": false,"time_active": "00:00"},"temperature": 3}}';
 
   void smartMeatData(jsonData) {
     print("Incoming data $_jsonData");
@@ -66,6 +67,7 @@ class _InformationRaspState extends State<InformationRasp> {
     super.initState();
     manager = SocketIOManager();
     initSocket("default");
+    smartMeatData(_jsonData);
     var initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
     var initializationSettingsIOS = IOSInitializationSettings();
@@ -74,15 +76,20 @@ class _InformationRaspState extends State<InformationRasp> {
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
-  Future<void> scheduleNotification(bool confirma, int stick) async {
+  Future<void> scheduleNotification(int stick) async {
     int tempo;
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    tempo = (prefs.getInt('tempo') ?? 0);
-    if (tempo == 0) {
-      prefs.setInt('tempo', 900);
-      tempo = 900;
-    }
-    if (confirma) {
+    tempo = (prefs.getInt('tempo'));
+    notificationState = (prefs.getBool('notificacao'));
+
+    if (notificationState == true) {
+      print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+      if (tempo == 0) {
+        prefs.setInt('tempo', 180);
+        tempo = 180;
+        print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+      }
+
       var scheduledNotificationDateTime =
           DateTime.now().add(Duration(seconds: tempo));
       var vibrationPattern = Int64List(4);
