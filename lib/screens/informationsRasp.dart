@@ -50,6 +50,10 @@ class _InformationRaspState extends State<InformationRasp> {
     });
     var parsedJson = json.decode(_jsonData);
     smartMeat = GeneralSmartMeat.fromJson(parsedJson);
+    scheduleNotification(smartMeat.smartmeat.stick1.active, 1);
+    scheduleNotification(smartMeat.smartmeat.stick2.active, 2);
+    scheduleNotification(smartMeat.smartmeat.stick3.active, 3);
+    scheduleNotification(smartMeat.smartmeat.stick4.active, 4);
   }
 
   void onChanged(String identifier, bool value) {
@@ -76,20 +80,17 @@ class _InformationRaspState extends State<InformationRasp> {
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
-  Future<void> scheduleNotification(int stick) async {
+  Future<void> scheduleNotification(bool stickState, int stick) async {
     int tempo;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     tempo = (prefs.getInt('tempo'));
     notificationState = (prefs.getBool('notificacao'));
 
-    if (notificationState == true) {
-      print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+    if (notificationState == true && stickState == true) {
       if (tempo == 0) {
         prefs.setInt('tempo', 180);
         tempo = 180;
-        print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
       }
-
       var scheduledNotificationDateTime =
           DateTime.now().add(Duration(seconds: tempo));
       var vibrationPattern = Int64List(4);
@@ -118,7 +119,6 @@ class _InformationRaspState extends State<InformationRasp> {
           scheduledNotificationDateTime,
           platformChannelSpecifics);
     }
-    smartMeatData(_jsonData);
   }
 
   initSocket(String identifier) async {
@@ -155,7 +155,6 @@ class _InformationRaspState extends State<InformationRasp> {
     socket.on("type:list", (data) => pprint("type:list | $data"));
     // socket.on("message", (data) => pprint("MESSAGE RECEIVED $data"));
     socket.on("message", (data) => smartMeatData(data));
-
     socket.connect();
     sockets[identifier] = socket;
   }
