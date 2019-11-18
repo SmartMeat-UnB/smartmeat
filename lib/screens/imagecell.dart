@@ -117,6 +117,14 @@ class _ImagesCellState extends State<ImagesCell>
           ],
         ),
         appBar: AppBar(
+          title: const Text('Imagem para Receita',
+              style: TextStyle(
+                  fontSize: 28.0,
+                  color: Colors.black87,
+                  fontFamily: 'Pacifico'),
+              textAlign: TextAlign.center,
+              strutStyle: StrutStyle(height: 2.5, forceStrutHeight: true)),
+          centerTitle: true,
           iconTheme: IconThemeData(
             color: Colors.black, //change your color here
           ),

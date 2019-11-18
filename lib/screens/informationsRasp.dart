@@ -198,15 +198,17 @@ class _InformationRaspState extends State<InformationRasp> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   RaisedButton(
+                    shape: CircleBorder(),
                     onPressed: subtractNumbers,
                     textColor: Colors.white,
                     color: Colors.red,
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       "-",
-                      style: TextStyle(
+                      style: 
+                        TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 28.0,
+                        fontSize: 40.0,
                         fontFamily: 'Roboto',
                       ),
                     ),
@@ -218,10 +220,11 @@ class _InformationRaspState extends State<InformationRasp> {
                       fontSize: 60.0,
                       fontFamily: 'Roboto',
                       color: Colors.black87,
-                      backgroundColor: Colors.black.withOpacity(0.2),
+                      backgroundColor: Colors.white.withOpacity(0.2),
                     ),
                   ),
                   RaisedButton(
+                    shape: CircleBorder(),
                     padding: const EdgeInsets.all(8.0),
                     textColor: Colors.white,
                     color: Colors.blue,
@@ -230,7 +233,7 @@ class _InformationRaspState extends State<InformationRasp> {
                       "+",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 28.0,
+                        fontSize: 40.0,
                         fontFamily: 'Roboto',
                       ),
                     ),
