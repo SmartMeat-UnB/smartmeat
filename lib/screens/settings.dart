@@ -14,12 +14,14 @@ class _SettingsState extends State<Settings> {
   String _nome;
   bool _state = false;
   bool notificationState = false;
+  int _tempo;
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       notificationState = (prefs.getBool('notificacao'));
+      _tempo = (prefs.getInt('tempo'));
       _nome = (prefs.getString('nome'));
-      print(_nome);
+      _tempo = _tempo ~/ 60;
     });
   }
 
@@ -37,6 +39,17 @@ class _SettingsState extends State<Settings> {
     setState(() {
       _nome = text;
     });
+  }
+
+  Future _alterarTempo(int tempo) async {
+    print(tempo);
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      _tempo = tempo;
+    });
+    prefs.setInt('tempo', _tempo * 60);
   }
 
   Future _alterarStatusNotificacao(bool active) async {
@@ -213,8 +226,8 @@ class _SettingsState extends State<Settings> {
                         ),
                       ]),
                       TextField(
-                        onChanged: (text) {
-                          _doSomething(text);
+                        onChanged: (tempo) {
+                          _alterarTempo(int.parse(tempo));
                         },
                         decoration: InputDecoration(
                           prefixIcon: Icon(
@@ -228,7 +241,7 @@ class _SettingsState extends State<Settings> {
                             color: Colors.black,
                           ),
                           border: InputBorder.none,
-                          labelText: " 15 min",
+                          labelText: " $_tempo min",
                           labelStyle: TextStyle(
                             height: 0,
                             fontSize: 20,
