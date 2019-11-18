@@ -55,34 +55,96 @@ class _TutorialWifiState extends State<TutorialWifi> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    RaisedButton(
-                      onPressed: _jumpToSettingWifi,
-                      textColor: Colors.white,
-                      color: Colors.blue,
-                      padding: const EdgeInsets.all(8.0),
-                      child:  Text(
-                                    "Wifi",
-                                    style: TextStyle(
+                    RawMaterialButton(
+                    fillColor: Colors.blueAccent,
+                    splashColor: Colors.greenAccent,                    
+                    child: Padding(
+                      padding: EdgeInsets.all(25.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const <Widget>[
+                          Icon(
+                            Icons.wifi,
+                            color: Colors.black,
+                            size: 25,
+                          ),
+                          SizedBox(
+                            width: 10.0,                            
+                          ),
+                          Text(
+                            "Wi-Fi",
+                            maxLines: 1,
+                            style: TextStyle(color: Colors.white,
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 28.0,
-                                              fontFamily: 'Roboto',
-                                          ),
-                                  ),
+                                              fontSize: 22.0,
+                                              fontFamily: 'Roboto',),
+                                   
+                          ),
+                        ],
+                      ),
                     ),
-                    RaisedButton(
-                      padding: const EdgeInsets.all(8.0),
-                      textColor: Colors.white,
-                      color: Colors.blue,
-                      onPressed: _jumpToSettingBT,
-                      child:  Text(
-                                  "Bluetooth",
-                                  style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 28.0,
-                                          fontFamily: 'Roboto',
-                                        ),
-                              ),
+                    onPressed: _jumpToSettingWifi,
+                    shape: const StadiumBorder(),
+                  ),
+                  RawMaterialButton(
+                    fillColor: Colors.blueAccent,
+                    splashColor: Colors.greenAccent,
+                    child: Padding(
+                      padding: EdgeInsets.all(25.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const <Widget>[
+                          Icon(
+                            Icons.bluetooth,
+                            color: Colors.black,
+                            size: 25,
+                          ),
+                          SizedBox(
+                            width: 8.0,
+                          ),
+                          Text(
+                            "Bluetooth",
+                            maxLines: 1,
+                            style: TextStyle(color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 22.0,
+                                              fontFamily: 'Roboto',),
+                                   
+                          ),
+                        ],
+                      ),
                     ),
+                    onPressed: _jumpToSettingWifi,
+                    shape: const StadiumBorder(),
+                  ),
+                    // RaisedButton(
+                    //   onPressed: _jumpToSettingWifi,
+                    //   textColor: Colors.white,
+                    //   color: Colors.blue,
+                    //   padding: const EdgeInsets.all(8.0),
+                    //   child:  Text(
+                    //                 "Wifi",
+                    //                 style: TextStyle(
+                    //                           fontWeight: FontWeight.bold,
+                    //                           fontSize: 28.0,
+                    //                           fontFamily: 'Roboto',
+                    //                       ),
+                    //               ),
+                    // ),
+                    // RaisedButton(
+                    //   padding: const EdgeInsets.all(8.0),
+                    //   textColor: Colors.white,
+                    //   color: Colors.blue,
+                    //   onPressed: _jumpToSettingBT,
+                    //   child:  Text(
+                    //               "Bluetooth",
+                    //               style: TextStyle(
+                    //                       fontWeight: FontWeight.bold,
+                    //                       fontSize: 28.0,
+                    //                       fontFamily: 'Roboto',
+                    //                     ),
+                    //           ),
+                    // ),
                   ]
                 ),
                 SizedBox(height: _height*0.05),
