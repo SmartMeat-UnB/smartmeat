@@ -177,7 +177,7 @@ class _InformationRaspState extends State<InformationRasp> {
               textAlign: TextAlign.center,
               strutStyle: StrutStyle(height: 2.5, forceStrutHeight: true)),
           centerTitle: true,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.red,
         ),
         body: Center(
           child: Column(
@@ -201,7 +201,7 @@ class _InformationRaspState extends State<InformationRasp> {
                     shape: CircleBorder(),
                     onPressed: subtractNumbers,
                     textColor: Colors.white,
-                    color: Colors.red,
+                    color: Colors.blueAccent,
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       "-",
@@ -227,7 +227,7 @@ class _InformationRaspState extends State<InformationRasp> {
                     shape: CircleBorder(),
                     padding: const EdgeInsets.all(8.0),
                     textColor: Colors.white,
-                    color: Colors.blue,
+                    color: Colors.redAccent,
                     onPressed: addNumbers,
                     child: Text(
                       "+",

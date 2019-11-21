@@ -46,7 +46,7 @@ class _SettingsState extends State<Settings> {
             title: Text('Configurações',
                 style: TextStyle(color: Colors.black, fontSize: 25)),
             centerTitle: true,
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.red,
             leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
@@ -57,7 +57,7 @@ class _SettingsState extends State<Settings> {
               },
             ),
           ),
-          preferredSize: Size.fromHeight(70.0),
+          preferredSize: Size.fromHeight(55.0),
         ),
         body: Container(
           child: Container(
