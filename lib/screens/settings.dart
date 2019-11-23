@@ -44,13 +44,13 @@ class _SettingsState extends State<Settings> {
         appBar: PreferredSize(
           child: AppBar(
             title: Text('Configurações',
-                style: TextStyle(color: Colors.black, fontSize: 25)),
+                style: TextStyle(color: Colors.white, fontSize: 25)),
             centerTitle: true,
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.grey[800],
             leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.black,
+                color: Colors.white,
               ),
               onPressed: () {
                 Navigator.pop(context);

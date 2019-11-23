@@ -56,7 +56,7 @@ class _TutorialWifiState extends State<TutorialWifi> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RawMaterialButton(
-                    fillColor: Colors.black,
+                    fillColor: Colors.black54,
                     splashColor: Colors.greenAccent,                    
                     child: Padding(
                       padding: EdgeInsets.all(20.0),
@@ -87,7 +87,7 @@ class _TutorialWifiState extends State<TutorialWifi> {
                     shape: const StadiumBorder(),
                   ),
                   RawMaterialButton(
-                    fillColor: Colors.black,
+                    fillColor: Colors.black54,
                     splashColor: Colors.greenAccent,
                     child: Padding(
                       padding: EdgeInsets.all(20.0),
@@ -162,7 +162,7 @@ class _TutorialWifiState extends State<TutorialWifi> {
                                                 color: Colors.white,
                                               ),
                                     ),
-                          color: Colors.blue,
+                          color: Colors.lightBlueAccent[400],
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                           onPressed: () {
                             Navigator.of(context).pushReplacement(

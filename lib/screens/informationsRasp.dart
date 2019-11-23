@@ -177,7 +177,7 @@ class _InformationRaspState extends State<InformationRasp> {
               textAlign: TextAlign.center,
               strutStyle: StrutStyle(height: 2.5, forceStrutHeight: true)),
           centerTitle: true,
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.redAccent[700],
         ),
         body: Center(
           child: Column(
