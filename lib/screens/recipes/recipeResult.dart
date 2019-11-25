@@ -33,7 +33,8 @@ class RecipeResult extends StatelessWidget {
 
     return Scaffold(
         bottomNavigationBar: BottomApp(),
-        body: Container(
+        body: SingleChildScrollView(
+            child: Container(
           padding: EdgeInsets.symmetric(vertical: 7.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -110,6 +111,7 @@ class RecipeResult extends StatelessWidget {
               ),
             ],
           ),
+        ),
         ),
         appBar: AppBar(
           backgroundColor: Colors.white,
