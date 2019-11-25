@@ -1,6 +1,9 @@
 import 'package:SmartMeat/screens/smartMeat/generalSmartMeat.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:intl/intl.dart';
+
 
 class Churrasqueira extends StatelessWidget {
   final GeneralSmartMeat smartMeat;
@@ -8,12 +11,21 @@ class Churrasqueira extends StatelessWidget {
   const Churrasqueira(this.smartMeat);
   @override
   Widget build(BuildContext context) {
+    final _width = MediaQuery.of(context).size.width;
+    final _height = MediaQuery.of(context).size.height;
+    var now = new DateTime.now();
+    // var thisInstant = new Time();
+    var dateFormat = new DateFormat("Hms");
+    var thisInstant = dateFormat.format(now);
+    // var x = DateTime.parse(smartMeat.smartmeat.stick1.timeActive.toString());
+    // print(x);
+
     Widget espeto(bool d) {
       return Visibility(
         child: Image.asset(
           "images/espeto.png",
           fit: BoxFit.cover,
-          height: 150.0,
+          height: _height * 0.30,
         ),
         maintainSize: true,
         maintainAnimation: true,
@@ -27,7 +39,8 @@ class Churrasqueira extends StatelessWidget {
         child: Image.asset(
           "images/quadrado.png",
           fit: BoxFit.cover,
-          height: 40.0,
+          height: _height * 0.1,
+          width: _width * 0.1,
         ),
         maintainSize: true,
         maintainAnimation: true,
@@ -47,162 +60,113 @@ class Churrasqueira extends StatelessWidget {
                 Image.asset(
                   "images/bbq.png",
                   fit: BoxFit.cover,
-                  height: 190.0,
+                  // height: 190.0,
+                  height: _height * 0.35,
                 ),
               ],
             ),
             Positioned(
-              top: 20,
+              top: _height * 0.02,
               child: Row(
                 children: <Widget>[
                   SizedBox(
-                    width: 48,
+                    width: _width * 0.133,
+                    // width: 48,
                   ),
                   espeto(smartMeat.smartmeat.stick1.active),
                   SizedBox(
-                    width: 10,
+                    width: _width * 0.015,
                   ),
                   espeto(smartMeat.smartmeat.stick2.active),
                   SizedBox(
-                    width: 8,
+                    width: _width * 0.015,
                   ),
                   espeto(smartMeat.smartmeat.stick3.active),
                   SizedBox(
-                    width: 5,
+                    width: _width * 0.007,
                   ),
                   espeto(smartMeat.smartmeat.stick4.active),
+                ],
+              ),
+            ),
+            Positioned(
+              top: _height * 0.3,
+              child: Row(
+                children: <Widget>[
                   SizedBox(
-                    width: 4,
+                    width: _width * 0.15,
+                  ),
+                  timer(),
+                  SizedBox(
+                    width: _width * 0.05,
+                  ),
+                  timer(),
+                  SizedBox(
+                    width: _width * 0.05,
+                  ),
+                  timer(),
+                  SizedBox(
+                    width: _width * 0.05,
+                  ),
+                  timer(),
+                  SizedBox(
+                    width: _width * 0.05,
                   ),
                 ],
               ),
             ),
             Positioned(
-              top: 185,
+              // top: _height * 0.3,
+              top: _height * 0.1,
               child: Row(
                 children: <Widget>[
                   SizedBox(
-                    width: 48,
-                  ),
-                  timer(),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  timer(),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  timer(),
-                  SizedBox(
-                    width: 23,
-                  ),
-                  timer(),
-                  SizedBox(
-                    width: 4,
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-              top: 223,
-              child: Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 48,
-                  ),
-                  AutoSizeText(
-                    "min",
-                    presetFontSizes: [20.0, 20.0, 14.0],
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(
-                    width: 24,
-                  ),
-                  AutoSizeText(
-                    "min",
-                    presetFontSizes: [20.0, 20.0, 14.0],
-                    maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                  ),                  
-                  SizedBox(
-                    width: 24,
-                  ),
-                  AutoSizeText(
-                    "min",
-                    presetFontSizes: [20.0, 20.0, 14.0],
-                    maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(
-                    width: 23,
-                  ),
-                  AutoSizeText(
-                    "min",
-                    presetFontSizes: [20.0, 20.0, 14.0],
-                    maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(
-                    width: 4,
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-              top: 193,
-              child: Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 54,
-                  ),
-                  AutoSizeText(
-                    "5",
-                    presetFontSizes: [30.0, 20.0, 14.0],
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  SizedBox(
-                    width: 37,
-                  ),
-                  AutoSizeText(
-                    "3",
-                    presetFontSizes: [30.0, 20.0, 14.0],
-                    maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white),
-                  ),                  
-                  SizedBox(
-                    width: 31,
+                    width: _width * 0.16,
+                    height: _height * 0.45,
                   ),
                   AutoSizeText(
                     "10",
-                    presetFontSizes: [30.0, 20.0, 14.0],
+                    // thisInstant.difference(smartMeat.smartmeat.stick1.timeActive.toString()),
+                    presetFontSizes: [25.0, 20.0, 14.0],
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  SizedBox(
+                    width: _width * 0.1,
+                    // width: 30,
+                  ),
+                  AutoSizeText(
+                    "3",
+                    presetFontSizes: [25.0, 20.0, 14.0],
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white),
+                  ),                  
+                  SizedBox(
+                    width: _width * 0.1,
+                  ),
+                  AutoSizeText(
+                    "10",
+                    presetFontSizes: [25.0, 20.0, 14.0],
                     maxLines: 4,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white),
                   ),
                   SizedBox(
-                    width: 26,
+                    width: _width * 0.08,
+                    // width: 30,
                   ),
                   AutoSizeText(
                     "15",
-                    presetFontSizes: [30.0, 20.0, 14.0],
+                    presetFontSizes: [25.0, 20.0, 14.0],
                     maxLines: 4,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white),
-                  ),
-                  SizedBox(
-                    width: 4,
                   ),
                 ],
               ),
