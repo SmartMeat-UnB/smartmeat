@@ -120,13 +120,13 @@ class _ImagesCellState extends State<ImagesCell>
           title: const Text('Imagem para Receita',
               style: TextStyle(
                   fontSize: 28.0,
-                  color: Colors.black87,
+                  color: Colors.white,
                   fontFamily: 'Pacifico'),
               textAlign: TextAlign.center,
               strutStyle: StrutStyle(height: 2.5, forceStrutHeight: true)),
           centerTitle: true,
           iconTheme: IconThemeData(
-            color: Colors.black, //change your color here
+            color: Colors.white, //change your color here
           ),
           backgroundColor: Colors.redAccent[700],
         ),
