@@ -2,8 +2,6 @@ import 'package:SmartMeat/screens/smartMeat/generalSmartMeat.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:intl/intl.dart';
-
 
 class Churrasqueira extends StatelessWidget {
   final GeneralSmartMeat smartMeat;
@@ -13,12 +11,8 @@ class Churrasqueira extends StatelessWidget {
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
-    var now = new DateTime.now();
-    // var thisInstant = new Time();
-    var dateFormat = new DateFormat("Hms");
-    var thisInstant = dateFormat.format(now);
-    // var x = DateTime.parse(smartMeat.smartmeat.stick1.timeActive.toString());
-    // print(x);
+    // find a variable length hex value at the beginning of the line
+    final regexp = RegExp(r'\d\d'); 
 
     Widget espeto(bool d) {
       return Visibility(
@@ -125,7 +119,7 @@ class Churrasqueira extends StatelessWidget {
                     height: _height * 0.45,
                   ),
                   AutoSizeText(
-                    "10",
+                    regexp.firstMatch(smartMeat.smartmeat.stick1.timeActive.toString()).group(0).toString(),
                     // thisInstant.difference(smartMeat.smartmeat.stick1.timeActive.toString()),
                     presetFontSizes: [25.0, 20.0, 14.0],
                     maxLines: 1,
@@ -134,11 +128,11 @@ class Churrasqueira extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                   SizedBox(
-                    width: _width * 0.1,
+                    width: _width * 0.09,
                     // width: 30,
                   ),
                   AutoSizeText(
-                    "3",
+                    regexp.firstMatch(smartMeat.smartmeat.stick2.timeActive.toString()).group(0).toString(),
                     presetFontSizes: [25.0, 20.0, 14.0],
                     maxLines: 4,
                     overflow: TextOverflow.ellipsis,
@@ -146,10 +140,10 @@ class Churrasqueira extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),                  
                   SizedBox(
-                    width: _width * 0.1,
+                    width: _width * 0.075,
                   ),
                   AutoSizeText(
-                    "10",
+                    regexp.firstMatch(smartMeat.smartmeat.stick3.timeActive.toString()).group(0).toString(),
                     presetFontSizes: [25.0, 20.0, 14.0],
                     maxLines: 4,
                     overflow: TextOverflow.ellipsis,
@@ -161,7 +155,7 @@ class Churrasqueira extends StatelessWidget {
                     // width: 30,
                   ),
                   AutoSizeText(
-                    "15",
+                    regexp.firstMatch(smartMeat.smartmeat.stick4.timeActive.toString()).group(0).toString(),
                     presetFontSizes: [25.0, 20.0, 14.0],
                     maxLines: 4,
                     overflow: TextOverflow.ellipsis,
