@@ -35,7 +35,7 @@ class _TutorialWifiState extends State<TutorialWifi> {
               SizedBox(height: _height * 0.04),
               Expanded(
                 child: Image.asset(
-                  "images/smartphone.png",
+                  "images/mobilewifi.png",
                   fit: BoxFit.cover,
                   height: 190.0,
                   alignment: Alignment.topCenter,
@@ -53,34 +53,68 @@ class _TutorialWifiState extends State<TutorialWifi> {
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    RaisedButton(
-                      onPressed: _jumpToSettingWifi,
-                      textColor: Colors.white,
-                      color: Colors.blue,
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Wifi",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 28.0,
-                          fontFamily: 'Roboto',
-                        ),
+                     RawMaterialButton(
+                    fillColor: Colors.black54,
+                    splashColor: Colors.greenAccent,                    
+                    child: Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const <Widget>[
+                          Icon(
+                            Icons.wifi,
+                            color: Colors.white,
+                            size: 25,
+                          ),
+                          SizedBox(
+                            width: 10.0,                            
+                          ),
+                          Text(
+                            "Wi-Fi",
+                            maxLines: 1,
+                            style: TextStyle(color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18.0,
+                                              fontFamily: 'Roboto',),
+                                   
+                          ),
+                        ],
                       ),
                     ),
-                    RaisedButton(
-                      padding: const EdgeInsets.all(8.0),
-                      textColor: Colors.white,
-                      color: Colors.blue,
-                      onPressed: _jumpToSettingBT,
-                      child: Text(
-                        "Bluetooth",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 28.0,
-                          fontFamily: 'Roboto',
-                        ),
+                    onPressed: _jumpToSettingWifi,
+                    shape: const StadiumBorder(),
+                  ),
+                     RawMaterialButton(
+                    fillColor: Colors.black54,
+                    splashColor: Colors.greenAccent,
+                    child: Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const <Widget>[
+                          Icon(
+                            Icons.bluetooth,
+                            color: Colors.white,
+                            size: 25,
+                          ),
+                          SizedBox(
+                            width: 6.0,
+                          ),
+                          Text(
+                            "Bluetooth",
+                            maxLines: 1,
+                            style: TextStyle(color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18.0,
+                                              fontFamily: 'Roboto',),
+                                   
+                          ),
+                        ],
                       ),
                     ),
+                    onPressed: _jumpToSettingWifi,
+                    shape: const StadiumBorder(),
+                  ),
                   ]),
               SizedBox(height: _height * 0.05),
               Container(
@@ -97,7 +131,7 @@ class _TutorialWifiState extends State<TutorialWifi> {
                           color: Colors.white,
                         ),
                       ),
-                      color: Colors.green,
+                      color: Colors.redAccent[700],
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
                       onPressed: () {

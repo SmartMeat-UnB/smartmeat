@@ -129,28 +129,8 @@ class _CropImageState extends State<CropImage> {
                   ButtonBar(
                     alignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      imageCropped != null
-                          ? ButtonTheme(
-                              minWidth: 150.0,
-                              height: 50.0,
-                              child: RaisedButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(30.0)),
-                                color: Colors.green,
-                                child: Text(
-                                  'Enviar',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => ResultIA(
-                                          widget.imageFile, recipesData())));
-                                },
-                              ),
-                            )
-                          : ButtonTheme(
+                      //imageCropped != null
+                          new ButtonTheme(
                               minWidth: 150.0,
                               height: 50.0,
                               child: RaisedButton(
@@ -177,6 +157,28 @@ class _CropImageState extends State<CropImage> {
                                 },
                               ),
                             ),
+
+                          new ButtonTheme(
+                              minWidth: 150.0,
+                              height: 50.0,
+                              child: RaisedButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(30.0)),
+                                color: Colors.green,
+                                child: Text(
+                                  'Receitas',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => ResultIA(
+                                          widget.imageFile, recipesData())));
+                                },
+                              ),
+                            ),
+                          
                           // new ButtonTheme(
                           //     minWidth: 150.0,
                           //     height: 50.0,
