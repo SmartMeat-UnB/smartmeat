@@ -15,37 +15,39 @@ class ResultIA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Recipes receita = this.receita;
+    final _width = MediaQuery.of(context).size.width;
+    final _height = MediaQuery.of(context).size.height;
     Widget results(int contador) {
       return ButtonBar(
         alignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           ButtonTheme(
-            minWidth: 300,
-            height: 100.0,
+            // minWidth: 300,
+            // height: 10.0,
             child: RaisedButton(
               color: Colors.white,
               child: Row(
                 children: <Widget>[
                   Card(
-                      child: Container(
-                    width: 80,
-                    height: 80,
-                    child: Image.file(
-                      imageFile,
-                      fit: BoxFit.cover,
+                    child: Container(
+                      width: _width * 0.25,
+                      height: _height * 0.12,
+                      child: Image.file(
+                        imageFile,
+                        fit: BoxFit.cover,
                     ),
                   )),
-                  SizedBox(width: 50.0),
+                  SizedBox(width: _width * 0.2, height: _height * 0.15),
                   // Flexible(child:
                   Container(
-                    width: 140,
-                    height: 40,
+                    width: _width * 0.3,
+                    height: _height * 0.1,
                     child: AutoSizeText(
                       // 'Receita $contador',
                       '${receita.recipes[contador - 1].title}',
-                      style: TextStyle(fontSize: 16),
-                      minFontSize: 14,
-                      maxLines: 2,
+                      style: TextStyle(fontSize: 20),
+                      minFontSize: 16,
+                      maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
                   )
@@ -54,8 +56,8 @@ class ResultIA extends StatelessWidget {
               ),
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>
-                        RecipeResult(imageFile, receita, contador - 1)));
+                  builder: (context) =>
+                    RecipeResult(imageFile, receita, contador - 1)));
               },
             ),
           ),
@@ -76,15 +78,22 @@ class ResultIA extends StatelessWidget {
     return Scaffold(
         bottomNavigationBar: BottomApp(),
         body: Container(
-          padding: EdgeInsets.symmetric(vertical: 10.0),
+          padding: EdgeInsets.symmetric(vertical: _height * 0.0001),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text("Receitas",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
+              Text("Receitas Encontradas",
+                  style: TextStyle(
+                      // fontFamily: 'RobotoMono',
+                      color: Colors.black87,
+                      fontFamily: 'Pacifico',
+                      // fontWeight: FontWeight.bold,
+                      fontSize: 32
+                      )
+                    ),
               SizedBox(
-                height: 20,
+                height: _height * 0.01,
               ),
               buildResults(),
             ],
