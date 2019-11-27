@@ -25,6 +25,6 @@ class MyApp extends StatelessWidget {
       '/tutorial': (context) => TutorialScreen(),
       '/tutorial1': (context) => TutorialWifi(),
       '/settings': (context) => Settings(),
-    }, debugShowCheckedModeBanner: false, home: NameUser());
+    }, debugShowCheckedModeBanner: false, home: Settings());
   }
 }

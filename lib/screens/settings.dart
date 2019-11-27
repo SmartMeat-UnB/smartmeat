@@ -63,7 +63,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomPadding: true,
         appBar: PreferredSize(
           child: AppBar(
             title: Text('Configurações',
@@ -83,7 +83,11 @@ class _SettingsState extends State<Settings> {
           preferredSize: Size.fromHeight(70.0),
         ),
         body: Container(
-          child: Container(
+            child: Container(
+          alignment: Alignment.center,
+          width: double.infinity,
+          height: double.infinity,
+          child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 Container(
@@ -255,7 +259,7 @@ class _SettingsState extends State<Settings> {
               ],
             ),
           ),
-        ),
+        )),
         bottomNavigationBar: BottomApp(),
         floatingActionButton: FloatButton(),
         floatingActionButtonLocation:
