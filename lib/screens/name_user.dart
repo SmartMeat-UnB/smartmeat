@@ -34,21 +34,29 @@ class _NameUserState extends State<NameUser> {
                 ImageBanner("images/SmartMeat.png"),
                 TextSection(
                     "Vamos iniciar.\nPor favor,\n digite seu nome\n no campo abaixo!"),
-                TextField(
-                  onChanged: (text) {
-                    _doSomething(text);
-                  },
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: '      Insira seu nome',
-                    labelText: "      Nome:",
-                    labelStyle: TextStyle(
-                      height: 0,
-                      fontSize: 20,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
+                Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          TextField(
+                            onChanged: (text) {
+                              _doSomething(text);
+                            },
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Insira seu nome',
+                              labelText: "Nome:",
+                              labelStyle: TextStyle(
+                                height: 0,
+                                fontSize: 20,
+                                color: Colors.black,
+                              ),
+                            ),
+                          )
+                        ])),
                 Botao('PRONTO!', v),
               ],
             ))));
