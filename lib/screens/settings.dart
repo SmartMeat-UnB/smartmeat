@@ -230,6 +230,7 @@ class _SettingsState extends State<Settings> {
                         ),
                       ]),
                       TextField(
+                        keyboardType: TextInputType.number,
                         onChanged: (tempo) {
                           _alterarTempo(int.parse(tempo));
                         },
