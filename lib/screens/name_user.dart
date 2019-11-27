@@ -20,34 +20,37 @@ class _NameUserState extends State<NameUser> {
     }
 
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(
-              height: 3,
-            ),
-            ImageBanner("images/SmartMeat.png"),
-            TextSection(
-                "Vamos iniciar.\nPor favor,\n digite seu nome\n no campo abaixo!"),
-            TextField(
-              onChanged: (text) {
-                _doSomething(text);
-              },
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: '      Insira seu nome',
-                labelText: "      Nome:",
-                labelStyle: TextStyle(
-                  height: 0,
-                  fontSize: 20,
-                  color: Colors.black,
+        resizeToAvoidBottomInset: true,
+        body: Container(
+            alignment: Alignment.center,
+            width: double.infinity,
+            height: double.infinity,
+            child: SingleChildScrollView(
+                child: Column(
+              children: [
+                SizedBox(
+                  height: 3,
                 ),
-              ),
-            ),
-            Botao('PRONTO!', v),
-          ],
-        ));
+                ImageBanner("images/SmartMeat.png"),
+                TextSection(
+                    "Vamos iniciar.\nPor favor,\n digite seu nome\n no campo abaixo!"),
+                TextField(
+                  onChanged: (text) {
+                    _doSomething(text);
+                  },
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: '      Insira seu nome',
+                    labelText: "      Nome:",
+                    labelStyle: TextStyle(
+                      height: 0,
+                      fontSize: 20,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                Botao('PRONTO!', v),
+              ],
+            ))));
   }
 }
