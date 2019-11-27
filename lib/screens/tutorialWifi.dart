@@ -35,7 +35,7 @@ class _TutorialWifiState extends State<TutorialWifi> {
               SizedBox(height: _height * 0.04),
               Expanded(
                 child: Image.asset(
-                  "images/mobilewifi.png",
+                  "images/phonewifi.png",
                   fit: BoxFit.cover,
                   height: 190.0,
                   alignment: Alignment.topCenter,
@@ -54,7 +54,7 @@ class _TutorialWifiState extends State<TutorialWifi> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                      RawMaterialButton(
-                    fillColor: Colors.black54,
+                    fillColor: Colors.black87,
                     splashColor: Colors.greenAccent,                    
                     child: Padding(
                       padding: EdgeInsets.all(20.0),
@@ -85,7 +85,7 @@ class _TutorialWifiState extends State<TutorialWifi> {
                     shape: const StadiumBorder(),
                   ),
                      RawMaterialButton(
-                    fillColor: Colors.black54,
+                    fillColor: Colors.black87,
                     splashColor: Colors.greenAccent,
                     child: Padding(
                       padding: EdgeInsets.all(20.0),

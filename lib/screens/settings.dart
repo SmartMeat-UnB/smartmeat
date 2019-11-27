@@ -62,38 +62,38 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+       return Scaffold(
         resizeToAvoidBottomPadding: false,
         appBar: PreferredSize(
           child: AppBar(
             title: Text('Configurações',
-                style: TextStyle(color: Colors.black, fontSize: 25)),
+                style: TextStyle(color: Colors.white, fontSize: 25)),
             centerTitle: true,
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.grey[800],
             leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.black,
+                color: Colors.white,
               ),
               onPressed: () {
                 Navigator.pop(context);
               },
             ),
           ),
-          preferredSize: Size.fromHeight(70.0),
+          preferredSize: Size.fromHeight(55.0),
         ),
-        body: Container(
-          child: Container(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
-                  decoration:
-                      BoxDecoration(border: Border.all(color: Colors.black)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
+        body: new Container(
+          child: new Column(
+            children: <Widget>[
+              new Card(
+               elevation: 20,
+           child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const ListTile(
+                leading: Icon(Icons.supervised_user_circle, size: 40),
+                  title: Text('Usuário', style: TextStyle(fontSize: 30),),
+              ),
                       TextField(
                         onChanged: (text) {
                           _doSomething(text);
@@ -101,7 +101,7 @@ class _SettingsState extends State<Settings> {
                         decoration: InputDecoration(
                           suffixIcon: Icon(
                             Icons.edit,
-                            size: 40,
+                            size: 30,
                             color: Colors.black,
                           ),
                           border: InputBorder.none,
@@ -116,36 +116,21 @@ class _SettingsState extends State<Settings> {
                         ),
                       ),
                     ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
-                  decoration: BoxDecoration(
-                      border: Border(
-                    bottom: BorderSide(color: Colors.black),
-                  )),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(children: <Widget>[
-                        Icon(
-                          Icons.speaker_phone,
-                          size: 40,
-                          color: Colors.black,
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text("Conexão:", style: TextStyle(fontSize: 18)),
-                      ]),
-                      SizedBox(
-                        height: 15,
-                      ),
+           ),
+        ),
+         new Card(
+           elevation: 20,
+           child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const ListTile(
+                leading: Icon(Icons.speaker_phone, size: 40),
+                  title: Text('Conexão', style: TextStyle(fontSize: 30),),
+              ),
                       Row(children: <Widget>[
                         Icon(
                           Icons.wifi,
-                          size: 40,
+                          size: 30,
                           color: Colors.black,
                         ),
                         SizedBox(
@@ -153,7 +138,7 @@ class _SettingsState extends State<Settings> {
                         ),
                         Text("Wi-Fi", style: TextStyle(fontSize: 18)),
                         SizedBox(
-                          width: 165,
+                          width: 200,
                         ),
                         Switch(
                           onChanged: (bool value) {
@@ -165,13 +150,13 @@ class _SettingsState extends State<Settings> {
                           value: _state,
                         ),
                       ]),
-                      SizedBox(
+                       SizedBox(
                         height: 15,
                       ),
                       Row(children: <Widget>[
                         Icon(
                           Icons.bluetooth,
-                          size: 40,
+                          size: 30,
                           color: Colors.black,
                         ),
                         SizedBox(
@@ -179,7 +164,7 @@ class _SettingsState extends State<Settings> {
                         ),
                         Text("Bluetooth", style: TextStyle(fontSize: 18)),
                         SizedBox(
-                          width: 125,
+                          width: 160,
                         ),
                         Switch(
                           onChanged: (bool value) {
@@ -194,30 +179,25 @@ class _SettingsState extends State<Settings> {
                     ],
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
-                  decoration: BoxDecoration(
-                      border: Border(
-                    bottom: BorderSide(color: Colors.black),
-                  )),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(children: <Widget>[
+                new Card(
+                  elevation: 20,
+           child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+                  Row(children: <Widget>[
                         Icon(
                           Icons.notifications_active,
                           size: 40,
-                          // color: Colors.black,
+                          color: Colors.grey[500],
                         ),
                         SizedBox(
                           width: 20,
                         ),
                         Text("Notficações", style: TextStyle(fontSize: 18)),
                         SizedBox(
-                          width: 104,
+                          width: 130,
                         ),
-                        Switch(
+                         Switch(
                           onChanged: (bool value) {
                             _alterarStatusNotificacao(!notificationState);
                           },
@@ -226,8 +206,8 @@ class _SettingsState extends State<Settings> {
                         ),
                       ]),
                       TextField(
-                        onChanged: (tempo) {
-                          _alterarTempo(int.parse(tempo));
+                        onChanged: (text) {
+                          _doSomething(text);
                         },
                         decoration: InputDecoration(
                           prefixIcon: Icon(
@@ -241,7 +221,7 @@ class _SettingsState extends State<Settings> {
                             color: Colors.black,
                           ),
                           border: InputBorder.none,
-                          labelText: " $_tempo min",
+                          labelText: " 15 min",
                           labelStyle: TextStyle(
                             height: 0,
                             fontSize: 20,
@@ -250,15 +230,21 @@ class _SettingsState extends State<Settings> {
                         ),
                       ),
                     ],
-                  ),
+           ),
                 ),
-              ],
-            ),
-          ),
+                    ],
+           ),
         ),
         bottomNavigationBar: BottomApp(),
         floatingActionButton: FloatButton(),
         floatingActionButtonLocation:
-            FloatingActionButtonLocation.centerDocked);
+        FloatingActionButtonLocation.centerDocked
+        );
+
+
+
   }
 }
+
+
+
