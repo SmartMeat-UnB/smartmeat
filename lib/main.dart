@@ -1,5 +1,4 @@
 import 'package:SmartMeat/screens/introState.dart';
-import 'package:SmartMeat/screens/name_user.dart';
 import 'package:SmartMeat/screens/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:SmartMeat/screens/imagecell.dart';
@@ -25,6 +24,6 @@ class MyApp extends StatelessWidget {
       '/tutorial': (context) => TutorialScreen(),
       '/tutorial1': (context) => TutorialWifi(),
       '/settings': (context) => Settings(),
-    }, debugShowCheckedModeBanner: false, home: NameUser());
+    }, debugShowCheckedModeBanner: false, home: Splash());
   }
 }
