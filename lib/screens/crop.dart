@@ -15,7 +15,7 @@ class CropImage extends StatefulWidget {
   _CropImageState createState() => _CropImageState();
 }
 
-String jsonRecipe = 'vazio';
+String jsonRecipe = '';
 
 class _CropImageState extends State<CropImage> {
   Image imageCropped;
@@ -46,7 +46,7 @@ class _CropImageState extends State<CropImage> {
   }
 
   // final String inverseCookingEndPoint = 'http://localhost:3000/predict';
-  final String inverseCookingEndPoint = 'http://10.0.2.2:3000/predict';
+  final String inverseCookingEndPoint =  'http://ec2-18-228-28-132.sa-east-1.compute.amazonaws.com:3000/predict';
   // final String inverseCookingEndPoint = "ubuntu@ec2-18-231-150-126.sa-east-1.compute.amazonaws.com:3000/predict";
 
   Future getRecipe() async {
@@ -169,6 +169,26 @@ class _CropImageState extends State<CropImage> {
                                 },
                               ),
                             ),
+                          // new ButtonTheme(
+                          //     minWidth: 150.0,
+                          //     height: 50.0,
+                          //     child: RaisedButton(
+                          //       shape: RoundedRectangleBorder(
+                          //           borderRadius:
+                          //               new BorderRadius.circular(30.0)),
+                          //       color: Colors.green,
+                          //       child: Text(
+                          //         'Buscar Receitas',
+                          //         style: TextStyle(
+                          //             color: Colors.white, fontSize: 20),
+                          //       ),
+                          //       onPressed: () {
+                          //         Navigator.of(context).push(MaterialPageRoute(
+                          //             builder: (context) => ResultIA(
+                          //                 widget.imageFile, recipesData())));
+                          //       },
+                          //     ),
+                          //   ),
                     ],
                   ),
                 ],

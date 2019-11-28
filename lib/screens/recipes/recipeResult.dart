@@ -75,7 +75,7 @@ class RecipeResult extends StatelessWidget {
                   children: <Widget>[
                     Text("Ingredientes:",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 17),
+                            fontWeight: FontWeight.bold, fontSize: 20),
                         textAlign: TextAlign.left),
                   ],
                 ),
@@ -95,7 +95,7 @@ class RecipeResult extends StatelessWidget {
                   children: <Widget>[
                     Text("Modo de preparo:",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 17),
+                            fontWeight: FontWeight.bold, fontSize: 20),
                         textAlign: TextAlign.left),
                   ],
                 ),
