@@ -1,17 +1,24 @@
+import 'dart:io';
+import 'dart:convert';
+import 'dart:async';
+import 'dart:typed_data';
+import 'dart:ui';
+
 import 'package:SmartMeat/screens/churrasqueira.dart';
 import 'package:SmartMeat/screens/smartMeat/generalSmartMeat.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
-import 'dart:convert';
-import 'dart:async';
-import 'dart:typed_data';
-import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
+import 'package:get_ip/get_ip.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
+import 'package:connectivity/connectivity.dart';
+
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
@@ -21,13 +28,14 @@ class InformationRasp extends StatefulWidget {
 }
 
 class _InformationRaspState extends State<InformationRasp> {
-  //my ip inet = 192.168.15.?
   GeneralSmartMeat smartMeat;
   bool notificationState;
-  // String uri = "http://192.168.15.2:8080/";
-  // String uri = "http://192.168.15.2:8080/";
   // Emulator URI
-  String uri = "http://10.0.2.2:8080/";
+  // String uri = "http://10.0.2.2:8080/";
+  String uri = 'Unknown';
+  String _connectionStatus = 'Unknown';
+  final Connectivity _connectivity = Connectivity();
+  StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
   List<String> toPrint = ["trying to connect"];
   SocketIOManager manager;
@@ -69,6 +77,10 @@ class _InformationRaspState extends State<InformationRasp> {
   @override
   void initState() {
     super.initState();
+    // initPlatformState();
+    initConnectivity();
+    _connectivitySubscription =
+        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
     manager = SocketIOManager();
     initSocket("default");
     smartMeatData(_jsonData);
@@ -79,6 +91,126 @@ class _InformationRaspState extends State<InformationRasp> {
         initializationSettingsAndroid, initializationSettingsIOS);
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initConnectivity() async {
+    ConnectivityResult result;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      result = await _connectivity.checkConnectivity();
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) {
+      return;
+    }
+
+    _updateConnectionStatus(result);
+  }
+
+    Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+    switch (result) {
+      case ConnectivityResult.wifi:
+        String wifiName, wifiBSSID, wifiIP;
+
+        try {
+          if (Platform.isIOS) {
+            LocationAuthorizationStatus status =
+                await _connectivity.getLocationServiceAuthorization();
+            if (status == LocationAuthorizationStatus.notDetermined) {
+              status =
+                  await _connectivity.requestLocationServiceAuthorization();
+            }
+            if (status == LocationAuthorizationStatus.authorizedAlways ||
+                status == LocationAuthorizationStatus.authorizedWhenInUse) {
+              wifiName = await _connectivity.getWifiName();
+            } else {
+              wifiName = await _connectivity.getWifiName();
+            }
+          } else {
+            wifiName = await _connectivity.getWifiName();
+          }
+        } on PlatformException catch (e) {
+          print(e.toString());
+          wifiName = "Failed to get Wifi Name";
+        }
+
+        try {
+          if (Platform.isIOS) {
+            LocationAuthorizationStatus status =
+                await _connectivity.getLocationServiceAuthorization();
+            if (status == LocationAuthorizationStatus.notDetermined) {
+              status =
+                  await _connectivity.requestLocationServiceAuthorization();
+            }
+            if (status == LocationAuthorizationStatus.authorizedAlways ||
+                status == LocationAuthorizationStatus.authorizedWhenInUse) {
+              wifiBSSID = await _connectivity.getWifiBSSID();
+            } else {
+              wifiBSSID = await _connectivity.getWifiBSSID();
+            }
+          } else {
+            wifiBSSID = await _connectivity.getWifiBSSID();
+          }
+        } on PlatformException catch (e) {
+          print(e.toString());
+          wifiBSSID = "Failed to get Wifi BSSID";
+        }
+
+        try {
+          wifiIP = await _connectivity.getWifiIP();
+        } on PlatformException catch (e) {
+          print(e.toString());
+          wifiIP = "Failed to get Wifi IP";
+        }
+
+        setState(() {
+          _connectionStatus = '$result\n'
+              'Wifi Name: $wifiName\n'
+              'Wifi BSSID: $wifiBSSID\n'
+              'Wifi IP: $wifiIP\n';
+          print(_connectionStatus);
+        });
+        break;
+      case ConnectivityResult.mobile:
+      case ConnectivityResult.none:
+        setState(() => _connectionStatus = result.toString());
+        break;
+      default:
+        setState(() => _connectionStatus = 'Failed to get connectivity.');
+        break;
+    }
+  }
+
+
+  // Future<void> initPlatformState() async {
+  //   String ipAddress;
+  //   final Connectivity _connectivity = Connectivity();
+  //   // Platform messages may fail, so we use a try/catch PlatformException.
+  //   try {
+  //     ipAddress = await GetIp.ipAddress;
+  //   } on PlatformException {
+  //     ipAddress = 'Failed to get ipAdress.';
+  //   }
+
+  //   // var wifiBSSID = await (Connectivity().getWifiBSSID());
+  //   var wifiIP = await (_connectivity.getWifiIP());
+  //   var wifiName = await (_connectivity.getWifiName());
+
+  //   print("CONNECTED TO $wifiName with IP $wifiIP");
+
+  //   if (!mounted) return;
+
+  //   setState(() {
+  //     uri = ipAddress;
+  //     // uri = 'http://10.0.2.2:8080';
+  //     print('URI: $uri');
+  //   });
+  // }
 
   Future<void> scheduleNotification(bool stickState, int stick) async {
     int tempo;
@@ -120,6 +252,7 @@ class _InformationRaspState extends State<InformationRasp> {
           platformChannelSpecifics);
     }
   }
+  
 
   initSocket(String identifier) async {
     setState(() => _isProbablyConnected[identifier] = true);
