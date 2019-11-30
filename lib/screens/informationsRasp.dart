@@ -92,7 +92,7 @@ class _InformationRaspState extends State<InformationRasp> {
         tempo = 180;
       }
       var scheduledNotificationDateTime =
-          DateTime.now().add(Duration(seconds: tempo));
+          DateTime.now().add(Duration(seconds: 30));
       var vibrationPattern = Int64List(4);
       vibrationPattern[0] = 0;
       vibrationPattern[1] = 1000;
@@ -118,6 +118,9 @@ class _InformationRaspState extends State<InformationRasp> {
           'o seu espetinho ' + stick.toString() + ' ja esta pronto!',
           scheduledNotificationDateTime,
           platformChannelSpecifics);
+    }
+    if (stickState == false) {
+      await flutterLocalNotificationsPlugin.cancel(stick);
     }
   }
 
