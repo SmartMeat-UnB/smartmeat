@@ -24,6 +24,7 @@ class InformationRasp extends StatefulWidget {
 class _InformationRaspState extends State<InformationRasp> {
   //my ip inet = 192.168.15.?
   GeneralSmartMeat smartMeat;
+  bool agendado = false;
   bool notificationState;
   // String uri = "http://192.168.15.2:8080/";
   // String uri = "http://192.168.15.2:8080/";
@@ -42,7 +43,7 @@ class _InformationRaspState extends State<InformationRasp> {
   bool _state = false;
 
   String _jsonData =
-      '{"smartmeat": { "on": false,"stick1": {"active": false,"time_active": "00:00"},"stick2": {"active": false,"time_active": "00:00"},"stick3": {"active": false,"time_active": "00:00"},"stick4": {"active": false,"time_active": "00:00"},"temperature": 3}}';
+      '{"smartmeat": { "on": false,"stick1": {"active": false ,"time_active": "00:00"},"stick2": {"active": true,"time_active": "00:00"},"stick3": {"active": true,"time_active": "00:00"},"stick4": {"active": true,"time_active": "00:00"},"temperature": 3}}';
 
   void smartMeatData(jsonData) {
     print("Incoming data $_jsonData");
@@ -80,11 +81,13 @@ class _InformationRaspState extends State<InformationRasp> {
 
   Future<void> scheduleNotification(bool stickState, int stick) async {
     int tempo;
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     tempo = (prefs.getInt('tempo'));
     notificationState = (prefs.getBool('notificacao'));
+    agendado = (prefs.getBool('agendado' + '$stick') ?? false);
 
-    if (notificationState == true && stickState == true) {
+    if (notificationState == true && stickState == true && agendado == false) {
       if (tempo == 0) {
         prefs.setInt('tempo', 180);
         tempo = 180;
@@ -116,7 +119,16 @@ class _InformationRaspState extends State<InformationRasp> {
           'o seu espetinho ' + stick.toString() + ' ja esta pronto!',
           scheduledNotificationDateTime,
           platformChannelSpecifics);
-    }
+      agendado = true;
+      prefs.setBool('agendado' + '$stick', agendado);
+    } else if (stickState == false || notificationState == false) {
+      setState(() {
+        agendado = false;
+        prefs.setBool('agendado' + '$stick', agendado);
+      });
+    } else
+      print("ja agendado");
+
     if (stickState == false) {
       await flutterLocalNotificationsPlugin.cancel(stick);
     }
