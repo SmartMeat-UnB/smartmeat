@@ -43,7 +43,7 @@ class _ImagesCellState extends State<ImagesCell>
           children: <Widget>[
             InkWell(
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 70.0),
+                padding: EdgeInsets.symmetric(vertical: 20.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -106,6 +106,35 @@ class _ImagesCellState extends State<ImagesCell>
                             onPressed: () {
                               getImage();
                             },
+                          ),
+                        ),
+                      ],
+                    ),
+                    ButtonBar(
+                      alignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        ButtonTheme(
+                          minWidth: 300,
+                          height: 100.0,
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30.0)),
+                            color: Colors.white,
+                            child: Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.camera_alt,
+                                  size: 35,
+                                ),
+                                SizedBox(width: 15.0),
+                                Text(
+                                  'Ler Qr Code',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 25),
+                                ),
+                              ],
+                            ),
+                            onPressed: () {},
                           ),
                         ),
                       ],
