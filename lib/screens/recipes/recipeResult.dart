@@ -14,10 +14,11 @@ class RecipeResult extends StatelessWidget {
   Widget build(BuildContext context) {
     String title = this.receita.recipes[contador].title;
     List<String> ingrs = this.receita.recipes[contador].ingrs;
+    final ingredientes = ingrs.reduce((value, element) => value + ',' + element);
     List<String> recipe = this.receita.recipes[contador].recipe;
 
     Widget buildIngrs() {
-      return Text("$ingrs", style: TextStyle(fontSize: 15));
+      return Text("$ingredientes", style: TextStyle(fontSize: 15));
     }
 
     Widget buildRecipes() {
@@ -65,7 +66,7 @@ class RecipeResult extends StatelessWidget {
                   SizedBox(width: 50.0),
                   Text(
                     '$title',
-                    style: TextStyle(fontSize: 15),
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                 ]),
               ),
