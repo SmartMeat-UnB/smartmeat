@@ -177,19 +177,19 @@ class _InformationRaspState extends State<InformationRasp> {
             "on": _state,
             "temperature": _level,
             "stick1": {
-              "active": smartMeat.smartmeat.stick1,
+              "active": smartMeat.smartmeat.stick1.active,
               "time_active": smartMeat.smartmeat.stick1.timeActive
             },
             "stick2": {
-              "active": smartMeat.smartmeat.stick2,
+              "active": smartMeat.smartmeat.stick2.active,
               "time_active": smartMeat.smartmeat.stick2.timeActive
             },
             "stick3": {
-              "active": smartMeat.smartmeat.stick3,
+              "active": smartMeat.smartmeat.stick3.active,
               "time_active": smartMeat.smartmeat.stick3.timeActive
             },
             "stick4": {
-              "active": smartMeat.smartmeat.stick4,
+              "active": smartMeat.smartmeat.stick4.active,
               "time_active": smartMeat.smartmeat.stick4.timeActive
             }
           }
