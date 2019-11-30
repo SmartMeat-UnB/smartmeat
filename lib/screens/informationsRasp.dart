@@ -24,10 +24,10 @@ class _InformationRaspState extends State<InformationRasp> {
   //my ip inet = 192.168.15.?
   GeneralSmartMeat smartMeat;
   bool notificationState;
-  // String uri = "http://192.168.15.2:8080/";
+  String uri = "http://192.168.25.114:8080/";
   // String uri = "http://192.168.15.2:8080/";
   // Emulator URI
-  String uri = "http://10.0.2.2:8080/";
+  // String uri = "http://10.0.2.2:8080/";
 
   List<String> toPrint = ["trying to connect"];
   SocketIOManager manager;

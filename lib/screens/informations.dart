@@ -11,9 +11,9 @@ class _InformationsState extends State<Informations> {
   final String url = "http://10.0.2.2:5000/get_info";
   List data;
 
-  Future<String> getInformation() async{
+  Future<String> getInformation() async {
     http.Response response = await http
-    .get(Uri.encodeFull(url), headers: {"Accept": "applications/json"});
+        .get(Uri.encodeFull(url), headers: {"Accept": "applications/json"});
 
     print(response.body);
     // setState((){

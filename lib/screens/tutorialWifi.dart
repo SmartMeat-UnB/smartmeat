@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:system_setting/system_setting.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'dart:async';
+import 'dart:typed_data';
+import 'package:qrscan/qrscan.dart' as scanner;
 
 class TutorialWifi extends StatefulWidget {
   @override
@@ -15,6 +18,9 @@ class _TutorialWifiState extends State<TutorialWifi> {
   _jumpToSettingBT() {
     SystemSetting.goto(SettingTarget.BLUETOOTH);
   }
+
+  String barcode = '';
+  Uint8List bytes = Uint8List(200);
 
   @override
   Widget build(BuildContext context) {
@@ -105,8 +111,44 @@ class _TutorialWifiState extends State<TutorialWifi> {
                       },
                     )),
               ),
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      width: 200,
+                      height: 200,
+                      child: Image.memory(bytes),
+                    ),
+                    Text('RESULT  $barcode'),
+                    RaisedButton(onPressed: _scan, child: Text("Scan")),
+                    RaisedButton(
+                        onPressed: _scanPhoto, child: Text("Scan Photo")),
+                    RaisedButton(
+                        onPressed: _generateBarCode,
+                        child: Text("Generate Barcode")),
+                  ],
+                ),
+              ),
             ],
           )))),
     );
+  }
+
+  Future _scan() async {
+    String barcode = await scanner.scan();
+    setState(() => this.barcode = barcode);
+  }
+
+  Future _scanPhoto() async {
+    String barcode = await scanner.scanPhoto();
+    setState(() => this.barcode = barcode);
+  }
+
+  Future _generateBarCode() async {
+    Uint8List result = await scanner
+        .generateBarCode('https://github.com/leyan95/qrcode_scanner');
+    this.setState(() => this.bytes = result);
   }
 }
