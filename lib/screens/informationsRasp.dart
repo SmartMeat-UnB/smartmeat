@@ -240,12 +240,12 @@ class _InformationRaspState extends State<InformationRasp> {
           title: const Text('Smart Meat',
               style: TextStyle(
                   fontSize: 35.0,
-                  color: Colors.black87,
+                  color: Colors.white,
                   fontFamily: 'Pacifico'),
               textAlign: TextAlign.center,
               strutStyle: StrutStyle(height: 2.5, forceStrutHeight: true)),
           centerTitle: true,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.red[900],
         ),
         body: Center(
           child: Column(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
@@ -67,13 +68,13 @@ class _SettingsState extends State<Settings> {
         appBar: PreferredSize(
           child: AppBar(
             title: Text('Configurações',
-                style: TextStyle(color: Colors.black, fontSize: 25)),
+                style: TextStyle(color: Colors.white, fontSize: 25)),
             centerTitle: true,
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.red[900],
             leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.black,
+                color: Colors.white,
               ),
               onPressed: () {
                 Navigator.pop(context);
@@ -97,15 +98,29 @@ class _SettingsState extends State<Settings> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
+                      children: <Widget>[
+                         Row(children: <Widget>[
+                        Icon(
+                          Icons.supervised_user_circle,
+                          size: 40,
+                          color: Colors.black,
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text("Usuário", style: TextStyle(fontSize: 20)),
+                      ]),
+                      SizedBox(
+                        height: 15,
+                      ),
                       TextField(
                         onChanged: (text) {
                           _doSomething(text);
                         },
-                        decoration: InputDecoration(
+                          decoration: InputDecoration(
                           suffixIcon: Icon(
                             Icons.edit,
-                            size: 40,
+                            size: 30,
                             color: Colors.black,
                           ),
                           border: InputBorder.none,
@@ -141,7 +156,7 @@ class _SettingsState extends State<Settings> {
                         SizedBox(
                           width: 20,
                         ),
-                        Text("Conexão:", style: TextStyle(fontSize: 18)),
+                        Text("Conexão:", style: TextStyle(fontSize: 20)),
                       ]),
                       SizedBox(
                         height: 15,
@@ -149,7 +164,7 @@ class _SettingsState extends State<Settings> {
                       Row(children: <Widget>[
                         Icon(
                           Icons.wifi,
-                          size: 40,
+                          size: 30,
                           color: Colors.black,
                         ),
                         SizedBox(
@@ -175,7 +190,7 @@ class _SettingsState extends State<Settings> {
                       Row(children: <Widget>[
                         Icon(
                           Icons.bluetooth,
-                          size: 40,
+                          size: 30,
                           color: Colors.black,
                         ),
                         SizedBox(
@@ -242,7 +257,7 @@ class _SettingsState extends State<Settings> {
                           ),
                           suffixIcon: Icon(
                             Icons.edit,
-                            size: 40,
+                            size: 30,
                             color: Colors.black,
                           ),
                           border: InputBorder.none,
