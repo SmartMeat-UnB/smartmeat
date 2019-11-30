@@ -100,7 +100,7 @@ class ResultIA extends StatelessWidget {
           ),
         ),
         appBar: AppBar(
-          backgroundColor: Colors.redAccent[700],
+          backgroundColor: Colors.red[900],
           title: const Text('Receitas Encontradas',
                   style: TextStyle(
                     fontSize: 28.0,

@@ -43,7 +43,7 @@ class WelcomePage extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-                        color: Colors.redAccent[700],
+                        color: Colors.red[900],
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)),
                         onPressed: () {

@@ -85,7 +85,7 @@ class _CropImageState extends State<CropImage> {
     return jsonRecipe != null
         ? Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.redAccent[700],
+              backgroundColor: Colors.red[900],
               title: const Text('Enviar Imagem',
                       style: TextStyle(
                         fontSize: 28.0,

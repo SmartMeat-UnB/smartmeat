@@ -146,7 +146,7 @@ class _ImagesCellState extends State<ImagesCell>
           iconTheme: IconThemeData(
             color: Colors.white, //change your color here
           ),
-          backgroundColor: Colors.redAccent[700],
+          backgroundColor: Colors.red[900],
         ),
         floatingActionButton: FloatButton(),
         floatingActionButtonLocation:

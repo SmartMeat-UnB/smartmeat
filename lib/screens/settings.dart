@@ -70,7 +70,7 @@ class _SettingsState extends State<Settings> {
             title: Text('Configurações',
                 style: TextStyle(color: Colors.white, fontSize: 25)),
             centerTitle: true,
-            backgroundColor: Colors.redAccent[700],
+            backgroundColor: Colors.red[900],
             leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,

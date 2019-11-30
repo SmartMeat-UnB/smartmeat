@@ -114,7 +114,7 @@ class RecipeResult extends StatelessWidget {
         ),
         ),
         appBar: AppBar(
-          backgroundColor: Colors.redAccent[700],
+          backgroundColor: Colors.red[900],
           title: Text("Receita ${contador + 1}",
           style: TextStyle(
             fontSize: 35.0,
