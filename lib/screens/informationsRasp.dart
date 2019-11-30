@@ -119,6 +119,9 @@ class _InformationRaspState extends State<InformationRasp> {
           scheduledNotificationDateTime,
           platformChannelSpecifics);
     }
+    if (stickState == false) {
+      await flutterLocalNotificationsPlugin.cancel(stick);
+    }
   }
 
   initSocket(String identifier) async {
