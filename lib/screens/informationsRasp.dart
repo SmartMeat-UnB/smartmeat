@@ -57,23 +57,10 @@ class _InformationRaspState extends State<InformationRasp> {
     scheduleNotification(smartMeat.smartmeat.stick4.active, 4);
   }
 
-  // void toggleState(String identifier, bool value) {
-  //   print("TOGGLE");
-  //   setState(() {
-  //     this._state = !value;
-  //     print("SET STATE TOGGLE $value");
-  //     sendMessage(identifier);
-  //   });
-  // }
-
-// TODO fix on changed
-  void onChanged(String identifier, bool value) {
-    bool ipc = isProbablyConnected(identifier);
+  void toggleState(String identifier, bool value) {
     setState(() {
-      if (ipc != null) {
-        this._state = value;
-        sendMessage(identifier);
-      }
+      this._state = value;
+      sendMessage(identifier);
     });
   }
 
@@ -253,7 +240,8 @@ class _InformationRaspState extends State<InformationRasp> {
               activeColor: Colors.green,
               value: smartMeat.smartmeat.on,
               onChanged: (bool value) {
-                onChanged("default", value);
+                // onChanged("default", value);
+                toggleState("default", value);
               }),
           title: const Text('Smart Meat',
               style: TextStyle(
