@@ -122,6 +122,10 @@ class _InformationRaspState extends State<InformationRasp> {
   }
 
   initSocket(String identifier) async {
+    setState(() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      uri = (prefs.getString('uri'));
+    });
     setState(() => _isProbablyConnected[identifier] = true);
     SocketIO socket = await manager.createInstance(SocketOptions(
         //Socket IO server URI

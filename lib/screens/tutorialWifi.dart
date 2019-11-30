@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:system_setting/system_setting.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'dart:async';
@@ -24,7 +25,11 @@ class _TutorialWifiState extends State<TutorialWifi> {
   String barcode = '';
   Future scan() async {
     String barcode = await scanner.scan();
-    setState(() => this.barcode = barcode);
+    setState(() {
+      this.barcode = barcode;
+    });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('uri', barcode);
   }
 
   //If you want read a photo in gallery
