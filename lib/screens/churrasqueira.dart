@@ -7,6 +7,7 @@ class Churrasqueira extends StatelessWidget {
   final GeneralSmartMeat smartMeat;
   final int tempo;
   const Churrasqueira(this.smartMeat, this.tempo);
+
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;

@@ -76,6 +76,9 @@ class _InformationRaspState extends State<InformationRasp> {
   }
 
   Timer _timer;
+  double i;
+  double d;
+  int h;
   int _start;
 
   void startTimer() {
@@ -87,7 +90,13 @@ class _InformationRaspState extends State<InformationRasp> {
           if (_start < 1) {
             timer.cancel();
           } else {
-            _start = _start - 1;
+            i = (_start.toDouble() - 1);
+            print(i);
+            d = i / 60;
+            print(d);
+            _start = i.round();
+            h = d.round();
+            print(h);
           }
         },
       ),
@@ -269,7 +278,7 @@ class _InformationRaspState extends State<InformationRasp> {
                 alignment: Alignment.topCenter,
                 width: 500.0,
                 height: 300.0,
-                child: Churrasqueira(smartMeat, _start),
+                child: Churrasqueira(smartMeat, h),
               ),
               Text(
                 'Temperatura',
