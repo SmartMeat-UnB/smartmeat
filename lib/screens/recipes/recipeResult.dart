@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:SmartMeat/screens/recipes/recipes.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class RecipeResult extends StatelessWidget {
@@ -14,11 +15,11 @@ class RecipeResult extends StatelessWidget {
   Widget build(BuildContext context) {
     String title = this.receita.recipes[contador].title;
     List<String> ingrs = this.receita.recipes[contador].ingrs;
-    final ingredientes = ingrs.reduce((value, element) => value + ',' + element);
+    final ingredientes = ingrs.reduce((value, element) => value + '\n' + '-' + ' ' + element);
     List<String> recipe = this.receita.recipes[contador].recipe;
 
     Widget buildIngrs() {
-      return Text("$ingredientes", style: TextStyle(fontSize: 15));
+      return Text("- $ingredientes", style: TextStyle(fontSize: 15));
     }
 
     Widget buildRecipes() {
@@ -95,7 +96,7 @@ class RecipeResult extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 7.0),
                 child: Column(
                   children: <Widget>[
-                    Text("Modo de preparo:",
+                    AutoSizeText("Modo de preparo:",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 17),
                         textAlign: TextAlign.left),
