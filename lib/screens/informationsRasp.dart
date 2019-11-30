@@ -1,13 +1,14 @@
+import 'dart:convert';
+import 'dart:async';
+import 'dart:typed_data';
+import 'dart:ui';
+
 import 'package:SmartMeat/screens/churrasqueira.dart';
 import 'package:SmartMeat/screens/smartMeat/generalSmartMeat.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
-import 'dart:convert';
-import 'dart:async';
-import 'dart:typed_data';
-import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,7 +42,7 @@ class _InformationRaspState extends State<InformationRasp> {
   bool _state = false;
 
   String _jsonData =
-      '{"smartmeat": { "on": false,"stick1": {"active": true,"time_active": "12:45"},"stick2": {"active": false,"time_active": "10:08"},"stick3": {"active": false,"time_active": "00:00"},"stick4": {"active": false,"time_active": "00:00"},"temperature": 3}}';
+      '{"smartmeat": { "on": false,"stick1": {"active": false,"time_active": "00:00"},"stick2": {"active": false,"time_active": "00:00"},"stick3": {"active": false,"time_active": "00:00"},"stick4": {"active": false,"time_active": "00:00"},"temperature": 3}}';
 
   void smartMeatData(jsonData) {
     print("Incoming data $_jsonData");
@@ -54,8 +55,6 @@ class _InformationRaspState extends State<InformationRasp> {
     scheduleNotification(smartMeat.smartmeat.stick2.active, 2);
     scheduleNotification(smartMeat.smartmeat.stick3.active, 3);
     scheduleNotification(smartMeat.smartmeat.stick4.active, 4);
-    var state = isProbablyConnected("default");
-    print("ESTADO $state");
   }
 
   // void toggleState(String identifier, bool value) {
@@ -67,6 +66,7 @@ class _InformationRaspState extends State<InformationRasp> {
   //   });
   // }
 
+// TODO fix on changed
   void onChanged(String identifier, bool value) {
     bool ipc = isProbablyConnected(identifier);
     setState(() {
@@ -154,35 +154,28 @@ class _InformationRaspState extends State<InformationRasp> {
         ] //Enable required transport
         ));
     socket.onConnect((data) {
+      setState(() => _isProbablyConnected[identifier] = true);
       pprint("Connected...");
       pprint(data);
-      setState(() => _isProbablyConnected[identifier] = true);
       // sendMessage("default");
     });
     socket.onConnectError((data) {
       setState(() => _isProbablyConnected[identifier] = false);
-      pprint("CONNECT ERROR");
       pprint(data);
     });
     socket.onError((data) {
-      pprint("ERROR");
       setState(() => _isProbablyConnected[identifier] = false);
       pprint(data);
     });
     socket.onConnectTimeout((data) {
-      pprint("TIMEOUT");
       setState(() => _isProbablyConnected[identifier] = false);
       pprint(data);
     });
     socket.onDisconnect((data) {
-      pprint("ON DISCONECT");
       setState(() => _isProbablyConnected[identifier] = false);
       disconnect(identifier);
       pprint(data);
     });
-    // socket.onConnectTimeout(pprint);
-    // socket.onError(pprint);
-    // socket.onDisconnect(pprint);
     socket.on("message", (data) => smartMeatData(data));
     socket.connect();
     sockets[identifier] = socket;
