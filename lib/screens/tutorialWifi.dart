@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:system_setting/system_setting.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'dart:async';
@@ -24,7 +25,12 @@ class _TutorialWifiState extends State<TutorialWifi> {
   String barcode = '';
   Future scan() async {
     String barcode = await scanner.scan();
-    setState(() => this.barcode = barcode);
+    setState(() {
+      this.barcode = barcode;
+    });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('uri', barcode);
+    Navigator.pushNamed(context, '/home');
   }
 
   //If you want read a photo in gallery
@@ -32,7 +38,6 @@ class _TutorialWifiState extends State<TutorialWifi> {
   //   String barcode = await scanner.scanPhoto();
   //   setState(() => this.barcode = barcode);
   // }
-
   Uint8List bytes = Uint8List(200);
 
   @override
@@ -133,6 +138,26 @@ class _TutorialWifiState extends State<TutorialWifi> {
                       },
                     )),
               ),
+              // Container(
+              //   child: Column(
+              //     mainAxisAlignment: MainAxisAlignment.end,
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     children: <Widget>[
+              //       SizedBox(
+              //         width: 200,
+              //         height: 200,
+              //         child: Image.memory(bytes),
+              //       ),
+              //       Text('RESULT  $barcode'),
+              //       RaisedButton(onPressed: _scan, child: Text("Scan")),
+              //       RaisedButton(
+              //           onPressed: _scanPhoto, child: Text("Scan Photo")),
+              //       RaisedButton(
+              //           onPressed: _generateBarCode,
+              //           child: Text("Generate Barcode")),
+              //     ],
+              //   ),
+              // ),
             ],
           )))),
     );

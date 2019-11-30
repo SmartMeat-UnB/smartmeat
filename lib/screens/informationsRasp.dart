@@ -123,6 +123,15 @@ class _InformationRaspState extends State<InformationRasp> {
   }
 
   initSocket(String identifier) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      uri = (prefs.getString('uri'));
+      if (uri == null) {
+        uri = "http://192.168.25.114:8080/";
+      }
+      print(uri);
+    });
+
     setState(() => _isProbablyConnected[identifier] = false);
     SocketIO socket = await manager.createInstance(SocketOptions(
         //Socket IO server URI
