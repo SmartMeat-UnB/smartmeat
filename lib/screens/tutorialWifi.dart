@@ -38,7 +38,6 @@ class _TutorialWifiState extends State<TutorialWifi> {
   //   String barcode = await scanner.scanPhoto();
   //   setState(() => this.barcode = barcode);
   // }
-
   Uint8List bytes = Uint8List(200);
 
   @override
@@ -139,6 +138,26 @@ class _TutorialWifiState extends State<TutorialWifi> {
                       },
                     )),
               ),
+              // Container(
+              //   child: Column(
+              //     mainAxisAlignment: MainAxisAlignment.end,
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     children: <Widget>[
+              //       SizedBox(
+              //         width: 200,
+              //         height: 200,
+              //         child: Image.memory(bytes),
+              //       ),
+              //       Text('RESULT  $barcode'),
+              //       RaisedButton(onPressed: _scan, child: Text("Scan")),
+              //       RaisedButton(
+              //           onPressed: _scanPhoto, child: Text("Scan Photo")),
+              //       RaisedButton(
+              //           onPressed: _generateBarCode,
+              //           child: Text("Generate Barcode")),
+              //     ],
+              //   ),
+              // ),
             ],
           )))),
     );
