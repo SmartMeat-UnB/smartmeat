@@ -126,6 +126,9 @@ class _InformationRaspState extends State<InformationRasp> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       uri = (prefs.getString('uri'));
+      if (uri == null) {
+        uri = "http://192.168.25.114:8080/";
+      }
       print(uri);
     });
 
