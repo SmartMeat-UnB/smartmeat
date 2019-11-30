@@ -15,11 +15,19 @@ class RecipeResult extends StatelessWidget {
   Widget build(BuildContext context) {
     String title = this.receita.recipes[contador].title;
     List<String> ingrs = this.receita.recipes[contador].ingrs;
-    final ingredientes = ingrs.reduce((value, element) => value + '\n' + '-' + ' ' + element);
+    //final ingredientes = ingrs.reduce((value, element) => value + '\n' + '-' + ' ' + element);
     List<String> recipe = this.receita.recipes[contador].recipe;
 
     Widget buildIngrs() {
-      return Text("- $ingredientes", style: TextStyle(fontSize: 15));
+      return ListView.builder(
+        shrinkWrap: true,
+        itemCount: ingrs.length,
+        itemBuilder: (BuildContext context, int index) {
+          String ingredientes = ingrs[index];
+            return Text(" - $ingredientes" + ",", style: TextStyle(fontSize: 15), textAlign: TextAlign.left,);
+
+        },
+      );
     }
 
     Widget buildRecipes() {
@@ -28,7 +36,7 @@ class RecipeResult extends StatelessWidget {
         itemCount: recipe.length,
         itemBuilder: (BuildContext context, int index) {
           String recipes = recipe[index];
-          return Text("- $recipes", style: TextStyle(fontSize: 15));
+          return Text(" - $recipes", style: TextStyle(fontSize: 15), textAlign: TextAlign.justify);
         },
       );
     }
@@ -117,7 +125,7 @@ class RecipeResult extends StatelessWidget {
         ),
         appBar: AppBar(
           backgroundColor: Colors.red[900],
-          title: Text("Receita ${contador + 1}",
+          title: AutoSizeText("$title",
           style: TextStyle(
             fontSize: 35.0,
             fontFamily: 'Pacifico',
