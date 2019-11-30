@@ -9,13 +9,13 @@ class NameUser extends StatefulWidget {
 }
 
 class _NameUserState extends State<NameUser> {
-  String v = "";
+  String username = "";
 
   @override
   Widget build(BuildContext context) {
-    void _doSomething(String text) {
+    void setName(String text) {
       setState(() {
-        v = text;
+        username = text;
       });
     }
 
@@ -26,39 +26,41 @@ class _NameUserState extends State<NameUser> {
             width: double.infinity,
             height: double.infinity,
             child: SingleChildScrollView(
-                child: Column(
-              children: [
-                SizedBox(
-                  height: 3,
-                ),
-                ImageBanner("images/SmartMeat.png"),
-                TextSection(
-                    "Vamos iniciar.\nPor favor,\n digite seu nome\n no campo abaixo!"),
-                Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          TextField(
-                            onChanged: (text) {
-                              _doSomething(text);
-                            },
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Insira seu nome',
-                              labelText: "Nome:",
-                              labelStyle: TextStyle(
-                                height: 0,
-                                fontSize: 20,
-                                color: Colors.black,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 3,
+                  ),
+                  ImageBanner("images/SmartMeat.png"),
+                  TextSection("\nDigite seu nome\n no campo abaixo!"),
+                  Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            TextField(
+                              onChanged: (text) {
+                                setName(text);
+                              },
+                              decoration: InputDecoration(
+                                // border: InputBorder.none,
+                                hintText: 'Insira seu nome',
+                                labelText: "Nome:",
+                                labelStyle: TextStyle(
+                                  height: 0,
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                ),
                               ),
-                            ),
-                          )
-                        ])),
-                Botao('PRONTO!', v),
-              ],
-            ))));
+                            )
+                          ])),
+                  Botao('PRONTO!', username),
+                ],
+            )
+          )
+        )
+      );
   }
 }
