@@ -37,13 +37,30 @@ class _ImagesCellState extends State<ImagesCell>
 
   @override
   Widget build(BuildContext context) {
+    final _width = MediaQuery.of(context).size.width;
+    final _height = MediaQuery.of(context).size.height;
     return Scaffold(
         bottomNavigationBar: BottomApp(),
         body: Stack(
           children: <Widget>[
+            Container(
+              height: _height * 0.2,
+              width: _width,
+              child:
+                Text(
+                  "Inverse Cooking",
+                  style: TextStyle(
+                      fontSize: 38.0,
+                      color: Colors.black87,
+                      fontFamily: 'Pacifico'
+                    ),
+                    strutStyle: StrutStyle(height: _height * 0.01, forceStrutHeight: true),
+                    textAlign: TextAlign.center
+                ),
+            ),
             InkWell(
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 70.0),
+                padding: EdgeInsets.symmetric(vertical: _height * 0.2),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,8 +69,8 @@ class _ImagesCellState extends State<ImagesCell>
                       alignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         ButtonTheme(
-                          minWidth: 300,
-                          height: 100.0,
+                          minWidth: _width * 0.65,
+                          height: _height * 0.1,
                           child: RaisedButton(
                             shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(30.0)),
@@ -64,7 +81,7 @@ class _ImagesCellState extends State<ImagesCell>
                                   Icons.file_upload,
                                   size: 35,
                                 ),
-                                SizedBox(width: 15.0),
+                                SizedBox(width: _width * 0.05),
                                 Text(
                                   'Fazer Upload',
                                   style: TextStyle(
@@ -83,8 +100,8 @@ class _ImagesCellState extends State<ImagesCell>
                       alignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         ButtonTheme(
-                          minWidth: 300.0,
-                          height: 100.0,
+                          minWidth: _width * 0.65,
+                          height: _height * 0.1,
                           child: RaisedButton(
                             shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(30.0)),
@@ -95,7 +112,7 @@ class _ImagesCellState extends State<ImagesCell>
                                   Icons.camera_alt,
                                   size: 35,
                                 ),
-                                SizedBox(width: 40.0),
+                                SizedBox(width: _width * 0.05),
                                 Text(
                                   'Tirar Foto',
                                   style: TextStyle(
@@ -117,10 +134,19 @@ class _ImagesCellState extends State<ImagesCell>
           ],
         ),
         appBar: AppBar(
+          title: const Text('Imagem Para Receita',
+                  style: TextStyle(
+                    fontSize: 28.0,
+                    color: Colors.white,
+                    fontFamily: 'Pacifico'),
+                    textAlign: TextAlign.center,
+                    strutStyle: StrutStyle(height: 2.5, forceStrutHeight: true)),
+                    centerTitle: true,
+                               
           iconTheme: IconThemeData(
-            color: Colors.black, //change your color here
+            color: Colors.white, //change your color here
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.red[900],
         ),
         floatingActionButton: FloatButton(),
         floatingActionButtonLocation:

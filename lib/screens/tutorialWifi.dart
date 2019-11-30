@@ -54,7 +54,7 @@ class _TutorialWifiState extends State<TutorialWifi> {
               SizedBox(height: _height * 0.04),
               Expanded(
                 child: Image.asset(
-                  "images/smartphone.png",
+                  "images/phonewifi.png",
                   fit: BoxFit.cover,
                   height: 190.0,
                   alignment: Alignment.topCenter,

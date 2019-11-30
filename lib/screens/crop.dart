@@ -85,11 +85,19 @@ class _CropImageState extends State<CropImage> {
     return jsonRecipe != null
         ? Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.red[900],
+              title: const Text('Enviar Imagem',
+                      style: TextStyle(
+                        fontSize: 28.0,
+                        color: Colors.white,
+                        fontFamily: 'Pacifico'),
+                        textAlign: TextAlign.center,
+                        strutStyle: StrutStyle(height: 2.5, forceStrutHeight: true)),
+                        centerTitle: true,                                            
               leading: IconButton(
                 icon: Icon(
                   Icons.arrow_back,
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
                 onPressed: () {
                   Navigator.pop(context);
@@ -121,8 +129,8 @@ class _CropImageState extends State<CropImage> {
                   ButtonBar(
                     alignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      imageCropped != null
-                          ? ButtonTheme(
+                     imageCropped != null
+                        ? ButtonTheme(
                               minWidth: 150.0,
                               height: 50.0,
                               child: RaisedButton(
@@ -141,8 +149,8 @@ class _CropImageState extends State<CropImage> {
                                           widget.imageFile, recipesData())));
                                 },
                               ),
-                            )
-                          : ButtonTheme(
+                     )
+                      : ButtonTheme(
                               minWidth: 150.0,
                               height: 50.0,
                               child: RaisedButton(
@@ -168,28 +176,9 @@ class _CropImageState extends State<CropImage> {
                                   _cropImage(widget.imageFile);
                                 },
                               ),
-                            ),
-                          // new ButtonTheme(
-                          //     minWidth: 150.0,
-                          //     height: 50.0,
-                          //     child: RaisedButton(
-                          //       shape: RoundedRectangleBorder(
-                          //           borderRadius:
-                          //               new BorderRadius.circular(30.0)),
-                          //       color: Colors.green,
-                          //       child: Text(
-                          //         'Buscar Receitas',
-                          //         style: TextStyle(
-                          //             color: Colors.white, fontSize: 20),
-                          //       ),
-                          //       onPressed: () {
-                          //         Navigator.of(context).push(MaterialPageRoute(
-                          //             builder: (context) => ResultIA(
-                          //                 widget.imageFile, recipesData())));
-                          //       },
-                          //     ),
-                          //   ),
+                           )
                     ],
+                   
                   ),
                 ],
               ),
