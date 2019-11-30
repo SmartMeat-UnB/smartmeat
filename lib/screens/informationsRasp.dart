@@ -242,6 +242,20 @@ class _InformationRaspState extends State<InformationRasp> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          actions: <Widget>[
+            // action button
+            isProbablyConnected("default")
+                ? Icon(
+                    Icons.wifi,
+                    size: 32,
+                    color: Colors.white,
+                  )
+                : Icon(
+                    Icons.signal_wifi_off,
+                    size: 32,
+                    color: Colors.white,
+                  ),
+          ],
           leading: Switch(
               activeColor: Colors.green,
               value: smartMeat.smartmeat.on,
@@ -250,9 +264,7 @@ class _InformationRaspState extends State<InformationRasp> {
               }),
           title: const Text('Smart Meat',
               style: TextStyle(
-                  fontSize: 35.0,
-                  color: Colors.white,
-                  fontFamily: 'Pacifico'),
+                  fontSize: 35.0, color: Colors.white, fontFamily: 'Pacifico'),
               textAlign: TextAlign.center,
               strutStyle: StrutStyle(height: 2.5, forceStrutHeight: true)),
           centerTitle: true,
