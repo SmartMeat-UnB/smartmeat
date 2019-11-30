@@ -92,7 +92,7 @@ class _InformationRaspState extends State<InformationRasp> {
         tempo = 180;
       }
       var scheduledNotificationDateTime =
-          DateTime.now().add(Duration(seconds: 30));
+          DateTime.now().add(Duration(seconds: tempo));
       var vibrationPattern = Int64List(4);
       vibrationPattern[0] = 0;
       vibrationPattern[1] = 1000;
