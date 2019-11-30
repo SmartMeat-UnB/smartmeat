@@ -83,15 +83,15 @@ class ResultIA extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text("Receitas Encontradas",
-                  style: TextStyle(
-                      // fontFamily: 'RobotoMono',
-                      color: Colors.black87,
-                      fontFamily: 'Pacifico',
-                      // fontWeight: FontWeight.bold,
-                      fontSize: 32
-                      )
-                    ),
+              // Text("Receitas Encontradas",
+              //     style: TextStyle(
+              //         // fontFamily: 'RobotoMono',
+              //         color: Colors.black87,
+              //         fontFamily: 'Pacifico',
+              //         // fontWeight: FontWeight.bold,
+              //         fontSize: 32
+              //         )
+              //       ),
               SizedBox(
                 height: _height * 0.01,
               ),
@@ -100,11 +100,19 @@ class ResultIA extends StatelessWidget {
           ),
         ),
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.red[900],
+          title: const Text('Receitas Encontradas',
+                  style: TextStyle(
+                    fontSize: 28.0,
+                    color: Colors.white,
+                    fontFamily: 'Pacifico'),
+                    textAlign: TextAlign.center,
+                    strutStyle: StrutStyle(height: 2.5, forceStrutHeight: true)),
+                    centerTitle: true,                  
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: Colors.black,
+              color: Colors.white,
             ),
             onPressed: () {
               Navigator.pop(context);

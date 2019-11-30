@@ -1,13 +1,14 @@
+import 'dart:convert';
+import 'dart:async';
+import 'dart:typed_data';
+import 'dart:ui';
+
 import 'package:SmartMeat/screens/churrasqueira.dart';
 import 'package:SmartMeat/screens/smartMeat/generalSmartMeat.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
-import 'dart:convert';
-import 'dart:async';
-import 'dart:typed_data';
-import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,7 +42,7 @@ class _InformationRaspState extends State<InformationRasp> {
   bool _state = false;
 
   String _jsonData =
-      '{"smartmeat": { "on": false,"stick1": {"active": true,"time_active": "12:45"},"stick2": {"active": false,"time_active": "10:08"},"stick3": {"active": false,"time_active": "00:00"},"stick4": {"active": false,"time_active": "00:00"},"temperature": 3}}';
+      '{"smartmeat": { "on": false,"stick1": {"active": false,"time_active": "00:00"},"stick2": {"active": false,"time_active": "00:00"},"stick3": {"active": false,"time_active": "00:00"},"stick4": {"active": false,"time_active": "00:00"},"temperature": 3}}';
 
   void smartMeatData(jsonData) {
     print("Incoming data $_jsonData");
@@ -56,13 +57,10 @@ class _InformationRaspState extends State<InformationRasp> {
     scheduleNotification(smartMeat.smartmeat.stick4.active, 4);
   }
 
-  void onChanged(String identifier, bool value) {
-    bool ipc = isProbablyConnected(identifier);
+  void toggleState(String identifier, bool value) {
     setState(() {
-      if (ipc != null) {
-        this._state = value;
-        sendMessage(identifier);
-      }
+      this._state = value;
+      sendMessage(identifier);
     });
   }
 
@@ -119,6 +117,9 @@ class _InformationRaspState extends State<InformationRasp> {
           scheduledNotificationDateTime,
           platformChannelSpecifics);
     }
+    if (stickState == false) {
+      await flutterLocalNotificationsPlugin.cancel(stick);
+    }
   }
 
   initSocket(String identifier) async {
@@ -128,7 +129,7 @@ class _InformationRaspState extends State<InformationRasp> {
       print(uri);
     });
 
-    setState(() => _isProbablyConnected[identifier] = true);
+    setState(() => _isProbablyConnected[identifier] = false);
     SocketIO socket = await manager.createInstance(SocketOptions(
         //Socket IO server URI
         uri,
@@ -146,27 +147,35 @@ class _InformationRaspState extends State<InformationRasp> {
         ] //Enable required transport
         ));
     socket.onConnect((data) {
+      setState(() => _isProbablyConnected[identifier] = true);
       pprint("Connected...");
       pprint(data);
       // sendMessage("default");
     });
-    socket.onConnectError(pprint);
-    socket.onConnectTimeout(pprint);
-    socket.onError(pprint);
-    socket.onDisconnect(pprint);
-    socket.on("type:string", (data) => pprint("type:string | $data"));
-    socket.on("type:bool", (data) => pprint("type:bool | $data"));
-    socket.on("type:number", (data) => pprint("type:number | $data"));
-    socket.on("type:object", (data) => pprint("type:object | $data"));
-    socket.on("type:list", (data) => pprint("type:list | $data"));
-    // socket.on("message", (data) => pprint("MESSAGE RECEIVED $data"));
+    socket.onConnectError((data) {
+      setState(() => _isProbablyConnected[identifier] = false);
+      pprint(data);
+    });
+    socket.onError((data) {
+      setState(() => _isProbablyConnected[identifier] = false);
+      pprint(data);
+    });
+    socket.onConnectTimeout((data) {
+      setState(() => _isProbablyConnected[identifier] = false);
+      pprint(data);
+    });
+    socket.onDisconnect((data) {
+      setState(() => _isProbablyConnected[identifier] = false);
+      disconnect(identifier);
+      pprint(data);
+    });
     socket.on("message", (data) => smartMeatData(data));
     socket.connect();
     sockets[identifier] = socket;
   }
 
   bool isProbablyConnected(String identifier) {
-    return _isProbablyConnected[identifier] ?? false;
+    return _isProbablyConnected[identifier];
   }
 
   disconnect(String identifier) async {
@@ -182,30 +191,27 @@ class _InformationRaspState extends State<InformationRasp> {
           "smartmeat": {
             "on": _state,
             "temperature": _level,
-            "stick1": {"active": false, "time_active": "00:00"},
-            "stick2": {"active": false, "time_active": "00:00"},
-            "stick3": {"active": false, "time_active": "00:00"},
-            "stick4": {"active": false, "time_active": "00:00"}
+            "stick1": {
+              "active": smartMeat.smartmeat.stick1.active,
+              "time_active": smartMeat.smartmeat.stick1.timeActive
+            },
+            "stick2": {
+              "active": smartMeat.smartmeat.stick2.active,
+              "time_active": smartMeat.smartmeat.stick2.timeActive
+            },
+            "stick3": {
+              "active": smartMeat.smartmeat.stick3.active,
+              "time_active": smartMeat.smartmeat.stick3.timeActive
+            },
+            "stick4": {
+              "active": smartMeat.smartmeat.stick4.active,
+              "time_active": smartMeat.smartmeat.stick4.timeActive
+            }
           }
         }
       ]);
       pprint("Message emitted from '$identifier'...");
     }
-  }
-
-  sendMessageWithACK(identifier) {
-    pprint("Sending ACK message from '$identifier'...");
-    List msg = [
-      "Hello world!",
-      1,
-      true,
-      {"p": 1},
-      [3, 'r']
-    ];
-    sockets[identifier].emitWithAck("ack-message", msg).then((data) {
-      // this callback runs when this specific message is acknowledged by the server
-      pprint("ACK recieved from '$identifier' for $msg: $data");
-    });
   }
 
   pprint(data) {
@@ -222,21 +228,34 @@ class _InformationRaspState extends State<InformationRasp> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          actions: <Widget>[
+            // action button
+            isProbablyConnected("default")
+                ? Icon(
+                    Icons.wifi,
+                    size: 32,
+                    color: Colors.white,
+                  )
+                : Icon(
+                    Icons.signal_wifi_off,
+                    size: 32,
+                    color: Colors.white,
+                  ),
+          ],
           leading: Switch(
               activeColor: Colors.green,
               value: smartMeat.smartmeat.on,
               onChanged: (bool value) {
-                onChanged("default", value);
+                // onChanged("default", value);
+                toggleState("default", value);
               }),
           title: const Text('Smart Meat',
               style: TextStyle(
-                  fontSize: 35.0,
-                  color: Colors.black87,
-                  fontFamily: 'Pacifico'),
+                  fontSize: 35.0, color: Colors.white, fontFamily: 'Pacifico'),
               textAlign: TextAlign.center,
               strutStyle: StrutStyle(height: 2.5, forceStrutHeight: true)),
           centerTitle: true,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.red[900],
         ),
         body: Center(
           child: Column(

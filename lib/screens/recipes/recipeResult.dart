@@ -33,7 +33,8 @@ class RecipeResult extends StatelessWidget {
 
     return Scaffold(
         bottomNavigationBar: BottomApp(),
-        body: Container(
+        body: SingleChildScrollView(
+            child: Container(
           padding: EdgeInsets.symmetric(vertical: 7.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -42,12 +43,12 @@ class RecipeResult extends StatelessWidget {
               Container(
                 child: Column(children: <Widget>[
                   Center(
-                    child: Text(
-                      "Receita ${contador + 1}",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-                      textAlign: TextAlign.center,
-                    ),
+                    // child: Text(
+                    //   "Receita ${contador + 1}",
+                    //   style:
+                    //       TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                    //   textAlign: TextAlign.center,
+                    // ),
                   ),
                   SizedBox(
                     height: 7,
@@ -75,7 +76,7 @@ class RecipeResult extends StatelessWidget {
                   children: <Widget>[
                     Text("Ingredientes:",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                            fontWeight: FontWeight.bold, fontSize: 17),
                         textAlign: TextAlign.left),
                   ],
                 ),
@@ -95,7 +96,7 @@ class RecipeResult extends StatelessWidget {
                   children: <Widget>[
                     Text("Modo de preparo:",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                            fontWeight: FontWeight.bold, fontSize: 17),
                         textAlign: TextAlign.left),
                   ],
                 ),
@@ -111,12 +112,19 @@ class RecipeResult extends StatelessWidget {
             ],
           ),
         ),
+        ),
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.red[900],
+          title: Text("Receita ${contador + 1}",
+          style: TextStyle(
+            fontSize: 35.0,
+            fontFamily: 'Pacifico',
+          ),
+          ),
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: Colors.black,
+              color: Colors.white,
             ),
             onPressed: () {
               Navigator.pop(context);
