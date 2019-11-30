@@ -43,7 +43,7 @@ class _InformationRaspState extends State<InformationRasp> {
   bool _state = false;
 
   String _jsonData =
-      '{"smartmeat": { "on": false,"stick1": {"active": false ,"time_active": "00:00"},"stick2": {"active": true,"time_active": "00:00"},"stick3": {"active": true,"time_active": "00:00"},"stick4": {"active": true,"time_active": "00:00"},"temperature": 3}}';
+      '{"smartmeat": { "on": false,"stick1": {"active": true ,"time_active": "00:00"},"stick2": {"active": false,"time_active": "00:00"},"stick3": {"active": false,"time_active": "00:00"},"stick4": {"active": false,"time_active": "00:00"},"temperature": 3}}';
 
   void smartMeatData(jsonData) {
     print("Incoming data $_jsonData");
@@ -131,6 +131,9 @@ class _InformationRaspState extends State<InformationRasp> {
 
     if (stickState == false) {
       await flutterLocalNotificationsPlugin.cancel(stick);
+    }
+    if (notificationState == false) {
+      await flutterLocalNotificationsPlugin.cancelAll();
     }
   }
 
