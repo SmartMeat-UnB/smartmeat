@@ -15,11 +15,24 @@ class _TutorialWifiState extends State<TutorialWifi> {
     SystemSetting.goto(SettingTarget.WIFI);
   }
 
-  _jumpToSettingBT() {
-    SystemSetting.goto(SettingTarget.BLUETOOTH);
+  // If you want use bluetooth
+  // _jumpToSettingBT() {
+  //   SystemSetting.goto(SettingTarget.BLUETOOTH);
+  // }
+
+  // String get barcode => _barcode;
+  String barcode = '';
+  Future scan() async {
+    String barcode = await scanner.scan();
+    setState(() => this.barcode = barcode);
   }
 
-  String barcode = '';
+  //If you want read a photo in gallery
+  // Future _scanPhoto() async {
+  //   String barcode = await scanner.scanPhoto();
+  //   setState(() => this.barcode = barcode);
+  // }
+
   Uint8List bytes = Uint8List(200);
 
   @override
@@ -49,44 +62,53 @@ class _TutorialWifiState extends State<TutorialWifi> {
               ),
               SizedBox(height: _height * 0.03),
               AutoSizeText(
-                "Faça a conexão do seu celular\n na mesma rede Wifi que esta a \nchurrasqueira ou conecte ao Bluetooth da SmartMeat.",
+                "Para se conectar leia o QR CODE",
                 presetFontSizes: [40.0, 20.0, 14.0],
                 maxLines: 5,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: _height * 0.07),
-              Row(
+              SizedBox(height: _height * 0.10),
+              Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    RaisedButton(
-                      onPressed: _jumpToSettingWifi,
-                      textColor: Colors.white,
-                      color: Colors.blue,
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Wifi",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 28.0,
-                          fontFamily: 'Roboto',
+                    ButtonTheme(
+                      child: RaisedButton(
+                        onPressed: scan,
+                        child: Text(
+                          'LER QR CODE',
+                          style: TextStyle(
+                            fontSize: 35.0,
+                            color: Colors.white,
+                          ),
                         ),
+                        color: Colors.green,
                       ),
                     ),
-                    RaisedButton(
-                      padding: const EdgeInsets.all(8.0),
-                      textColor: Colors.white,
-                      color: Colors.blue,
-                      onPressed: _jumpToSettingBT,
-                      child: Text(
-                        "Bluetooth",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 28.0,
-                          fontFamily: 'Roboto',
-                        ),
-                      ),
-                    ),
+
+                    SizedBox(height: _height * 0.04),
+                    // AutoSizeText(
+                    //   "Agora escolha o wifi em que a churrasqueira está conectada!",
+                    //   presetFontSizes: [25.0, 20.0, 14.0],
+                    //   maxLines: 5,
+                    //   overflow: TextOverflow.ellipsis,
+                    //   textAlign: TextAlign.center,
+                    // ),
+                    SizedBox(height: _height * 0.04),
+                    // RaisedButton(
+                    //   onPressed: _jumpToSettingWifi,
+                    //   textColor: Colors.white,
+                    //   color: Colors.blue,
+                    //   padding: const EdgeInsets.all(8.0),
+                    //   child: Text(
+                    //     "Wifi",
+                    //     style: TextStyle(
+                    //       fontWeight: FontWeight.bold,
+                    //       fontSize: 28.0,
+                    //       fontFamily: 'Roboto',
+                    //     ),
+                    //   ),
+                    // ),
                   ]),
               SizedBox(height: _height * 0.05),
               Container(
@@ -97,13 +119,13 @@ class _TutorialWifiState extends State<TutorialWifi> {
                     height: 60.0,
                     child: RaisedButton(
                       child: Text(
-                        'PRONTO',
+                        'PULAR',
                         style: TextStyle(
-                          fontSize: 40.0,
+                          fontSize: 30.0,
                           color: Colors.white,
                         ),
                       ),
-                      color: Colors.green,
+                      color: Colors.grey,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
                       onPressed: () {
@@ -111,44 +133,8 @@ class _TutorialWifiState extends State<TutorialWifi> {
                       },
                     )),
               ),
-              Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: Image.memory(bytes),
-                    ),
-                    Text('RESULT  $barcode'),
-                    RaisedButton(onPressed: _scan, child: Text("Scan")),
-                    RaisedButton(
-                        onPressed: _scanPhoto, child: Text("Scan Photo")),
-                    RaisedButton(
-                        onPressed: _generateBarCode,
-                        child: Text("Generate Barcode")),
-                  ],
-                ),
-              ),
             ],
           )))),
     );
-  }
-
-  Future _scan() async {
-    String barcode = await scanner.scan();
-    setState(() => this.barcode = barcode);
-  }
-
-  Future _scanPhoto() async {
-    String barcode = await scanner.scanPhoto();
-    setState(() => this.barcode = barcode);
-  }
-
-  Future _generateBarCode() async {
-    Uint8List result = await scanner
-        .generateBarCode('https://github.com/leyan95/qrcode_scanner');
-    this.setState(() => this.bytes = result);
   }
 }
