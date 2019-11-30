@@ -78,7 +78,7 @@ class Choice {
   final imageFile;
 }
 
-const String text1 = "Já pensou em um churrasco onde você particicpa da festa?";
+const String text1 = "Já pensou um churrasco onde você participa da festa?";
 const String text2 = "Acompanhe sua churrasqueira pelo celular";
 const String text3 = "Inicie agora no aplicativo Smart Meat";
 
