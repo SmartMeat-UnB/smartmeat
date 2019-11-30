@@ -4,6 +4,7 @@ import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:system_setting/system_setting.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -31,6 +32,14 @@ class _SettingsState extends State<Settings> {
     Timer(Duration(milliseconds: 20), () {
       checkFirstSeen();
     });
+  }
+
+  _jumpToSettingWifi() {
+    SystemSetting.goto(SettingTarget.WIFI);
+  }
+
+  _jumpToSettingBT() {
+    SystemSetting.goto(SettingTarget.BLUETOOTH);
   }
 
   Future _doSomething(String text) async {
@@ -157,16 +166,26 @@ class _SettingsState extends State<Settings> {
                         ),
                         Text("Wi-Fi", style: TextStyle(fontSize: 18)),
                         SizedBox(
-                          width: 165,
+                          width: 145,
                         ),
-                        Switch(
-                          onChanged: (bool value) {
-                            setState(() {
-                              value = !_state;
-                            });
-                          },
-                          activeColor: Colors.green,
-                          value: _state,
+                        ButtonTheme(
+                          minWidth: 50.0,
+                          height: 30.0,
+                          child: RaisedButton(
+                            child: Text(
+                              'Conectar',
+                              style: TextStyle(
+                                fontSize: 10.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                            color: Colors.green,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0)),
+                            onPressed: () {
+                              _jumpToSettingWifi();
+                            },
+                          ),
                         ),
                       ]),
                       SizedBox(
@@ -183,16 +202,26 @@ class _SettingsState extends State<Settings> {
                         ),
                         Text("Bluetooth", style: TextStyle(fontSize: 18)),
                         SizedBox(
-                          width: 125,
+                          width: 105,
                         ),
-                        Switch(
-                          onChanged: (bool value) {
-                            setState(() {
-                              value = !_state;
-                            });
-                          },
-                          activeColor: Colors.green,
-                          value: _state,
+                        ButtonTheme(
+                          minWidth: 50.0,
+                          height: 30.0,
+                          child: RaisedButton(
+                            child: Text(
+                              'Conectar',
+                              style: TextStyle(
+                                fontSize: 10.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                            color: Colors.green,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0)),
+                            onPressed: () {
+                              _jumpToSettingBT();
+                            },
+                          ),
                         ),
                       ]),
                     ],
