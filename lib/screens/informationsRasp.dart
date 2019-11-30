@@ -66,6 +66,34 @@ class _InformationRaspState extends State<InformationRasp> {
     });
   }
 
+  Future<void> getTempo() async {
+    int tempo;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    tempo = (prefs.getInt('tempo'));
+    setState(() {
+      _start = tempo;
+    });
+  }
+
+  Timer _timer;
+  int _start;
+
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) => setState(
+        () {
+          if (_start < 1) {
+            timer.cancel();
+          } else {
+            _start = _start - 1;
+          }
+        },
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -78,6 +106,8 @@ class _InformationRaspState extends State<InformationRasp> {
     var initializationSettings = InitializationSettings(
         initializationSettingsAndroid, initializationSettingsIOS);
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    startTimer();
+    getTempo();
   }
 
   Future<void> scheduleNotification(bool stickState, int stick) async {
@@ -239,7 +269,7 @@ class _InformationRaspState extends State<InformationRasp> {
                 alignment: Alignment.topCenter,
                 width: 500.0,
                 height: 300.0,
-                child: Churrasqueira(smartMeat),
+                child: Churrasqueira(smartMeat, _start),
               ),
               Text(
                 'Temperatura',
