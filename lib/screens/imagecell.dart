@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
 import 'crop.dart';
+import 'dart:async';
+import 'package:flutter/services.dart';
 
 class ImagesCell extends StatefulWidget {
   ImagesCell();
@@ -14,6 +17,7 @@ class ImagesCell extends StatefulWidget {
 class _ImagesCellState extends State<ImagesCell>
     with SingleTickerProviderStateMixin {
   Image imageFile;
+  String _scanBarcode = 'Unknown';
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
@@ -34,6 +38,24 @@ class _ImagesCellState extends State<ImagesCell>
             .push(MaterialPageRoute(builder: (context) => CropImage(image)));
     });
   }
+
+  Future<void> scanQR() async {
+    String barcodeScanRes;
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "Cancel", true, ScanMode.QR);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+    if (!mounted) return;
+
+    setState(() {
+      _scanBarcode = barcodeScanRes;
+    });
+  }
+
+  AsyncSnapshot<String> snapshot;
 
   @override
   Widget build(BuildContext context) {
@@ -128,17 +150,21 @@ class _ImagesCellState extends State<ImagesCell>
                                 ),
                                 SizedBox(width: 15.0),
                                 Text(
-                                  'Ler Qr Code',
+                                  'Ler QR Code',
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 25),
                                 ),
                               ],
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              scanQR();
+                            },
                           ),
                         ),
                       ],
                     ),
+                    Text('Scan result : $_scanBarcode\n',
+                        style: TextStyle(fontSize: 20))
                   ],
                 ),
               ),
