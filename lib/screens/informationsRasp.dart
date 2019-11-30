@@ -54,7 +54,18 @@ class _InformationRaspState extends State<InformationRasp> {
     scheduleNotification(smartMeat.smartmeat.stick2.active, 2);
     scheduleNotification(smartMeat.smartmeat.stick3.active, 3);
     scheduleNotification(smartMeat.smartmeat.stick4.active, 4);
+    var state = isProbablyConnected("default");
+    print("ESTADO $state");
   }
+
+  // void toggleState(String identifier, bool value) {
+  //   print("TOGGLE");
+  //   setState(() {
+  //     this._state = !value;
+  //     print("SET STATE TOGGLE $value");
+  //     sendMessage(identifier);
+  //   });
+  // }
 
   void onChanged(String identifier, bool value) {
     bool ipc = isProbablyConnected(identifier);
@@ -125,7 +136,7 @@ class _InformationRaspState extends State<InformationRasp> {
   }
 
   initSocket(String identifier) async {
-    setState(() => _isProbablyConnected[identifier] = true);
+    setState(() => _isProbablyConnected[identifier] = false);
     SocketIO socket = await manager.createInstance(SocketOptions(
         //Socket IO server URI
         uri,
@@ -145,25 +156,40 @@ class _InformationRaspState extends State<InformationRasp> {
     socket.onConnect((data) {
       pprint("Connected...");
       pprint(data);
+      setState(() => _isProbablyConnected[identifier] = true);
       // sendMessage("default");
     });
-    socket.onConnectError(pprint);
-    socket.onConnectTimeout(pprint);
-    socket.onError(pprint);
-    socket.onDisconnect(pprint);
-    socket.on("type:string", (data) => pprint("type:string | $data"));
-    socket.on("type:bool", (data) => pprint("type:bool | $data"));
-    socket.on("type:number", (data) => pprint("type:number | $data"));
-    socket.on("type:object", (data) => pprint("type:object | $data"));
-    socket.on("type:list", (data) => pprint("type:list | $data"));
-    // socket.on("message", (data) => pprint("MESSAGE RECEIVED $data"));
+    socket.onConnectError((data) {
+      setState(() => _isProbablyConnected[identifier] = false);
+      pprint("CONNECT ERROR");
+      pprint(data);
+    });
+    socket.onError((data) {
+      pprint("ERROR");
+      setState(() => _isProbablyConnected[identifier] = false);
+      pprint(data);
+    });
+    socket.onConnectTimeout((data) {
+      pprint("TIMEOUT");
+      setState(() => _isProbablyConnected[identifier] = false);
+      pprint(data);
+    });
+    socket.onDisconnect((data) {
+      pprint("ON DISCONECT");
+      setState(() => _isProbablyConnected[identifier] = false);
+      disconnect(identifier);
+      pprint(data);
+    });
+    // socket.onConnectTimeout(pprint);
+    // socket.onError(pprint);
+    // socket.onDisconnect(pprint);
     socket.on("message", (data) => smartMeatData(data));
     socket.connect();
     sockets[identifier] = socket;
   }
 
   bool isProbablyConnected(String identifier) {
-    return _isProbablyConnected[identifier] ?? false;
+    return _isProbablyConnected[identifier];
   }
 
   disconnect(String identifier) async {
@@ -200,21 +226,6 @@ class _InformationRaspState extends State<InformationRasp> {
       ]);
       pprint("Message emitted from '$identifier'...");
     }
-  }
-
-  sendMessageWithACK(identifier) {
-    pprint("Sending ACK message from '$identifier'...");
-    List msg = [
-      "Hello world!",
-      1,
-      true,
-      {"p": 1},
-      [3, 'r']
-    ];
-    sockets[identifier].emitWithAck("ack-message", msg).then((data) {
-      // this callback runs when this specific message is acknowledged by the server
-      pprint("ACK recieved from '$identifier' for $msg: $data");
-    });
   }
 
   pprint(data) {
