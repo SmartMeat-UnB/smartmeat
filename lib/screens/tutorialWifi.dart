@@ -30,6 +30,7 @@ class _TutorialWifiState extends State<TutorialWifi> {
     });
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('uri', barcode);
+    Navigator.pushNamed(context, '/home');
   }
 
   //If you want read a photo in gallery
