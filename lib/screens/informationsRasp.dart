@@ -24,8 +24,8 @@ class InformationRasp extends StatefulWidget {
 class _InformationRaspState extends State<InformationRasp> {
   GeneralSmartMeat smartMeat;
   bool notificationState;
-  String uri = "http://192.168.25.114:8080/";
-  // String uri = "http://10.0.2.2:8080/";
+  // String uri = "http://192.168.25.114:8080/";
+  String uri = "http://10.0.2.2:8080/";
 
   List<String> toPrint = ["trying to connect"];
   SocketIOManager manager;
@@ -124,7 +124,7 @@ class _InformationRaspState extends State<InformationRasp> {
     setState(() {
       uri = (prefs.getString('uri'));
       if (uri == null) {
-        uri = "http://192.168.25.114:8080/";
+        uri = "http://10.0.2.2:8080/";
       }
       print(uri);
     });
@@ -216,6 +216,8 @@ class _InformationRaspState extends State<InformationRasp> {
 
   @override
   Widget build(BuildContext context) {
+    final _width = MediaQuery.of(context).size.width;
+    final _height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           actions: <Widget>[
@@ -252,8 +254,8 @@ class _InformationRaspState extends State<InformationRasp> {
             children: <Widget>[
               Container(
                 alignment: Alignment.topCenter,
-                width: 500.0,
-                height: 300.0,
+                width: _width,
+                height: _height * 0.45,
                 child: Churrasqueira(smartMeat),
               ),
               Text(
