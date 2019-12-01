@@ -4,23 +4,29 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class Churrasqueira extends StatelessWidget {
   final GeneralSmartMeat smartMeat;
+  final int tempo;
 
-  const Churrasqueira(this.smartMeat);
+  const Churrasqueira(this.smartMeat, this.tempo);
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
+    String minutesActive = "null";
 
     // find a variable length hex value at the beginning of the line
-    int notificationTime = 5;
+    int notificationTime = tempo ~/ 60;
+    print("Notification time $notificationTime");
+
     final regexp = RegExp(r'\d\d:(\d\d)'); 
     DateFormat dateFormat = new DateFormat.Hm(); 
 
-    String notifyIn(Stick stick, int notificationTime) {
+    String notifyIn(Stick stick) {
+
       if (!stick.active) {
         return "00";
       }
@@ -37,9 +43,8 @@ class Churrasqueira extends StatelessWidget {
         return "0" + minutesActive.toString();
       }
 
-      if (minutesActive == notificationTime) {
-        // manda notificacao 
-
+      if (minutesActive == notificationTime) { 
+        print("Notificacao");
       }
 
       return minutesActive.toString();
@@ -150,7 +155,7 @@ class Churrasqueira extends StatelessWidget {
                     height: _height * 0.45,
                   ),
                   AutoSizeText(
-                    notifyIn(smartMeat.smartmeat.stick1, notificationTime),
+                    notifyIn(smartMeat.smartmeat.stick1),
                     presetFontSizes: [25.0, 20.0, 14.0],
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -162,7 +167,7 @@ class Churrasqueira extends StatelessWidget {
                     // width: 30,
                   ),
                   AutoSizeText(
-                    notifyIn(smartMeat.smartmeat.stick2, notificationTime),
+                    notifyIn(smartMeat.smartmeat.stick2),
                     presetFontSizes: [25.0, 20.0, 14.0],
                     maxLines: 4,
                     overflow: TextOverflow.ellipsis,
@@ -173,7 +178,7 @@ class Churrasqueira extends StatelessWidget {
                     width: _width * 0.075,
                   ),
                   AutoSizeText(
-                    notifyIn(smartMeat.smartmeat.stick3, notificationTime),
+                    notifyIn(smartMeat.smartmeat.stick3),
                     presetFontSizes: [25.0, 20.0, 14.0],
                     maxLines: 4,
                     overflow: TextOverflow.ellipsis,
@@ -185,7 +190,7 @@ class Churrasqueira extends StatelessWidget {
                     // width: 30,
                   ),
                   AutoSizeText(
-                    notifyIn(smartMeat.smartmeat.stick4, notificationTime),
+                    notifyIn(smartMeat.smartmeat.stick4),
                     presetFontSizes: [25.0, 20.0, 14.0],
                     maxLines: 4,
                     overflow: TextOverflow.ellipsis,

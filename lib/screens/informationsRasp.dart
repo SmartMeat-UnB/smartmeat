@@ -33,6 +33,7 @@ class _InformationRaspState extends State<InformationRasp> {
   Map<String, bool> _isProbablyConnected = {};
   // List<bool> isSelected;
   int _level = 0;
+  int tempo;
 
   //Vai ser setado de acordo com o valor que vai chegar da churrasqueira
   //para saber se está ou não ligada, uma variavel para o estado da churrasqueira
@@ -64,6 +65,7 @@ class _InformationRaspState extends State<InformationRasp> {
   @override
   void initState() {
     super.initState();
+    getTempo();
     manager = SocketIOManager();
     initSocket("default");
     smartMeatData(_jsonData);
@@ -75,10 +77,13 @@ class _InformationRaspState extends State<InformationRasp> {
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
-  Future<void> scheduleNotification(bool stickState, int stick) async {
-    int tempo;
+  Future<void> getTempo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    tempo = (prefs.getInt('tempo'));
+    tempo = (prefs.getInt('tempo') ?? 180);
+  }
+
+  Future<void> scheduleNotification(bool stickState, int stick) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     notificationState = (prefs.getBool('notificacao'));
 
     if (notificationState == true && stickState == true) {
@@ -256,7 +261,7 @@ class _InformationRaspState extends State<InformationRasp> {
                 alignment: Alignment.topCenter,
                 width: _width,
                 height: _height * 0.45,
-                child: Churrasqueira(smartMeat),
+                child: Churrasqueira(smartMeat, tempo),
               ),
               Text(
                 'Temperatura',
