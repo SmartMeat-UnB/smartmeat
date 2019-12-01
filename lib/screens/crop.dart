@@ -189,7 +189,10 @@ class _CropImageState extends State<CropImage> {
         : Scaffold(
             body: Center(
               child: 
-                CircularProgressIndicator()
+                CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.redAccent[400]),
+                  backgroundColor:  Colors.white,
+                )
             ),
           );
   }
