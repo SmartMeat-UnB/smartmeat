@@ -188,7 +188,8 @@ class _CropImageState extends State<CropImage> {
                 FloatingActionButtonLocation.centerDocked)
         : Scaffold(
             body: Center(
-              child: Text('Loading...'),
+              child: 
+                CircularProgressIndicator()
             ),
           );
   }
