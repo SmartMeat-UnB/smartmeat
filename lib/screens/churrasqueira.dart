@@ -14,6 +14,7 @@ class Churrasqueira extends StatelessWidget {
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
+
     // find a variable length hex value at the beginning of the line
     int notificationTime = 5;
     final regexp = RegExp(r'\d\d:(\d\d)'); 
@@ -27,22 +28,21 @@ class Churrasqueira extends StatelessWidget {
       int nowMinute = int.parse(regexp.firstMatch(dateFormat.format(now)).group(1).toString());
       int stickMinute = int.parse(regexp.firstMatch(stick.timeActive).group(1).toString());
 
-      if (nowMinute < stickMinute) {
+      if (nowMinute < stickMinute) { 
         nowMinute += 60;
       }
-      int minuteToNotify = nowMinute + notificationTime;
-      minuteToNotify = minuteToNotify - stickMinute;
-      
-      print(minuteToNotify);
-      if (minuteToNotify > notificationTime) {
-        minuteToNotify -= 1;
+      int minutesActive = nowMinute - stickMinute;
+
+      if (minutesActive < 10) {
+        return "0" + minutesActive.toString();
       }
 
-      if (minuteToNotify < 10) {
-        return "0" + minuteToNotify.toString();
+      if (minutesActive == notificationTime) {
+        // manda notificacao 
+
       }
 
-      return minuteToNotify.toString();
+      return minutesActive.toString();
     }
 
     Widget espeto(bool d) {
