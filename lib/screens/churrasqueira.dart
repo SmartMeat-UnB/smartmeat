@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:SmartMeat/screens/smartMeat/generalSmartMeat.dart';
 import 'package:SmartMeat/screens/smartMeat/stick.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -10,23 +12,56 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Churrasqueira extends StatelessWidget {
   final GeneralSmartMeat smartMeat;
   final int tempo;
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
-  const Churrasqueira(this.smartMeat, this.tempo);
+  const Churrasqueira(this.smartMeat, this.tempo, this.flutterLocalNotificationsPlugin);
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
-    String minutesActive = "null";
+    bool notificationState = false;
 
-    // find a variable length hex value at the beginning of the line
     int notificationTime = tempo ~/ 60;
-    print("Notification time $notificationTime");
 
     final regexp = RegExp(r'\d\d:(\d\d)'); 
     DateFormat dateFormat = new DateFormat.Hm(); 
 
-    String notifyIn(Stick stick) {
+    Future<void> scheduleNotification(Stick stick) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      notificationState = (prefs.getBool('notificacao'));
 
+      if (notificationState && stick.active) {
+        var vibrationPattern = Int64List(4);
+        vibrationPattern[0] = 0;
+        vibrationPattern[1] = 1000;
+        vibrationPattern[2] = 5000;
+        vibrationPattern[3] = 2000;
+
+        var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+            'your channel id', 'your channel name', 'your channel description',
+            largeIconBitmapSource: BitmapSource.Drawable,
+            vibrationPattern: vibrationPattern,
+            enableLights: true,
+            color: const Color.fromARGB(255, 255, 0, 0),
+            ledColor: const Color.fromARGB(255, 255, 0, 0),
+            ledOnMs: 1000,
+            ledOffMs: 500);
+        var iOSPlatformChannelSpecifics =
+            IOSNotificationDetails(sound: "slow_spring_board.aiff");
+        var platformChannelSpecifics = NotificationDetails(
+            androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+        await flutterLocalNotificationsPlugin.show(
+          0,
+          'Seu churrasco te espera!',
+          'o seu espetinho já esta pronto!',
+          platformChannelSpecifics,
+          payload: 'item x'
+          ); 
+      }
+    }
+
+
+    String notifyIn(Stick stick) {
       if (!stick.active) {
         return "00";
       }
@@ -35,16 +70,17 @@ class Churrasqueira extends StatelessWidget {
       int stickMinute = int.parse(regexp.firstMatch(stick.timeActive).group(1).toString());
 
       if (nowMinute < stickMinute) { 
-        nowMinute += 60;
+        nowMinute += 60; 
       }
       int minutesActive = nowMinute - stickMinute;
 
-      if (minutesActive < 10) {
-        return "0" + minutesActive.toString();
+      if (minutesActive == notificationTime) { 
+        print("Notificacao Ativada");
+        scheduleNotification(stick); 
       }
 
-      if (minutesActive == notificationTime) { 
-        print("Notificacao");
+      if (minutesActive < 10) {
+        return "0" + minutesActive.toString();
       }
 
       return minutesActive.toString();

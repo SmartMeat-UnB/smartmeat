@@ -49,10 +49,6 @@ class _InformationRaspState extends State<InformationRasp> {
     });
     var parsedJson = json.decode(_jsonData);
     smartMeat = GeneralSmartMeat.fromJson(parsedJson);
-    scheduleNotification(smartMeat.smartmeat.stick1.active, 1);
-    scheduleNotification(smartMeat.smartmeat.stick2.active, 2);
-    scheduleNotification(smartMeat.smartmeat.stick3.active, 3);
-    scheduleNotification(smartMeat.smartmeat.stick4.active, 4);
   }
 
   void toggleState(String identifier, bool value) {
@@ -79,49 +75,7 @@ class _InformationRaspState extends State<InformationRasp> {
 
   Future<void> getTempo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    tempo = (prefs.getInt('tempo') ?? 180);
-  }
-
-  Future<void> scheduleNotification(bool stickState, int stick) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    notificationState = (prefs.getBool('notificacao'));
-
-    if (notificationState == true && stickState == true) {
-      if (tempo == 0) {
-        prefs.setInt('tempo', 180);
-        tempo = 180;
-      }
-      var scheduledNotificationDateTime =
-          DateTime.now().add(Duration(seconds: tempo));
-      var vibrationPattern = Int64List(4);
-      vibrationPattern[0] = 0;
-      vibrationPattern[1] = 1000;
-      vibrationPattern[2] = 5000;
-      vibrationPattern[3] = 2000;
-
-      var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-          'your channel id', 'your channel name', 'your channel description',
-          largeIconBitmapSource: BitmapSource.Drawable,
-          vibrationPattern: vibrationPattern,
-          enableLights: true,
-          color: const Color.fromARGB(255, 255, 0, 0),
-          ledColor: const Color.fromARGB(255, 255, 0, 0),
-          ledOnMs: 1000,
-          ledOffMs: 500);
-      var iOSPlatformChannelSpecifics =
-          IOSNotificationDetails(sound: "slow_spring_board.aiff");
-      var platformChannelSpecifics = NotificationDetails(
-          androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-      await flutterLocalNotificationsPlugin.schedule(
-          stick,
-          'Seu churrasco te espera!',
-          'o seu espetinho ' + stick.toString() + ' ja esta pronto!',
-          scheduledNotificationDateTime,
-          platformChannelSpecifics);
-    }
-    if (stickState == false) {
-      await flutterLocalNotificationsPlugin.cancel(stick);
-    }
+    tempo = (prefs.getInt('tempo') ?? 720); 
   }
 
   initSocket(String identifier) async {
@@ -261,7 +215,7 @@ class _InformationRaspState extends State<InformationRasp> {
                 alignment: Alignment.topCenter,
                 width: _width,
                 height: _height * 0.45,
-                child: Churrasqueira(smartMeat, tempo),
+                child: Churrasqueira(smartMeat, tempo, flutterLocalNotificationsPlugin),
               ),
               Text(
                 'Temperatura',
