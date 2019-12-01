@@ -38,7 +38,11 @@ class Churrasqueira extends StatelessWidget {
         minuteToNotify -= 1;
       }
 
-      return "0" + minuteToNotify.toString();
+      if (minuteToNotify < 10) {
+        return "0" + minuteToNotify.toString();
+      }
+
+      return minuteToNotify.toString();
     }
 
     Widget espeto(bool d) {
