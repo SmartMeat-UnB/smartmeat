@@ -50,7 +50,7 @@ class Churrasqueira extends StatelessWidget {
         child: Image.asset(
           "images/espeto.png",
           fit: BoxFit.cover,
-          height: _height * 0.30,
+          height: _height * 0.265,
         ),
         maintainSize: true,
         maintainAnimation: true,
@@ -64,13 +64,13 @@ class Churrasqueira extends StatelessWidget {
         child: Image.asset(
           "images/quadrado.png",
           fit: BoxFit.cover,
-          height: _height * 0.1,
+          height: _height * 0.05,
           width: _width * 0.1,
         ),
-        maintainSize: true,
-        maintainAnimation: true,
-        maintainState: true,
-        visible: true,
+        // maintainSize: true,
+        // maintainAnimation: true,
+        // maintainState: true,
+        // visible: true,
       );
     }
 
@@ -86,16 +86,16 @@ class Churrasqueira extends StatelessWidget {
                   "images/bbq.png",
                   fit: BoxFit.cover,
                   // height: 190.0,
-                  height: _height * 0.35,
+                  height: _height * 0.3,
                 ),
               ],
             ),
             Positioned(
-              top: _height * 0.02,
+              top: _height * 0.016,
               child: Row(
                 children: <Widget>[
                   SizedBox(
-                    width: _width * 0.133,
+                    width: _width * 0.1,
                     // width: 48,
                   ),
                   espeto(smartMeat.smartmeat.stick1.active),
