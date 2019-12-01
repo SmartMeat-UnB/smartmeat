@@ -22,12 +22,9 @@ class InformationRasp extends StatefulWidget {
 }
 
 class _InformationRaspState extends State<InformationRasp> {
-  //my ip inet = 192.168.15.?
   GeneralSmartMeat smartMeat;
   bool notificationState;
   String uri = "http://192.168.25.114:8080/";
-  // String uri = "http://192.168.15.2:8080/";
-  // Emulator URI
   // String uri = "http://10.0.2.2:8080/";
 
   List<String> toPrint = ["trying to connect"];
@@ -134,15 +131,7 @@ class _InformationRaspState extends State<InformationRasp> {
 
     setState(() => _isProbablyConnected[identifier] = false);
     SocketIO socket = await manager.createInstance(SocketOptions(
-        //Socket IO server URI
         uri,
-        nameSpace: (identifier == "namespaced") ? "/adhara" : "/",
-        //Query params - can be used for authentication
-        query: {
-          "auth": "--SOME AUTH STRING---",
-          "info": "new connection from adhara-socketio",
-          "timestamp": DateTime.now().toString()
-        },
         //Enable or disable platform channel logging
         enableLogging: false,
         transports: [
@@ -151,9 +140,8 @@ class _InformationRaspState extends State<InformationRasp> {
         ));
     socket.onConnect((data) {
       setState(() => _isProbablyConnected[identifier] = true);
-      pprint("Connected...");
       pprint(data);
-      // sendMessage("default");
+      sendMessage("default");
     });
     socket.onConnectError((data) {
       setState(() => _isProbablyConnected[identifier] = false);
@@ -188,7 +176,6 @@ class _InformationRaspState extends State<InformationRasp> {
 
   sendMessage(identifier) {
     if (sockets[identifier] != null) {
-      pprint("sending message from '$identifier'...");
       sockets[identifier].emit("message", [
         {
           "smartmeat": {
