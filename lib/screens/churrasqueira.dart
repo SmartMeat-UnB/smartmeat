@@ -1,7 +1,10 @@
 import 'package:SmartMeat/screens/smartMeat/generalSmartMeat.dart';
+import 'package:SmartMeat/screens/smartMeat/stick.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:intl/intl.dart';
+
 
 class Churrasqueira extends StatelessWidget {
   final GeneralSmartMeat smartMeat;
@@ -12,7 +15,31 @@ class Churrasqueira extends StatelessWidget {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
     // find a variable length hex value at the beginning of the line
-    final regexp = RegExp(r'\d\d'); 
+    int notificationTime = 5;
+    final regexp = RegExp(r'\d\d:(\d\d)'); 
+    DateFormat dateFormat = new DateFormat.Hm(); 
+
+    String notifyIn(Stick stick, int notificationTime) {
+      if (!stick.active) {
+        return "00";
+      }
+      var now = new DateTime.now();
+      int nowMinute = int.parse(regexp.firstMatch(dateFormat.format(now)).group(1).toString());
+      int stickMinute = int.parse(regexp.firstMatch(stick.timeActive).group(1).toString());
+
+      if (nowMinute < stickMinute) {
+        nowMinute += 60;
+      }
+      int minuteToNotify = nowMinute + notificationTime;
+      minuteToNotify = minuteToNotify - stickMinute;
+      
+      print(minuteToNotify);
+      if (minuteToNotify > notificationTime) {
+        minuteToNotify -= 1;
+      }
+
+      return "0" + minuteToNotify.toString();
+    }
 
     Widget espeto(bool d) {
       return Visibility(
@@ -119,8 +146,7 @@ class Churrasqueira extends StatelessWidget {
                     height: _height * 0.45,
                   ),
                   AutoSizeText(
-                    regexp.firstMatch(smartMeat.smartmeat.stick1.timeActive.toString()).group(0).toString(),
-                    // thisInstant.difference(smartMeat.smartmeat.stick1.timeActive.toString()),
+                    notifyIn(smartMeat.smartmeat.stick1, notificationTime),
                     presetFontSizes: [25.0, 20.0, 14.0],
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -132,7 +158,7 @@ class Churrasqueira extends StatelessWidget {
                     // width: 30,
                   ),
                   AutoSizeText(
-                    regexp.firstMatch(smartMeat.smartmeat.stick2.timeActive.toString()).group(0).toString(),
+                    notifyIn(smartMeat.smartmeat.stick2, notificationTime),
                     presetFontSizes: [25.0, 20.0, 14.0],
                     maxLines: 4,
                     overflow: TextOverflow.ellipsis,
@@ -143,7 +169,7 @@ class Churrasqueira extends StatelessWidget {
                     width: _width * 0.075,
                   ),
                   AutoSizeText(
-                    regexp.firstMatch(smartMeat.smartmeat.stick3.timeActive.toString()).group(0).toString(),
+                    notifyIn(smartMeat.smartmeat.stick3, notificationTime),
                     presetFontSizes: [25.0, 20.0, 14.0],
                     maxLines: 4,
                     overflow: TextOverflow.ellipsis,
@@ -155,7 +181,7 @@ class Churrasqueira extends StatelessWidget {
                     // width: 30,
                   ),
                   AutoSizeText(
-                    regexp.firstMatch(smartMeat.smartmeat.stick4.timeActive.toString()).group(0).toString(),
+                    notifyIn(smartMeat.smartmeat.stick4, notificationTime),
                     presetFontSizes: [25.0, 20.0, 14.0],
                     maxLines: 4,
                     overflow: TextOverflow.ellipsis,
