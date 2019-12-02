@@ -6,11 +6,10 @@ import 'package:SmartMeat/screens/tutorialWifi.dart';
 import 'package:SmartMeat/screens/tutorial_screen.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:SmartMeat/screens/informationsRasp.dart';
+// import 'package:flutter/rendering.dart';
 
 void main() async {
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-// import 'package:flutter/rendering.dart';
-
   // debugPaintSizeEnabled = true;
   runApp(MyApp());
 }

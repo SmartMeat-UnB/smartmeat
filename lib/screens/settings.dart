@@ -63,11 +63,14 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
+    final _width = MediaQuery.of(context).size.width;
+    final _height = MediaQuery.of(context).size.height;
+
     return Scaffold(
         resizeToAvoidBottomPadding: true,
         appBar: PreferredSize(
           child: AppBar(
-            title: Text('Configurações',
+            title: Text('⚙ Configurações',
                 style: TextStyle(color: Colors.white, fontSize: 25)),
             centerTitle: true,
             backgroundColor: Colors.red[900],
@@ -85,7 +88,7 @@ class _SettingsState extends State<Settings> {
         ),
         body: Container(
             child: Container(
-          alignment: Alignment.center,
+          alignment: Alignment.topCenter,
           width: double.infinity,
           height: double.infinity,
           child: SingleChildScrollView(
@@ -93,31 +96,32 @@ class _SettingsState extends State<Settings> {
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
-                  decoration:
-                      BoxDecoration(border: Border.all(color: Colors.black)),
+                  // decoration: BoxDecoration(
+                  //     border: Border(
+                  //   bottom: BorderSide(color: Colors.black),
+                  // )),
+                  // decoration:BoxDecoration(border: Border.all(color: Colors.black)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                         Row(children: <Widget>[
+                    children: <Widget>[
+                      Row(children: <Widget>[
                         Icon(
                           Icons.supervised_user_circle,
-                          size: 30,
+                          size: 60,
                           color: Colors.black,
                         ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text("Usuário", style: TextStyle(fontSize: 16)),
+                        SizedBox(height: _height * 0.02, width: _width * 0.02),
+                        Text('$_nome', style: TextStyle(fontSize: 40)),
                       ]),
-                      SizedBox(
-                        height: 15,
-                      ),
+                      SizedBox(height: _height * 0.06),
+                      Text('ALTERAR NOME',
+                          style: TextStyle(fontSize: 30, color: Colors.grey)),
                       TextField(
                         onChanged: (text) {
                           _doSomething(text);
                         },
-                          decoration: InputDecoration(
+                        decoration: InputDecoration(
                           suffixIcon: Icon(
                             Icons.edit,
                             size: 30,
@@ -125,24 +129,27 @@ class _SettingsState extends State<Settings> {
                           ),
                           border: InputBorder.none,
                           hintText: '$_nome',
-                          labelText: "Nome: $_nome",
+                          labelText: "$_nome",
                           labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold,
+                            // fontWeight: FontWeight.bold,
                             height: 0,
-                            fontSize: 16,
+                            fontSize: 20,
                             color: Colors.black,
                           ),
                         ),
                       ),
+                      SizedBox(height: _height * 0.04),
+                      Text('PREFERÊNCIAS',
+                          style: TextStyle(fontSize: 30, color: Colors.grey)),
                     ],
                   ),
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
-                  decoration: BoxDecoration(
-                      border: Border(
-                    bottom: BorderSide(color: Colors.black),
-                  )),
+                  // decoration: BoxDecoration(
+                  //     border: Border(
+                  //   bottom: BorderSide(color: Colors.black),
+                  // )),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,16 +157,12 @@ class _SettingsState extends State<Settings> {
                       Row(children: <Widget>[
                         Icon(
                           Icons.notifications_active,
-                          size: 30,
+                          size: 40,
                           // color: Colors.black,
                         ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text("Notificações", style: TextStyle(fontSize: 16)),
-                        SizedBox(
-                          width: 104,
-                        ),
+                        SizedBox(width: _width * 0.03),
+                        Text("Notificações", style: TextStyle(fontSize: 20)),
+                        SizedBox(width: _width * 0.38),
                         Switch(
                           onChanged: (bool value) {
                             _alterarStatusNotificacao(!notificationState);
@@ -168,6 +171,7 @@ class _SettingsState extends State<Settings> {
                           value: notificationState,
                         ),
                       ]),
+                      SizedBox(height: _height * 0.04),
                       TextField(
                         keyboardType: TextInputType.number,
                         onChanged: (tempo) {
@@ -176,7 +180,7 @@ class _SettingsState extends State<Settings> {
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.timer,
-                            size: 30,
+                            size: 40,
                             color: Colors.black,
                           ),
                           suffixIcon: Icon(
@@ -187,8 +191,8 @@ class _SettingsState extends State<Settings> {
                           border: InputBorder.none,
                           labelText: " $_tempo min",
                           labelStyle: TextStyle(
-                            height: 0,
-                            fontSize: 16,
+                            height: 1,
+                            fontSize: 20,
                             color: Colors.black,
                           ),
                         ),
