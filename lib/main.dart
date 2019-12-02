@@ -18,12 +18,19 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(routes: {
-      '/home': (context) => InformationRasp(),
-      '/recipe': (context) => ImagesCell(),
-      '/tutorial': (context) => TutorialScreen(),
-      '/tutorial1': (context) => TutorialWifi(),
-      '/settings': (context) => Settings(),
-    }, debugShowCheckedModeBanner: false, home: Splash());
+    return MaterialApp(
+        routes: {
+          '/home': (context) => InformationRasp(),
+          '/recipe': (context) => ImagesCell(),
+          '/tutorial': (context) => TutorialScreen(),
+          '/tutorial1': (context) => TutorialWifi(),
+          '/settings': (context) => Settings(),
+        },
+        title: 'Smart\n Meat',
+        theme: ThemeData(
+          primarySwatch: Colors.red,
+        ),
+        debugShowCheckedModeBanner: false,
+        home: Splash());
   }
 }
