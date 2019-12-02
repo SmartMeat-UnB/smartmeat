@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:async';
-import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:SmartMeat/screens/churrasqueira.dart';
@@ -30,10 +29,10 @@ class _InformationRaspState extends State<InformationRasp> {
   List<String> toPrint = ["trying to connect"];
   SocketIOManager manager;
   Map<String, SocketIO> sockets = {};
-  Map<String, bool> _isProbablyConnected = {};
+  Map<String, bool> _isProbablyConnected = {"default": false};
   // List<bool> isSelected;
   int _level = 0;
-  int tempo;
+  int tempo = 360;
 
   //Vai ser setado de acordo com o valor que vai chegar da churrasqueira
   //para saber se está ou não ligada, uma variavel para o estado da churrasqueira
