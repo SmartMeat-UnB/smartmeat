@@ -102,13 +102,13 @@ class _SettingsState extends State<Settings> {
                          Row(children: <Widget>[
                         Icon(
                           Icons.supervised_user_circle,
-                          size: 40,
+                          size: 30,
                           color: Colors.black,
                         ),
                         SizedBox(
                           width: 20,
                         ),
-                        Text("Usuário", style: TextStyle(fontSize: 20)),
+                        Text("Usuário", style: TextStyle(fontSize: 16)),
                       ]),
                       SizedBox(
                         height: 15,
@@ -129,7 +129,7 @@ class _SettingsState extends State<Settings> {
                           labelStyle: TextStyle(
                             fontWeight: FontWeight.bold,
                             height: 0,
-                            fontSize: 20,
+                            fontSize: 16,
                             color: Colors.black,
                           ),
                         ),
@@ -150,13 +150,13 @@ class _SettingsState extends State<Settings> {
                       Row(children: <Widget>[
                         Icon(
                           Icons.notifications_active,
-                          size: 40,
+                          size: 30,
                           // color: Colors.black,
                         ),
                         SizedBox(
                           width: 20,
                         ),
-                        Text("Notificações", style: TextStyle(fontSize: 18)),
+                        Text("Notificações", style: TextStyle(fontSize: 16)),
                         SizedBox(
                           width: 104,
                         ),
@@ -176,7 +176,7 @@ class _SettingsState extends State<Settings> {
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.timer,
-                            size: 40,
+                            size: 30,
                             color: Colors.black,
                           ),
                           suffixIcon: Icon(
@@ -188,7 +188,7 @@ class _SettingsState extends State<Settings> {
                           labelText: " $_tempo min",
                           labelStyle: TextStyle(
                             height: 0,
-                            fontSize: 20,
+                            fontSize: 16,
                             color: Colors.black,
                           ),
                         ),
