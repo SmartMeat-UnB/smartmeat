@@ -43,12 +43,12 @@ class _InformationRaspState extends State<InformationRasp> {
       '{"smartmeat": { "on": false,"stick1": {"active": false,"time_active": "00:00"},"stick2": {"active": false,"time_active": "00:00"},"stick3": {"active": false,"time_active": "00:00"},"stick4": {"active": false,"time_active": "00:00"},"temperature": 3}}';
 
   void smartMeatData(jsonData) {
-    print("Incoming data $_jsonData");
     setState(() {
       _jsonData = jsonData.toString();
     });
     var parsedJson = json.decode(_jsonData);
     smartMeat = GeneralSmartMeat.fromJson(parsedJson);
+    print("Incoming data $_jsonData");
   }
 
   void toggleState(String identifier, bool value) {
@@ -275,11 +275,14 @@ class _InformationRaspState extends State<InformationRasp> {
                 onDragCompleted: (handlerIndex, lowerValue, upperValue) {
                   _level = int.parse(lowerValue);
                   sendMessage("default");
-                  setState(() {});
+                  setState(() {
+                    smartMeat.smartmeat.temperature = _level;
+                  });
                 },
               ),
               Text(
                 "Level " + _level.toString(),
+                // "Level " + smartMeat.smartmeat.temperature.toString(),
                 style: TextStyle(
                   fontSize: 35.0,
                 ),
