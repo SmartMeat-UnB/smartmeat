@@ -3,6 +3,7 @@ import 'package:SmartMeat/widgets/image_banner.dart';
 import 'package:SmartMeat/widgets/text_section.dart';
 import 'package:SmartMeat/screens/tutorialWifi.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NameUser extends StatefulWidget {
   @override
@@ -14,7 +15,9 @@ class _NameUserState extends State<NameUser> {
 
   @override
   Widget build(BuildContext context) {
-    void setName(String text) {
+    Future setName(String text) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('nome', text);
       setState(() {
         username = text;
       });
@@ -30,8 +33,8 @@ class _NameUserState extends State<NameUser> {
             width: double.infinity,
             height: double.infinity,
             child: SafeArea(
-            child: SingleChildScrollView(
-                child: Column(
+                child: SingleChildScrollView(
+                    child: Column(
               children: [
                 SizedBox(height: _height * 0.02),
                 // SizedBox(
