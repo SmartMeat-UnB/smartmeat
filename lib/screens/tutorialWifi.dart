@@ -12,9 +12,9 @@ class TutorialWifi extends StatefulWidget {
 }
 
 class _TutorialWifiState extends State<TutorialWifi> {
-  _jumpToSettingWifi() {
-    SystemSetting.goto(SettingTarget.WIFI);
-  }
+  // _jumpToSettingWifi() {
+  //   SystemSetting.goto(SettingTarget.WIFI);
+  // }
 
   // If you want use bluetooth
   // _jumpToSettingBT() {

@@ -23,8 +23,9 @@ class InformationRasp extends StatefulWidget {
 class _InformationRaspState extends State<InformationRasp> {
   GeneralSmartMeat smartMeat;
   bool notificationState;
+  String uri;
   // String uri = "http://192.168.25.114:8080/";
-  String uri = "http://10.0.2.2:8080/";
+  // String uri = "http://10.0.2.2:8080/";
 
   List<String> toPrint = ["trying to connect"];
   SocketIOManager manager;
@@ -88,8 +89,7 @@ class _InformationRaspState extends State<InformationRasp> {
     });
 
     setState(() => _isProbablyConnected[identifier] = false);
-    SocketIO socket = await manager.createInstance(SocketOptions(
-        uri,
+    SocketIO socket = await manager.createInstance(SocketOptions(uri,
         //Enable or disable platform channel logging
         enableLogging: false,
         transports: [
