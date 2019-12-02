@@ -149,82 +149,6 @@ class _SettingsState extends State<Settings> {
                     children: <Widget>[
                       Row(children: <Widget>[
                         Icon(
-                          Icons.speaker_phone,
-                          size: 40,
-                          color: Colors.black,
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text("Conexão:", style: TextStyle(fontSize: 20)),
-                      ]),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Row(children: <Widget>[
-                        Icon(
-                          Icons.wifi,
-                          size: 30,
-                          color: Colors.black,
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text("Wi-Fi", style: TextStyle(fontSize: 18)),
-                        SizedBox(
-                          width: 165,
-                        ),
-                        Switch(
-                          onChanged: (bool value) {
-                            setState(() {
-                              value = !_state;
-                            });
-                          },
-                          activeColor: Colors.green,
-                          value: _state,
-                        ),
-                      ]),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Row(children: <Widget>[
-                        Icon(
-                          Icons.bluetooth,
-                          size: 30,
-                          color: Colors.black,
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text("Bluetooth", style: TextStyle(fontSize: 18)),
-                        SizedBox(
-                          width: 125,
-                        ),
-                        Switch(
-                          onChanged: (bool value) {
-                            setState(() {
-                              value = !_state;
-                            });
-                          },
-                          activeColor: Colors.green,
-                          value: _state,
-                        ),
-                      ]),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
-                  decoration: BoxDecoration(
-                      border: Border(
-                    bottom: BorderSide(color: Colors.black),
-                  )),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(children: <Widget>[
-                        Icon(
                           Icons.notifications_active,
                           size: 40,
                           // color: Colors.black,
@@ -232,7 +156,7 @@ class _SettingsState extends State<Settings> {
                         SizedBox(
                           width: 20,
                         ),
-                        Text("Notficações", style: TextStyle(fontSize: 18)),
+                        Text("Notificações", style: TextStyle(fontSize: 18)),
                         SizedBox(
                           width: 104,
                         ),

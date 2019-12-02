@@ -100,7 +100,7 @@ class _InformationRaspState extends State<InformationRasp> {
     socket.onConnect((data) {
       setState(() => _isProbablyConnected[identifier] = true);
       pprint(data);
-      sendMessage("default");
+      // sendMessage("default");
     });
     socket.onConnectError((data) {
       setState(() => _isProbablyConnected[identifier] = false);
