@@ -21,7 +21,7 @@ class _SettingsState extends State<Settings> {
     setState(() {
       notificationState = (prefs.getBool('notificacao'));
       _tempo = (prefs.getInt('tempo'));
-      _nome = (prefs.getString('nome'));
+      _nome = (prefs.getString('nome') ?? "Churrasqueiro");
       _tempo = _tempo ~/ 60;
     });
   }
@@ -125,7 +125,7 @@ class _SettingsState extends State<Settings> {
                           ),
                           border: InputBorder.none,
                           hintText: '$_nome',
-                          labelText: "Nome:",
+                          labelText: "Nome: $_nome",
                           labelStyle: TextStyle(
                             fontWeight: FontWeight.bold,
                             height: 0,
