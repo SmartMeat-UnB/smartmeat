@@ -1,7 +1,5 @@
-import 'package:SmartMeat/widgets/buttons.dart';
 import 'package:SmartMeat/widgets/image_banner.dart';
 import 'package:SmartMeat/widgets/text_section.dart';
-import 'package:SmartMeat/screens/tutorialWifi.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

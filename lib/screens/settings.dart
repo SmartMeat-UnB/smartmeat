@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:SmartMeat/widgets/bottom_app_bar.dart';
 import 'package:SmartMeat/widgets/float_button.dart';
@@ -13,7 +12,6 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   String _nome;
-  bool _state = false;
   bool notificationState = false;
   int _tempo;
   Future checkFirstSeen() async {
