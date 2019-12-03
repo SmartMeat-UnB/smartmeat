@@ -129,7 +129,7 @@ class _SettingsState extends State<Settings> {
                           ),
                           border: InputBorder.none,
                           hintText: '$_nome',
-                          labelText: "$_nome",
+                          // labelText: "$_nome",
                           labelStyle: TextStyle(
                             // fontWeight: FontWeight.bold,
                             height: 0,
