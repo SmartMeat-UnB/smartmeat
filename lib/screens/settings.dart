@@ -115,7 +115,7 @@ class _SettingsState extends State<Settings> {
                         Text('$_nome', style: TextStyle(fontSize: 40)),
                       ]),
                       SizedBox(height: _height * 0.06),
-                      Text('ALTERAR NOME',
+                      Text('Alterar Nome',
                           style: TextStyle(fontSize: 30, color: Colors.grey)),
                       TextField(
                         onChanged: (text) {
@@ -139,7 +139,7 @@ class _SettingsState extends State<Settings> {
                         ),
                       ),
                       SizedBox(height: _height * 0.04),
-                      Text('PREFERÊNCIAS',
+                      Text('Preferências',
                           style: TextStyle(fontSize: 30, color: Colors.grey)),
                     ],
                   ),
