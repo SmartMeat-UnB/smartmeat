@@ -75,7 +75,7 @@ class _InformationRaspState extends State<InformationRasp> {
 
   Future<void> getTempo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    tempo = (prefs.getInt('tempo') ?? 720); 
+    tempo = (prefs.getInt('tempo') ?? 720);
   }
 
   initSocket(String identifier) async {
@@ -113,11 +113,12 @@ class _InformationRaspState extends State<InformationRasp> {
       setState(() => _isProbablyConnected[identifier] = false);
       pprint(data);
     });
-    socket.onDisconnect((data) {
-      setState(() => _isProbablyConnected[identifier] = false);
-      disconnect(identifier);
-      pprint(data);
-    });
+    // socket.onDisconnect((data) {
+    //   setState(() => _isProbablyConnected[identifier] = false);
+    //   disconnect(identifier);
+    //   pprint(data);
+    // });
+
     socket.on("message", (data) => smartMeatData(data));
     socket.connect();
     sockets[identifier] = socket;
@@ -180,6 +181,16 @@ class _InformationRaspState extends State<InformationRasp> {
         appBar: AppBar(
           actions: <Widget>[
             // action button
+            IconButton(
+              icon: Icon(
+                Icons.refresh,
+                size: 32,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                initSocket("default");
+              },
+            ),
             isProbablyConnected("default")
                 ? Icon(
                     Icons.wifi,
@@ -214,7 +225,8 @@ class _InformationRaspState extends State<InformationRasp> {
                 alignment: Alignment.topCenter,
                 width: _width,
                 height: _height * 0.45,
-                child: Churrasqueira(smartMeat, tempo, flutterLocalNotificationsPlugin),
+                child: Churrasqueira(
+                    smartMeat, tempo, flutterLocalNotificationsPlugin),
               ),
               Text(
                 'Temperatura',
